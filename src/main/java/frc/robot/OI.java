@@ -17,17 +17,20 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public final class OI {
+  // TODO: Find A and B
   private static final int X = 3, Y = 4;
 
-  public static Joystick leftJoystick = new Joystick(1);
-  public static Joystick rightJoystick = new Joystick(0);
-  public static XboxController gamepad = new XboxController(2);
+  public static final class Controllers {
+    public static Joystick leftJoystick = new Joystick(1);
+    public static Joystick rightJoystick = new Joystick(0);
+    public static XboxController gamepad = new XboxController(2);
+  }
 
   public static final class Buttons {
-    public static final Button abortMacroPrimary = new JoystickButton(rightJoystick, 2);
-    public static final Button toggleActuator = new JoystickButton(gamepad, X);
-    public static final Button toggleCompressor = new JoystickButton(rightJoystick, 3);
-    public static final Button togglePipeline = new JoystickButton(gamepad, 1);
+    public static final Button abortMacroPrimary = new JoystickButton(Controllers.rightJoystick, 2);
+    public static final Button toggleActuator = new JoystickButton(Controllers.gamepad, X);
+    public static final Button toggleCompressor = new JoystickButton(Controllers.rightJoystick, 3);
+    public static final Button togglePipeline = new JoystickButton(Controllers.gamepad, 1);
   }
 
   private OI() {

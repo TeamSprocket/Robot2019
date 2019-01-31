@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     HatchActuator.getInstance().actuate(true);
     
+    // TODO: Find out why resource is leaking
     new Drive().start();
     new Shoot().start();
 
@@ -125,7 +126,7 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     new LatchedEventListener(
-      () -> OI.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
+      () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
       () -> {new AbortMacro().start();}
     );
 

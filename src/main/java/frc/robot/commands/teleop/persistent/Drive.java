@@ -21,8 +21,8 @@ public class Drive extends PersistentCommand {
 
   @Override
   protected void execute() {
-    double speed = -OI.leftJoystick.getY();
-    double turn = OI.rightJoystick.getX();
+    double speed = -OI.Controllers.leftJoystick.getY();
+    double turn = OI.Controllers.rightJoystick.getX();
 
     if(Math.abs(speed) < 0.1)
       speed = 0.0;
