@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
+import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.teleop.macro.TestMacroCommand;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -33,9 +35,12 @@ import frc.util.drivers.LatchedEventListener;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static Compressor compressor = new Compressor(0);
+
   public static Drivetrain drivetrain = Drivetrain.getInstance();
   public static HatchActuator hatchActuator = HatchActuator.getInstance();
   public static CargoShooter cargoShooter = CargoShooter.getInstance();
+
   public static TestSubsystem test = TestSubsystem.getInstance();
 
   Command m_autonomousCommand;
@@ -131,6 +136,11 @@ public class Robot extends TimedRobot {
     new LatchedEventListener(
       () -> OI.gamepad.getRawButton(4),
       () -> {new TestMacroCommand().start();}
+    );
+
+    new LatchedEventListener(
+      () -> OI.rightJoystick.getRawButton(3),
+      () -> {new ToggleCompressor().start();}
     );
 
     new LatchedEventListener(
