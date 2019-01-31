@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
+import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.TestMacroCommand;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -150,6 +151,11 @@ public class Robot extends TimedRobot {
     new LatchedEventListener(
       () -> OI.rightJoystick.getRawButton(2),
       () -> {new AbortMacro().start();}
+    );
+
+    new LatchedEventListener(
+      () -> OI.gamepad.getRawButton(1),
+      () -> {new TogglePipeline().start();}
     );
   }
 
