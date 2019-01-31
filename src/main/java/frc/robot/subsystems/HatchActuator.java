@@ -13,29 +13,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * TODO: Add docs
  */
 public class HatchActuator extends Subsystem {
   private final DoubleSolenoid piston = new DoubleSolenoid(
       RobotMap.HatchActuator.PISTON_FORWARD, RobotMap.HatchActuator.PISTON_REVERSE);
 
-  public boolean isIn() {
-    if(piston.get() == Value.kForward)
+  public boolean isOut() {
+    if(piston.get() == Value.kReverse)
       return true;
     else
       return false;
   }
 
-  public void actuate(boolean in) {
-    if(in)
-      piston.set(Value.kForward);
-    else
+  public void actuate(boolean out) {
+    if(out)
       piston.set(Value.kReverse);
+    else
+      piston.set(Value.kForward);
   }
   
   @Override
   protected void initDefaultCommand() {
-
   }
 
   // Singleton instance, getter, and constructor

@@ -11,14 +11,14 @@ import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class AbortMacro extends InstantCommand {
   public AbortMacro() {
-    requires(Robot.test);
     requires(Robot.drivetrain);
     requires(Robot.hatchActuator);
     requires(Robot.cargoShooter);
-
-    
   }
 
   @Override

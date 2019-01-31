@@ -9,6 +9,9 @@ package frc.robot.commands.auton.routine;
 
 import frc.util.commands.auton.routine.AutonRoutine;
 
+/**
+ * TODO: Add docs
+ */
 public class DoNothing extends AutonRoutine {
   public DoNothing() {
   }

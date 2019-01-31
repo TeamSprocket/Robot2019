@@ -11,20 +11,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class ToggleActuator extends InstantCommand {
   public ToggleActuator() {
     requires(Robot.hatchActuator);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if(Robot.hatchActuator.isIn()) {
+    if(Robot.hatchActuator.isOut()) {
       Robot.hatchActuator.actuate(false);
-      SmartDashboard.putBoolean("actuatorIn", false);
+      SmartDashboard.putBoolean("Actuator Out", false);
     } else {
       Robot.hatchActuator.actuate(true);
-      SmartDashboard.putBoolean("actuatorIn", true);
+      SmartDashboard.putBoolean("Actuator Out", true);
     }
   }
 }

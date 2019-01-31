@@ -31,7 +31,7 @@ public final class RobotMap {
     public static final int PISTON_REVERSE = 5;
   }
 
-  public static class Sensor {
+  public static final class Sensor {
     public static final int EXAMPLE_CONSTANT_2 = 0;
   }
 

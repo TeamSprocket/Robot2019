@@ -11,5 +11,5 @@ package frc.util;
  * A multipurpose enum that represents three different levels
  */
 public enum Level {
-  LEVEL_ONE, LEVEL_2, LEVEL_3
+  LEVEL_ONE, LEVEL_TWO, LEVEL_THREE
 }

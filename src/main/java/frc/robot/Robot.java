@@ -13,19 +13,15 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.TogglePipeline;
-import frc.robot.commands.teleop.macro.TestMacroCommand;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
-import frc.robot.commands.teleop.persistent.TestPersistentCommand;
 import frc.robot.subsystems.HatchActuator;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.TestSubsystem;
 import frc.util.drivers.LatchedEventListener;
 
 /**
@@ -36,13 +32,11 @@ import frc.util.drivers.LatchedEventListener;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Compressor compressor = new Compressor(0);
+  public static final Compressor compressor = new Compressor(0);
 
-  public static Drivetrain drivetrain = Drivetrain.getInstance();
-  public static HatchActuator hatchActuator = HatchActuator.getInstance();
-  public static CargoShooter cargoShooter = CargoShooter.getInstance();
-
-  public static TestSubsystem test = TestSubsystem.getInstance();
+  public static final Drivetrain drivetrain = Drivetrain.getInstance();
+  public static final HatchActuator hatchActuator = HatchActuator.getInstance();
+  public static final CargoShooter cargoShooter = CargoShooter.getInstance();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -121,42 +115,22 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    SmartDashboard.putBoolean("MC", false);
-    SmartDashboard.putBoolean("PC", false);
-
+    HatchActuator.getInstance().actuate(true);
+    
     new Drive().start();
     new Shoot().start();
-    new TestPersistentCommand().start();
 
-    HatchActuator.getInstance().actuate(true);
-
-    new LatchedEventListener(
-      () -> OI.gamepad.getRawButton(3),
-      () -> {new ToggleActuator().start();}
-    );
-    new LatchedEventListener(
-      () -> OI.gamepad.getRawButton(4),
-      () -> {new TestMacroCommand().start();}
-    );
-
-    new LatchedEventListener(
-      () -> OI.rightJoystick.getRawButton(3),
-      () -> {new ToggleCompressor().start();}
-    );
-
+    // Robot
+    OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
+    OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
+    OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     new LatchedEventListener(
       () -> OI.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
       () -> {new AbortMacro().start();}
     );
-    new LatchedEventListener(
-      () -> OI.rightJoystick.getRawButton(2),
-      () -> {new AbortMacro().start();}
-    );
 
-    new LatchedEventListener(
-      () -> OI.gamepad.getRawButton(1),
-      () -> {new TogglePipeline().start();}
-    );
+    // Vision
+    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
   }
 
   /**

@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * TODO: Add docs
  */
 public class Drivetrain extends Subsystem {
+  // TODO: Decide to use WPI_TalonSRX or TalonSRX
   private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(
       RobotMap.Drivetrain.FRONT_LEFT_TALON);
   private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(
@@ -28,14 +29,21 @@ public class Drivetrain extends Subsystem {
 
   private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
+  private Drivetrain() {
+    // TODO: Check if this works
+    frontRightTalon.setInverted(true);
+    backRightTalon.setInverted(true);
+
+    backLeftTalon.follow(frontLeftTalon);
+    backRightTalon.follow(frontRightTalon);
+	}
+
   private void setLeft(double speed) {
     frontLeftTalon.set(speed);
-    backLeftTalon.set(speed);
   }
 
   private void setRight(double speed) {
-    frontRightTalon.set(-speed);
-    backRightTalon.set(-speed);
+    frontRightTalon.set(speed);
   }
 
   public void tankDrive(double left, double right) {
@@ -66,8 +74,5 @@ public class Drivetrain extends Subsystem {
 
 	public static Drivetrain getInstance() {
 		return instance;
-	}
-
-	private Drivetrain() {
 	}
 }
