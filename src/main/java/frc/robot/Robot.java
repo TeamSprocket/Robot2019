@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("Base Speed: ", 0.05);
+    SmartDashboard.putNumber("Base Speed: ", 0.3);
   }
 
   /**
