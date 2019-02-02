@@ -20,6 +20,8 @@ public class TogglePipeline extends InstantCommand {
   @Override
   protected void initialize() {
     double pipeline = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getDouble(0);
+    System.out.println("Current Pipeline: " + pipeline);
+    
     if(pipeline == 1)
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
     else

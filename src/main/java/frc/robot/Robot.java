@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Align;
+import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
@@ -50,7 +50,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("Base Speed: ", 0.05);
+    SmartDashboard.putNumber("Base Speed: ", 0);
+    SmartDashboard.putNumber("kP", 0.1);
+    SmartDashboard.putNumber("kI", 0.0001);
+    SmartDashboard.putNumber("kD", 0.3);
   }
 
   /**
@@ -119,7 +122,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    HatchActuator.getInstance().actuate(true);
+    HatchActuator.getInstance().actuate(false);
     
     // TODO: Find out why resource is leaking
     new Drive().start();
@@ -146,8 +149,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     LatchedEventListener.listenAll();
-    System.out.println(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + "\t" 
-      + NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+    // System.out.println(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + "\t" 
+    //   + NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
   }
 
   /**
