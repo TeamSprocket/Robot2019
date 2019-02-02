@@ -56,8 +56,4 @@ public abstract class MacroCommand extends Command {
       PersistentCommand.startPersistent(s);
     SmartDashboard.putBoolean("MC", false);
   }
-
-  @Override
-  protected final void interrupted() {
-  }
 }
