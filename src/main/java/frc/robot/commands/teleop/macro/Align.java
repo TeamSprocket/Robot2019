@@ -30,7 +30,7 @@ public class Align extends MacroPIDCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    baseSpeed = SmartDashboard.getNumber("Base Speed: ", 0);
+    baseSpeed = SmartDashboard.getNumber("Base Speed: ", 0.45);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     lastOutput = 1;
     getPIDController().setSetpoint(0);
