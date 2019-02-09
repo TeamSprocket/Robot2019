@@ -18,7 +18,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
 
   public MoveForwardDualEncoder(double distance) {
     requires(Robot.drivetrain);
-    this.distance = distance;
+    this.distance = distance * 819.1875395;
     leftController = new PIDController(
       SmartDashboard.getNumber("Left kP", 1),
       SmartDashboard.getNumber("Left kI", 0),
@@ -57,6 +57,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
 
   @Override
   protected void execute() {
+    SmartDashboard.putBoolean("Dual Running", true);
   }
 
   @Override
@@ -65,8 +66,10 @@ public class MoveForwardDualEncoder extends MacroCommand {
   }
 
   @Override
-  protected void interrupted() {
+  protected void terminate() {
     leftController.disable();
     rightController.disable();
+    SmartDashboard.putBoolean("Dual Running", false);
+    end();
   }
 }

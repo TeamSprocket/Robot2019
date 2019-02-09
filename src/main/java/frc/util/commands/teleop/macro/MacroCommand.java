@@ -49,9 +49,17 @@ public abstract class MacroCommand extends Command {
 
   @Override
   protected abstract boolean isFinished();
-  
+
+  protected abstract void terminate();
+
+  @Override
+  protected final void interrupted() {
+    terminate();
+  }
+
   @Override
   protected final void end() {
+    terminate();
     for(Subsystem s : requirements)
       PersistentCommand.startPersistent(s);
     SmartDashboard.putBoolean("MC", false);

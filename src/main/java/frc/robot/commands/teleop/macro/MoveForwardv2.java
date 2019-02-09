@@ -67,7 +67,7 @@ public class MoveForwardv2 extends MacroCommand {
   }
 
   @Override
-  protected void interrupted() {
+  protected void terminate() {
     distPID.disable();
     turnPID.disable();
     Robot.drivetrain.stop();

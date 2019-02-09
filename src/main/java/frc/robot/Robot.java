@@ -19,6 +19,7 @@ import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.Align;
+import frc.robot.commands.teleop.macro.MoveForwardDualEncoder;
 import frc.robot.commands.teleop.macro.MoveForwardv2;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -57,6 +58,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("kP_str", 0);
     SmartDashboard.putNumber("kI_str", 0);
     SmartDashboard.putNumber("kD_str", 0);
+
+    SmartDashboard.putNumber("Left kP", 1);
+    SmartDashboard.putNumber("Left kI", 0);
+    SmartDashboard.putNumber("Left kD", 0);
+    SmartDashboard.putNumber("Right kP", 1);
+    SmartDashboard.putNumber("Right kI", 0);
+    SmartDashboard.putNumber("Right kD", 0);
+
     SmartDashboard.putData("Pot", drivetrain.getPot());
   }
 
@@ -139,7 +148,7 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.alignRobot.whenPressed(new Align());
-    OI.Buttons.moveForward.whenPressed(new MoveForwardv2(1.5));
+    OI.Buttons.moveForward.whenPressed(new MoveForwardDualEncoder(1.5));
     
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
