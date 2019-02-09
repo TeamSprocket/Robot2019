@@ -8,10 +8,7 @@
 package frc.robot.commands.teleop.macro;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.commands.teleop.macro.MoveForward;
 
 public class TriangleAlign extends CommandGroup {

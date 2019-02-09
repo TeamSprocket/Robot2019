@@ -13,12 +13,10 @@ import frc.robot.Robot;
 import frc.util.commands.teleop.macro.MacroPIDCommand;
 
 public class Align extends MacroPIDCommand {
-  private double tx, ty, steer_adjust, dis_adjust, baseSpeed;
+  private double tx, ty, baseSpeed;
   private final double kP = 0;
   private final double kI = 0;
   private final double kD = 0;
-  private final double kX = 0.05;
-  private final double kY = 0.05;
   private double lastOutput;
 
   public Align() {

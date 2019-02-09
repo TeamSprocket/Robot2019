@@ -31,6 +31,7 @@ public final class OI {
     public static final Button toggleCompressor = new JoystickButton(Controllers.rightJoystick, 3);
     public static final Button togglePipeline = new JoystickButton(Controllers.rightJoystick, 5);
     public static final Button alignRobot = new JoystickButton(Controllers.leftJoystick, 1);
+    public static final Button moveForward = new JoystickButton(Controllers.leftJoystick, 2);
   }
 
   private OI() {
