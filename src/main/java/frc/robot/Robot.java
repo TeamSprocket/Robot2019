@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("kP", 0.1);
     SmartDashboard.putNumber("kI", 0.0001);
     SmartDashboard.putNumber("kD", 0.3);
+    SmartDashboard.putData("Pot", drivetrain.getPot());
   }
 
   /**
@@ -117,6 +118,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    System.out.println(drivetrain.getPot().get());
     Scheduler.getInstance().run();
   }
 
