@@ -14,9 +14,9 @@ import frc.util.commands.teleop.macro.MacroPIDCommand;
 
 public class MoveForward extends MacroPIDCommand {
   private double baseSpeed;
-  private final double kP = 0;
-  private final double kI = 0;
-  private final double kD = 0;
+  private final double kP = 1.5;
+  private final double kI = 0.09;
+  private final double kD = 1.4;
   private double targetDistance;
   private final double conversion = 819.1875395;  // rotationalUnits/meters
   
@@ -38,6 +38,7 @@ public class MoveForward extends MacroPIDCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void usePIDOutput(double output) {
+    System.out.println(output);
     Robot.drivetrain.arcadeDrive(output, 0);
   }
   @Override

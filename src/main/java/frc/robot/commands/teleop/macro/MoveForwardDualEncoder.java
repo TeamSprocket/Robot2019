@@ -39,6 +39,12 @@ public class MoveForwardDualEncoder extends MacroCommand {
       Robot.drivetrain.getLeftEncoder().getDistance() + distance);
     rightController.setSetpoint(
       Robot.drivetrain.getRightEncoder().getDistance() + distance);
+
+    System.out.println("Left current: " + Robot.drivetrain.getLeftEncoder().getDistance() +
+      " target: " + leftController.getSetpoint());
+    System.out.println("Right current: " + Robot.drivetrain.getRightEncoder().getDistance() +
+      " target: " + rightController.getSetpoint());
+      
     leftController.setAbsoluteTolerance(50);
     rightController.setAbsoluteTolerance(50);
     
@@ -60,5 +66,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
 
   @Override
   protected void interrupted() {
+    leftController.disable();
+    rightController.disable();
   }
 }
