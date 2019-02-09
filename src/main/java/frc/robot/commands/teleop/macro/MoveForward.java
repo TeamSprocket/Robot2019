@@ -18,10 +18,11 @@ public class MoveForward extends MacroPIDCommand {
   private final double kI = 0;
   private final double kD = 0;
   private double targetDistance;
-
+  private final double conversion = 819.1875395;  // rotationalUnits/meters
+  
   public MoveForward(double distance) {
     requires(Robot.drivetrain);
-    targetDistance = distance;
+    targetDistance = distance * conversion;
   }
 
   // Called just before this Command runs the first time
