@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.teleop.macro.MoveForward;
+
 public class TriangleAlign extends CommandGroup {
   private final double h1 = 0.65;
   private final double h2 = 0.85;
@@ -27,11 +29,11 @@ public class TriangleAlign extends CommandGroup {
   protected void initialize() {
     theta2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    d = (h2 - h1)/(Math.tan(theta1 + theta2));
-    r = d/Math.cos(tx);
-    distance = r * Math.sin(tx)/Math.sin(180 - 2 * tx);
+    d = (h2 - h1)/(Math.toDegrees(Math.tan(theta1 + theta2)));
+    r = d/Math.toDegrees(Math.cos(tx));
+    distance = r * Math.toDegrees(Math.sin(tx))/Math.toDegrees(Math.sin(180 - 2 * tx));
     addSequential(new PIDTurn(tx * 2));
-    addSequential(new PIDForward(distance));
+    addSequential(new MoveForward(distance));
     addSequential(new PIDTurn(tx * -2));
     addSequential(new Align());
   }
