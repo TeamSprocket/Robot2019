@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
@@ -22,17 +23,15 @@ import frc.robot.RobotMap;
  */
 public class Drivetrain extends Subsystem {
   // TODO: Decide to use WPI_TalonSRX or TalonSRX
-  private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(
-      RobotMap.Drivetrain.FRONT_LEFT_TALON);
-  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(
-      RobotMap.Drivetrain.FRONT_RIGHT_TALON);
-  private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(
-      RobotMap.Drivetrain.BACK_LEFT_TALON);
-  private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(
-			RobotMap.Drivetrain.BACK_RIGHT_TALON);
+  private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_LEFT_TALON);
+  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_RIGHT_TALON);
+  private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_LEFT_TALON);
+  private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
   private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  private final Encoder encoderLeft = new Encoder(RobotMap.Sensor.LEFT_ENCODER_A, RobotMap.Sensor.LEFT_ENCODER_B);
+  private final Encoder leftEncoder = new Encoder(RobotMap.Sensor.LEFT_ENCODER_A, RobotMap.Sensor.LEFT_ENCODER_B);
+  private final Encoder rightEncoder = new Encoder(RobotMap.Sensor.RIGHT_ENCODER_A, RobotMap.Sensor.RIGHT_ENCODER_B);
+
   private final AnalogPotentiometer pot = new AnalogPotentiometer(RobotMap.Sensor.POT, 720, 0);
   
   private Drivetrain() {
@@ -44,11 +43,11 @@ public class Drivetrain extends Subsystem {
     backRightTalon.follow(frontRightTalon);
 	}
 
-  private void setLeft(double speed) {
+  public void setLeft(double speed) {
     frontLeftTalon.set(speed);
   }
 
-  private void setRight(double speed) {
+  public void setRight(double speed) {
     frontRightTalon.set(speed);
   }
 
@@ -71,13 +70,18 @@ public class Drivetrain extends Subsystem {
     return gyro;
   }
 
-  public Encoder getEncoder(){
-    return encoderLeft;
+  public Encoder getLeftEncoder() {
+    return leftEncoder;
+  }
+
+  public Encoder getRightEncoder() {
+    return rightEncoder;
   }
   
   public AnalogPotentiometer getPot() {
     return pot;
   }
+
   @Override
   public void initDefaultCommand() {
   }
