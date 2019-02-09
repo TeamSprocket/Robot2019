@@ -32,7 +32,6 @@ public final class RobotMap {
   }
 
   public static final class Sensor {
-    public static final int EXAMPLE_CONSTANT_2 = 0;
     public static final int RIGHT_ENCODER_A = 0;
     public static final int RIGHT_ENCODER_B = 1;
     public static final int LEFT_ENCODER_A = 2;
