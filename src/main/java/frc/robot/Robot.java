@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -15,11 +14,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.TogglePipeline;
+import frc.robot.commands.teleop.macro.Align;
+import frc.robot.commands.teleop.macro.MoveForwardv2;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.CargoShooter;
@@ -51,9 +51,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     SmartDashboard.putNumber("Base Speed: ", 0.45);
-    SmartDashboard.putNumber("kP", 0.1);
-    SmartDashboard.putNumber("kI", 0.0001);
-    SmartDashboard.putNumber("kD", 0.3);
+    SmartDashboard.putNumber("kP_dis", 1.5);
+    SmartDashboard.putNumber("kI_dis", 0.09);
+    SmartDashboard.putNumber("kD_dis", 1.4);
+    SmartDashboard.putNumber("kP_str", 0);
+    SmartDashboard.putNumber("kI_str", 0);
+    SmartDashboard.putNumber("kD_str", 0);
     SmartDashboard.putData("Pot", drivetrain.getPot());
   }
 
@@ -68,6 +71,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("Pot Val", drivetrain.getPot().get());
   }
 
   /**
@@ -135,6 +139,8 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.alignRobot.whenPressed(new Align());
+    OI.Buttons.moveForward.whenPressed(new MoveForwardv2(1.5));
+    
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
       () -> {new AbortMacro().start();}

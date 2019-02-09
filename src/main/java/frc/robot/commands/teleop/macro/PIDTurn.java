@@ -6,20 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.teleop.macro;
-
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.util.commands.teleop.macro.MacroPIDCommand;
-import frc.util.drivers.Inverted_ADXRS450_Gyro;
 
 public class PIDTurn extends MacroPIDCommand {
   private double currentAngle, lastOutput;
   private final double kP = 0;
   private final double kI = 0;
   private final double kD = 0;
-  private final double kX = 0.05;
-  private final double kY = 0.05;
   private final double finalAngle;
 
   public PIDTurn(double angle) {
