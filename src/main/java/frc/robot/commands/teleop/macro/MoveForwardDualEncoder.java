@@ -29,7 +29,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
       SmartDashboard.getNumber("Right kP", 1),
       SmartDashboard.getNumber("Right kI", 0),
       SmartDashboard.getNumber("Right kD", 0),
-      Robot.drivetrain.getLeftEncoder(),
+      Robot.drivetrain.getRightEncoder(),
       Robot.drivetrain::setRight);
   }
 
@@ -45,9 +45,9 @@ public class MoveForwardDualEncoder extends MacroCommand {
     System.out.println("Right current: " + Robot.drivetrain.getRightEncoder().getDistance() +
       " target: " + rightController.getSetpoint());
       
-    leftController.setAbsoluteTolerance(50);
-    rightController.setAbsoluteTolerance(50);
-    
+    leftController.setAbsoluteTolerance(25);
+    rightController.setAbsoluteTolerance(25);
+
     leftController.setOutputRange(-0.4, 0.4);
     rightController.setOutputRange(-0.4, 0.4);
 
@@ -57,12 +57,14 @@ public class MoveForwardDualEncoder extends MacroCommand {
 
   @Override
   protected void execute() {
-    SmartDashboard.putBoolean("Dual Running", true);
+    // System.out.println(leftController.get() + "\t" + rightController.get());
   }
 
   @Override
   protected boolean isFinished() {
-    return leftController.onTarget() && rightController.onTarget();
+    return leftController.onTarget() && rightController.onTarget()
+        && Math.abs(Robot.drivetrain.getLeftEncoder().getRate()) <= 400
+        && Math.abs(Robot.drivetrain.getRightEncoder().getRate()) <= 400;
   }
 
   @Override
@@ -70,6 +72,5 @@ public class MoveForwardDualEncoder extends MacroCommand {
     leftController.disable();
     rightController.disable();
     SmartDashboard.putBoolean("Dual Running", false);
-    end();
   }
 }

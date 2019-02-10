@@ -20,7 +20,7 @@ import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.MoveForwardDualEncoder;
-import frc.robot.commands.teleop.macro.MoveForwardv2;
+import frc.robot.commands.teleop.macro.MoveForwardGyroEncoder;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.CargoShooter;
@@ -124,6 +124,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+
+    Robot.drivetrain.getLeftEncoder().reset();
+    Robot.drivetrain.getRightEncoder().reset();
   }
 
   /**
@@ -148,7 +151,7 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.alignRobot.whenPressed(new Align());
-    OI.Buttons.moveForward.whenPressed(new MoveForwardDualEncoder(1.5));
+    OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
     
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,

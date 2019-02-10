@@ -78,6 +78,10 @@ public class Drivetrain extends Subsystem {
     return rightEncoder;
   }
   
+  public double getAverageEncoderDistance() {
+    return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+  }
+
   public AnalogPotentiometer getPot() {
     return pot;
   }
