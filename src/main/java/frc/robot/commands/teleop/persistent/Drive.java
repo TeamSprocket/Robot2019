@@ -23,7 +23,7 @@ public class Drive extends PersistentCommand {
 
   @Override
   protected void execute() {
-    double speed = getSpeed();
+    double speed = deadband(-OI.Controllers.rightJoystick.getY()) + deadband(OI.Controllers.leftJoystick.getY());
     double turn = clamp(OI.Controllers.racingWheel.getX() * 1.5, -1, 1);
 
     if(Math.abs(speed) < 0.1)
@@ -34,6 +34,7 @@ public class Drive extends PersistentCommand {
     Robot.drivetrain.arcadeDrive(speed, turn);
   }
 
+  @Deprecated
   private double getSpeed() {
     if(OI.Controllers.racingWheel.getRawButton(6))
       return 1;
@@ -50,5 +51,11 @@ public class Drive extends PersistentCommand {
       return upper;
     else
       return val;
+  }
+
+  private double deadband(double val) {
+    if(val >= -0.3 && val <= 0.3)
+      return 0;
+    else return val;
   }
 }

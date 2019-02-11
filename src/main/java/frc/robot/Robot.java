@@ -153,6 +153,15 @@ public class Robot extends TimedRobot {
 
     // Vision
     OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+
+    // Memes
+    OI.Buttons.killswitch.whenPressed(new Command() {
+      @Override
+      public boolean isFinished() {
+        Robot.drivetrain.stop();
+        throw new UnsupportedOperationException();
+      }
+    });
   }
 
   /**
