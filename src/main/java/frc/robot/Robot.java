@@ -140,16 +140,16 @@ public class Robot extends TimedRobot {
     new Shoot().start();
 
     // Robot
-    OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
+    // OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.alignRobot.whenPressed(new Align());
     OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
     
-    new LatchedEventListener(
-      () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
-      () -> {new AbortMacro().start();}
-    );
+    // new LatchedEventListener(
+    //   () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
+    //   () -> {new AbortMacro().start();}
+    // );
 
     // Vision
     OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());

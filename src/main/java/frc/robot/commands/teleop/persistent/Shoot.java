@@ -22,9 +22,9 @@ public class Shoot extends PersistentCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Math.abs(OI.Controllers.gamepad.getY()) >= 0.1)
-      Robot.cargoShooter.setSpeed(OI.Controllers.gamepad.getY());
-    else
-      Robot.cargoShooter.setSpeed(0);
+    // if(Math.abs(OI.Controllers.gamepad.getY()) >= 0.1)
+    //   Robot.cargoShooter.setSpeed(OI.Controllers.gamepad.getY());
+    // else
+    //   Robot.cargoShooter.setSpeed(0);
   }
 }

@@ -7,6 +7,8 @@
 
 package frc.robot.commands.teleop.persistent;
 
+import javax.lang.model.util.ElementScanner6;
+
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.util.commands.teleop.persistent.PersistentCommand;
@@ -21,8 +23,8 @@ public class Drive extends PersistentCommand {
 
   @Override
   protected void execute() {
-    double speed = -OI.Controllers.leftJoystick.getY();
-    double turn = OI.Controllers.rightJoystick.getX();
+    double speed = getSpeed();
+    double turn = clamp(OI.Controllers.racingWheel.getX() * 1.5, -1, 1);
 
     if(Math.abs(speed) < 0.1)
       speed = 0.0;
@@ -30,5 +32,23 @@ public class Drive extends PersistentCommand {
       turn = 0.0;
 
     Robot.drivetrain.arcadeDrive(speed, turn);
+  }
+
+  private double getSpeed() {
+    if(OI.Controllers.racingWheel.getRawButton(6))
+      return 1;
+    else if(OI.Controllers.racingWheel.getRawButton(5))
+      return -1;
+    else
+      return 0;
+  }
+
+  private double clamp(double val, double lower, double upper) {
+    if(val < lower)
+      return lower;
+    else if(val > upper)
+      return upper;
+    else
+      return val;
   }
 }
