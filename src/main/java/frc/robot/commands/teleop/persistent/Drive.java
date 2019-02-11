@@ -7,8 +7,6 @@
 
 package frc.robot.commands.teleop.persistent;
 
-import javax.lang.model.util.ElementScanner6;
-
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.util.commands.teleop.persistent.PersistentCommand;
