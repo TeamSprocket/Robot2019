@@ -33,7 +33,6 @@ public class MoveForwardGyroEncoder extends MacroCommand {
       new PIDSource() {
         @Override
         public void setPIDSourceType(PIDSourceType pidSource) {
-          throw new UnsupportedOperationException();
         }
       
         @Override
@@ -43,7 +42,7 @@ public class MoveForwardGyroEncoder extends MacroCommand {
       
         @Override
         public PIDSourceType getPIDSourceType() {
-          throw new UnsupportedOperationException();
+          return PIDSourceType.kDisplacement;
         }
       },
       o -> {speed = o;});
@@ -58,6 +57,15 @@ public class MoveForwardGyroEncoder extends MacroCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    distController.setPID(
+        SmartDashboard.getNumber("Dist kP", 1),
+        SmartDashboard.getNumber("Dist kI", 0),
+        SmartDashboard.getNumber("Dist kD", 0));
+    angleController.setPID(
+        SmartDashboard.getNumber("Angle kP", 1),
+        SmartDashboard.getNumber("Angle kI", 0),
+        SmartDashboard.getNumber("Angle kD", 0));
+
     distController.setSetpoint(Robot.drivetrain.getAverageEncoderDistance() + distance);
     angleController.setSetpoint(Robot.drivetrain.getGyro().getAngle());
 
@@ -66,11 +74,11 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     System.out.println("Angle current: " + Robot.drivetrain.getGyro().getAngle() +
       " target: " + angleController.getSetpoint());
 
-    distController.setAbsoluteTolerance(25);
+    distController.setAbsoluteTolerance(40);
     angleController.setAbsoluteTolerance(5);
 
-    distController.setOutputRange(-0.4, 0.4);
-    angleController.setOutputRange(-0.1, 0.1);
+    distController.setOutputRange(-0.8, 0.8);
+    angleController.setOutputRange(-0.2, 0.2);
     
     distController.enable();
     angleController.enable();
@@ -83,7 +91,9 @@ public class MoveForwardGyroEncoder extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    return distController.onTarget() && angleController.onTarget();
+    return distController.onTarget() && angleController.onTarget()
+        && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= 150
+        && Math.abs(Robot.drivetrain.getGyro().getRate()) <= 5;
   }
 
   @Override

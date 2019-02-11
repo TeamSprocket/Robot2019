@@ -52,21 +52,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     SmartDashboard.putNumber("Base Speed: ", 0.45);
-    SmartDashboard.putNumber("kP_dis", 1.5);
-    SmartDashboard.putNumber("kI_dis", 0.09);
-    SmartDashboard.putNumber("kD_dis", 1.4);
-    SmartDashboard.putNumber("kP_str", 0);
-    SmartDashboard.putNumber("kI_str", 0);
-    SmartDashboard.putNumber("kD_str", 0);
-
-    SmartDashboard.putNumber("Left kP", 1);
-    SmartDashboard.putNumber("Left kI", 0);
-    SmartDashboard.putNumber("Left kD", 0);
-    SmartDashboard.putNumber("Right kP", 1);
-    SmartDashboard.putNumber("Right kI", 0);
-    SmartDashboard.putNumber("Right kD", 0);
-
-    SmartDashboard.putData("Pot", drivetrain.getPot());
+    SmartDashboard.putNumber("Dist kP", 0.4);
+    SmartDashboard.putNumber("Dist kI", 0.09);
+    SmartDashboard.putNumber("Dist kD", 1.6);
+    SmartDashboard.putNumber("Angle kP", 1.5);
+    SmartDashboard.putNumber("Angle kI", 0.5);
+    SmartDashboard.putNumber("Angle kD", 1.5);
   }
 
   /**
@@ -81,6 +72,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Pot Val", drivetrain.getPot().get());
+
+    SmartDashboard.putNumber("Angle Rate", drivetrain.getGyro().getRate());
   }
 
   /**
