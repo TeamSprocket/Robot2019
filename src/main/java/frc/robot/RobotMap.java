@@ -31,6 +31,7 @@ public final class RobotMap {
     public static final int PISTON_REVERSE = 5;
   }
 
+  // TODO: Move constants to respective subsystem and refactor
   public static final class Sensor {
     public static final int RIGHT_ENCODER_A = 0;
     public static final int RIGHT_ENCODER_B = 1;
@@ -39,6 +40,7 @@ public final class RobotMap {
     public static final int POT = 0;
   }
 
+  // Private constructor to prevent instantiation
   private RobotMap() {
   }
 }

@@ -34,6 +34,7 @@ public final class OI {
     public static final Button moveForward = new JoystickButton(Controllers.leftJoystick, 2);
   }
 
+  // Private constructor to prevent instantiation
   private OI() {
   }
 }

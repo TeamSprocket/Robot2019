@@ -10,19 +10,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
  * TODO: Add docs
  */
 public class Drivetrain extends Subsystem {
-  // TODO: Decide to use WPI_TalonSRX or TalonSRX
   private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_LEFT_TALON);
   private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_RIGHT_TALON);
   private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_LEFT_TALON);
@@ -35,7 +31,6 @@ public class Drivetrain extends Subsystem {
   private final AnalogPotentiometer pot = new AnalogPotentiometer(RobotMap.Sensor.POT, 720, 0);
   
   private Drivetrain() {
-    // TODO: Check if this works
     frontRightTalon.setInverted(true);
     backRightTalon.setInverted(true);
 

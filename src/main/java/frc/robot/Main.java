@@ -24,6 +24,7 @@ public final class Main {
     RobotBase.startRobot(Robot::new);
   }
 
+  // Private constructor to prevent instantiation
   private Main() {
   }
 }

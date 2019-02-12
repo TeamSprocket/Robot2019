@@ -19,7 +19,6 @@ public class Shoot extends PersistentCommand {
     requires(Robot.cargoShooter);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     if(Math.abs(OI.Controllers.gamepad.getY()) >= 0.1)

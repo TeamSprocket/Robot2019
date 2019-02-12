@@ -19,12 +19,13 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * TODO: Add docs
  */
 public class MoveForwardGyroEncoder extends MacroCommand {
-  public static final double DIST_TOLERANCE = 40, ANGLE_TOLERANCE = 5;
-  public static final double DIST_RATE_TOLERANCE = 150, ANGLE_RATE_TOLERANCE = 5;
-  public static final double DIST_OUTPUT_RANGE = 0.8, ANGLE_OUTPUT_RANGE = 0.2;
-  public static final double DIST_kP = 0.4, DIST_kI = 0.09, DIST_kD = 1.6;
-  public static final double ANGLE_kP = 1.5, ANGLE_kI = 0.5, ANGLE_kD = 1.5;
+  private static final double DIST_TOLERANCE = 40, ANGLE_TOLERANCE = 5;
+  private static final double DIST_RATE_TOLERANCE = 150, ANGLE_RATE_TOLERANCE = 5;
+  private static final double DIST_OUTPUT_RANGE = 0.8, ANGLE_OUTPUT_RANGE = 0.2;
+  private static final double DIST_kP = 0.4, DIST_kI = 0.09, DIST_kD = 1.6;
+  private static final double ANGLE_kP = 1.5, ANGLE_kI = 0.5, ANGLE_kD = 1.5;
 
+  // TODO: See if this works
   static {
     SmartDashboard.putNumber("DIST_kP", DIST_kP);
     SmartDashboard.putNumber("DIST_kI", DIST_kI);
