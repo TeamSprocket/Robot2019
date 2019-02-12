@@ -25,6 +25,7 @@ import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchActuator;
+import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.LatchedEventListener;
 
 /**
@@ -115,9 +116,6 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.getRightEncoder().reset();
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
   @Override
   public void autonomousPeriodic() {
     System.out.println(drivetrain.getPot().get());
@@ -128,9 +126,9 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     HatchActuator.getInstance().actuate(false);
     
-    // TODO: Find out why resource is leaking
-    new Drive().start();
-    new Shoot().start();
+    PersistentCommand.bindPersistent(new Drive(), Robot.drivetrain);
+    PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
+    PersistentCommand.startAllPersistent();
 
     // Robot
     OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
@@ -148,9 +146,6 @@ public class Robot extends TimedRobot {
     OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
@@ -159,9 +154,10 @@ public class Robot extends TimedRobot {
     //   + NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+  @Override
+  public void testInit() {
+  }
+
   @Override
   public void testPeriodic() {
   }

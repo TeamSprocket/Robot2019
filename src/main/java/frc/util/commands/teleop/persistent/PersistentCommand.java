@@ -23,6 +23,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public abstract class PersistentCommand extends Command {
   private static Map<Subsystem, PersistentCommand> persistentMap = new HashMap<>();
 
+  public static void bindPersistent(PersistentCommand pc, Subsystem s) {
+    persistentMap.put(s, pc);
+  }
+
   public static void startPersistent(Subsystem subsystem) {
     persistentMap.get(subsystem).start();
   }
@@ -31,12 +35,6 @@ public abstract class PersistentCommand extends Command {
     for(PersistentCommand pc : persistentMap.values()) {
       pc.start();
     }
-  }
-
-  @Override
-  protected synchronized void requires(Subsystem subsystem) {
-    super.requires(subsystem);
-    persistentMap.put(subsystem, this);
   }
 
   @Override
