@@ -12,6 +12,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.util.commands.teleop.macro.MacroCommand;
 
+/**
+ * TODO: Add docs
+ * TODO: Make it work
+ * TODO: Extract constants
+ */
 public class MoveForwardDualEncoder extends MacroCommand {
   private final double distance;
   private final PIDController leftController, rightController;

@@ -12,10 +12,27 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.util.Constants;
 import frc.util.commands.teleop.macro.MacroCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class MoveForwardGyroEncoder extends MacroCommand {
-  private static double conversion = 819.1875395;  // rotationalUnits/meters
+  public static final double DIST_TOLERANCE = 40, ANGLE_TOLERANCE = 5;
+  public static final double DIST_RATE_TOLERANCE = 150, ANGLE_RATE_TOLERANCE = 5;
+  public static final double DIST_OUTPUT_RANGE = 0.8, ANGLE_OUTPUT_RANGE = 0.2;
+  public static final double DIST_kP = 0.4, DIST_kI = 0.09, DIST_kD = 1.6;
+  public static final double ANGLE_kP = 1.5, ANGLE_kI = 0.5, ANGLE_kD = 1.5;
+
+  static {
+    SmartDashboard.putNumber("DIST_kP", DIST_kP);
+    SmartDashboard.putNumber("DIST_kI", DIST_kI);
+    SmartDashboard.putNumber("DIST_kD", DIST_kD);
+    SmartDashboard.putNumber("ANGLE_kP", ANGLE_kP);
+    SmartDashboard.putNumber("ANGLE_kI", ANGLE_kI);
+    SmartDashboard.putNumber("ANGLE_kD", ANGLE_kD);
+  }
 
   private final double distance;
   private final PIDController distController, angleController;
@@ -24,12 +41,12 @@ public class MoveForwardGyroEncoder extends MacroCommand {
 
   public MoveForwardGyroEncoder(double distance) {
     requires(Robot.drivetrain);
-    this.distance = distance * conversion;
+    this.distance = distance * Constants.ENCODER_TO_METER;
 
     distController = new PIDController(
-      SmartDashboard.getNumber("Dist kP", 1),
-      SmartDashboard.getNumber("Dist kI", 0),
-      SmartDashboard.getNumber("Dist kD", 0),
+      SmartDashboard.getNumber("DIST_kP", DIST_kP),
+      SmartDashboard.getNumber("DIST_kI", DIST_kI),
+      SmartDashboard.getNumber("DIST_kD", DIST_kD),
       new PIDSource() {
         @Override
         public void setPIDSourceType(PIDSourceType pidSource) {
@@ -47,24 +64,23 @@ public class MoveForwardGyroEncoder extends MacroCommand {
       },
       o -> {speed = o;});
     angleController = new PIDController(
-      SmartDashboard.getNumber("Angle kP", 1),
-      SmartDashboard.getNumber("Angle kI", 0),
-      SmartDashboard.getNumber("Angle kD", 0),
+      SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
+      SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
+      SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD),
       Robot.drivetrain.getGyro(),
       o -> {turn = o;});
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     distController.setPID(
-        SmartDashboard.getNumber("Dist kP", 1),
-        SmartDashboard.getNumber("Dist kI", 0),
-        SmartDashboard.getNumber("Dist kD", 0));
+      SmartDashboard.getNumber("DIST_kP", DIST_kP),
+      SmartDashboard.getNumber("DIST_kI", DIST_kI),
+      SmartDashboard.getNumber("DIST_kD", DIST_kD));
     angleController.setPID(
-        SmartDashboard.getNumber("Angle kP", 1),
-        SmartDashboard.getNumber("Angle kI", 0),
-        SmartDashboard.getNumber("Angle kD", 0));
+      SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
+      SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
+      SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD));
 
     distController.setSetpoint(Robot.drivetrain.getAverageEncoderDistance() + distance);
     angleController.setSetpoint(Robot.drivetrain.getGyro().getAngle());
@@ -74,11 +90,11 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     System.out.println("Angle current: " + Robot.drivetrain.getGyro().getAngle() +
       " target: " + angleController.getSetpoint());
 
-    distController.setAbsoluteTolerance(40);
-    angleController.setAbsoluteTolerance(5);
+    distController.setAbsoluteTolerance(DIST_TOLERANCE);
+    angleController.setAbsoluteTolerance(ANGLE_TOLERANCE);
 
-    distController.setOutputRange(-0.8, 0.8);
-    angleController.setOutputRange(-0.2, 0.2);
+    distController.setOutputRange(-DIST_OUTPUT_RANGE, DIST_OUTPUT_RANGE);
+    angleController.setOutputRange(-ANGLE_OUTPUT_RANGE, ANGLE_OUTPUT_RANGE);
     
     distController.enable();
     angleController.enable();
@@ -92,8 +108,8 @@ public class MoveForwardGyroEncoder extends MacroCommand {
   @Override
   protected boolean isFinished() {
     return distController.onTarget() && angleController.onTarget()
-        && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= 150
-        && Math.abs(Robot.drivetrain.getGyro().getRate()) <= 5;
+      && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= DIST_RATE_TOLERANCE
+      && Math.abs(Robot.drivetrain.getGyro().getRate()) <= ANGLE_RATE_TOLERANCE;
   }
 
   @Override

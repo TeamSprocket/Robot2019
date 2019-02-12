@@ -7,6 +7,7 @@
 
 package frc.robot.commands.instant;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.persistent.PersistentCommand;
@@ -24,5 +25,6 @@ public class AbortMacro extends InstantCommand {
   @Override
   protected void initialize() {
     PersistentCommand.startAllPersistent();
+    DriverStation.reportWarning("All MacroCommands aborted!", false);
   }
 }

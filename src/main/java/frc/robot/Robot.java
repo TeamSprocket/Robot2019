@@ -19,7 +19,6 @@ import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.Align;
-import frc.robot.commands.teleop.macro.MoveForwardDualEncoder;
 import frc.robot.commands.teleop.macro.MoveForwardGyroEncoder;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -52,12 +51,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     SmartDashboard.putNumber("Base Speed: ", 0.45);
-    SmartDashboard.putNumber("Dist kP", 0.4);
-    SmartDashboard.putNumber("Dist kI", 0.09);
-    SmartDashboard.putNumber("Dist kD", 1.6);
-    SmartDashboard.putNumber("Angle kP", 1.5);
-    SmartDashboard.putNumber("Angle kI", 0.5);
-    SmartDashboard.putNumber("Angle kD", 1.5);
   }
 
   /**

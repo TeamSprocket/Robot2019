@@ -10,6 +10,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.util.commands.teleop.macro.MacroPIDCommand;
 
+/**
+ * TODO: Add docs
+ * TODO: Extract constants
+ * TODO: Use PID Controllers, extend MacroCommand instead
+ * TODO: Clean up dead code
+ */
 public class PIDTurn extends MacroPIDCommand {
   private double currentAngle, lastOutput;
   private final double kP = 0;
@@ -18,8 +24,6 @@ public class PIDTurn extends MacroPIDCommand {
   private final double finalAngle;
 
   public PIDTurn(double angle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     finalAngle = angle;
     requires(Robot.drivetrain);
   }
