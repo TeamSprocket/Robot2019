@@ -10,7 +10,8 @@ package frc.util.drivers;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 /**
- * TODO: Add docs
+ * An inverted gyro which returns inverted rates and angles. Use this class
+ * instead of ADXRS450_Gyro if the gyro on the robot is installed upside down.
  */
 public class Inverted_ADXRS450_Gyro extends ADXRS450_Gyro {
   @Override

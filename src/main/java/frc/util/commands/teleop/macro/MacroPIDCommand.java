@@ -31,7 +31,11 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * should also have parameterized constructors if appropriate.
  * 
  * MacroCommands must override all Command methods except end and interrupted.
+ * 
+ * This class is deprecated as of 2/12. MacroCommands which require PID
+ * functionality should use a PIDController instead.
  */
+@Deprecated
 public abstract class MacroPIDCommand extends PIDCommand {
   private final Set<Subsystem> requirements = new HashSet<>();
 

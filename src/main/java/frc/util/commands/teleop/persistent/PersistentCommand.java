@@ -12,14 +12,13 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * A PersistentCommand is a Command that is continuously run during the
  * teleoperated period, but may be temporarily suspended during the execution
  * of a MacroCommand.
  * 
- * TODO: Finish writing docs
+ * PersistentCommands must override only the execute method.
  */
 public abstract class PersistentCommand extends Command {
   private static Map<Subsystem, PersistentCommand> persistentMap = new HashMap<>();
@@ -58,6 +57,5 @@ public abstract class PersistentCommand extends Command {
 
   @Override
   protected final void interrupted() {
-    SmartDashboard.putBoolean("PC", false);
   }
 }

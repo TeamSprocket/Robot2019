@@ -31,6 +31,8 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * should also have parameterized constructors if appropriate.
  * 
  * MacroCommands must override all Command methods except end and interrupted.
+ * MacroCommands must also override the terminate method, which will be called
+ * on the command ending as well as when interrupted.
  */
 public abstract class MacroCommand extends Command {
   private final Set<Subsystem> requirements = new HashSet<>();
