@@ -21,20 +21,37 @@ public final class RobotMap {
     public static final int FRONT_RIGHT_TALON = 1;
     public static final int MID_RIGHT_TALON = 5;
     public static final int BACK_RIGHT_TALON = 2;
+
+    public static final int RIGHT_ENCODER_A = 0;
+    public static final int RIGHT_ENCODER_B = 1;
+    public static final int LEFT_ENCODER_A = 2;
+    public static final int LEFT_ENCODER_B = 3;
+
+    private Drivetrain() {
+    }
   }
 
   public static final class Arm {
     public static final int POT = 0;
+
+    private Arm() {
+    }
   }
 
   public static final class CargoShooter {
     public static final int LEFT_TALON = 1;
     public static final int RIGHT_TALON = 5;
+
+    private CargoShooter() {
+    }
   }
 
   public static final class HatchActuator {
     public static final int PISTON_FORWARD = 4;
     public static final int PISTON_REVERSE = 5;
+
+    private HatchActuator() {
+    }
   }
 
   // Private constructor to prevent instantiation

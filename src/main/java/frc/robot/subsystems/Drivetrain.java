@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Subsystem used for the talons that move the robot
+ * A Subsystem which represents the talons and sensors used to drive the robot.
  */
 public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_LEFT_TALON);
@@ -25,16 +25,10 @@ public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_RIGHT_TALON);
   private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
-  public static final int RIGHT_ENCODER_A = 0;
-  public static final int RIGHT_ENCODER_B = 1;
-  public static final int LEFT_ENCODER_A = 2;
-  public static final int LEFT_ENCODER_B = 3;
-
   private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  private final Encoder leftEncoder = new Encoder(LEFT_ENCODER_A, LEFT_ENCODER_B);
-  private final Encoder rightEncoder = new Encoder(RIGHT_ENCODER_A, RIGHT_ENCODER_B);
+  private final Encoder leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_ENCODER_A, RobotMap.Drivetrain.LEFT_ENCODER_B);
+  private final Encoder rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_ENCODER_A, RobotMap.Drivetrain.RIGHT_ENCODER_B);
 
-  
   private Drivetrain() {
     frontRightTalon.setInverted(true);
     midRightTalon.setInverted(true);
@@ -54,6 +48,11 @@ public class Drivetrain extends Subsystem {
     frontRightTalon.set(speed);
   }
 
+  public void stop() {
+    setLeft(0);
+    setRight(0);
+  }
+
   public void tankDrive(double left, double right) {
     setLeft(left);
     setRight(right);
@@ -62,11 +61,6 @@ public class Drivetrain extends Subsystem {
   public void arcadeDrive(double speed, double turn) {
     setLeft(speed + turn);
     setRight(speed - turn);
-  }
-
-  public void stop() {
-    setLeft(0);
-    setRight(0);
   }
 
   public ADXRS450_Gyro getGyro() {

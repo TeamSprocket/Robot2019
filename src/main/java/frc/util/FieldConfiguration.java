@@ -9,6 +9,8 @@ package frc.util;
 
 /**
  * A multipurpose class that stores field configurations
+ * 
+ * // TODO: Move LCR and Level to inner enums if not being used elsewhere
  */
 public class FieldConfiguration {
   private LCR startingPosition;
