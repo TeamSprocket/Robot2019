@@ -10,7 +10,7 @@ package frc.robot.commands.auton;
 import frc.util.commands.auton.AutonCommand;
 
 /**
- * TODO: Add docs
+ * An auton command that delays the routine for a specified amount of time.
  */
 public class Delay extends AutonCommand {
   private final double duration;

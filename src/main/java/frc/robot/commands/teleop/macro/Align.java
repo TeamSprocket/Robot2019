@@ -8,81 +8,76 @@
 package frc.robot.commands.teleop.macro;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.util.commands.teleop.macro.MacroPIDCommand;
+import frc.util.commands.teleop.macro.MacroCommand;
 
-public class Align extends MacroPIDCommand {
-  private double tx, ty, baseSpeed;
-  private final double kP = 0;
-  private final double kI = 0;
-  private final double kD = 0;
-  private double lastOutput;
+/**
+ * A macro command to be used in teleop mode that aligns the robot to a vision target.
+ */
+public class Align extends MacroCommand {
+  private static final double ALIGN_kP = 0, ALIGN_kI = 0, ALIGN_kD = 0;
+  private static final double DEFAULT_BASE_SPEED = 0.45;
+  private static final double OUTPUT_RANGE = 0.3;
+
+  static {
+    SmartDashboard.putNumber("ALIGN_BASE_SPEED", DEFAULT_BASE_SPEED);
+    SmartDashboard.putNumber("ALIGN_kP", ALIGN_kP);
+    SmartDashboard.putNumber("ALIGN_kI", ALIGN_kI);
+    SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
+  }
+  
+  private double tx, speed, baseSpeed;
+  private PIDController controller;
 
   public Align() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.drivetrain);
+    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", 0.45);
+    tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+
+    controller = new PIDController(
+      SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
+      SmartDashboard.getNumber("ALIGN_kI", ALIGN_kI),
+      SmartDashboard.getNumber("ALIGN_kD", ALIGN_kD),
+      new PIDSource() {
+        @Override
+        public void setPIDSourceType(PIDSourceType pidSource) {
+        }
+      
+        @Override
+        public double pidGet() {
+          tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+          return tx;
+        }
+      
+        @Override
+        public PIDSourceType getPIDSourceType() {
+          return PIDSourceType.kDisplacement;
+        }
+      },
+      o -> {speed = o;});
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    baseSpeed = SmartDashboard.getNumber("Base Speed: ", 0.45);
-    tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    lastOutput = 1;
-    getPIDController().setSetpoint(0);
-    getPIDController().setOutputRange(-0.3, 0.3);
-    getPIDController().setPID(SmartDashboard.getNumber("kP", kP), SmartDashboard.getNumber("kI", kI), SmartDashboard.getNumber("kD", kD));
-    getPIDController().enable();
+    controller.setPID(
+      SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
+      SmartDashboard.getNumber("ALIGN_kI", ALIGN_kI),
+      SmartDashboard.getNumber("ALIGN_kD", ALIGN_kD));
+    controller.setSetpoint(0);
+    controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
+    controller.enable();
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  // @Override
-  // protected void execute() {
-  //   tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-  //   ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    
-  //   if(tx > 0) {
-  //     steer_adjust = kX * tx;
-  //   }
-  //   else {
-  //     steer_adjust = kX * tx;
-  //   }
-  //   dis_adjust = kY * ty;
-  //   double leftSpeed = steer_adjust + dis_adjust;
-  //   double rightSpeed = -steer_adjust - dis_adjust;
-  //   if(Math.abs(leftSpeed) < baseSpeed) {
-  //     if(tx < 0) 
-  //       leftSpeed = -baseSpeed;
-  //     else
-  //       leftSpeed = baseSpeed;
-  //   }
-  //   if(Math.abs(rightSpeed) < baseSpeed) {
-  //     if(tx < 0) 
-  //       rightSpeed = baseSpeed;
-  //     else
-  //       rightSpeed = -baseSpeed;
-  //   }
-  //   Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
-  // }
   @Override
-  protected void usePIDOutput(double output) {
+  protected void execute() {
     System.out.println(tx);
-    // if(Math.abs(output) < baseSpeed) {
-    //   if(tx < 0) 
-    //     output = -baseSpeed;
-    //   else 
-    //     output = baseSpeed;
-    // }
-    lastOutput = output;
-    Robot.drivetrain.arcadeDrive(baseSpeed, -output);
+    Robot.drivetrain.arcadeDrive(baseSpeed, -speed);
   }
-  @Override
-  protected double returnPIDInput() {
-    tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-    return tx;
-  } 
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -92,7 +87,7 @@ public class Align extends MacroPIDCommand {
   }
 
   @Override
-  protected void interrupted() {
-    System.out.println("Interrupted!");
+  protected void terminate() {
+    controller.disable();
   }
 }

@@ -6,92 +6,66 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands.teleop.macro;
+
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.util.commands.teleop.macro.MacroPIDCommand;
+import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * TODO: Add docs
- * TODO: Extract constants
- * TODO: Use PID Controllers, extend MacroCommand instead
- * TODO: Clean up dead code
+ * A macro command to be used in teleop mode that turns the robot a specified angle measure.
  */
-public class PIDTurn extends MacroPIDCommand {
-  private double currentAngle, lastOutput;
-  private final double kP = 0;
-  private final double kI = 0;
-  private final double kD = 0;
+public class PIDTurn extends MacroCommand {
+  private static final double TURN_kP = 1, TURN_kI = 0, TURN_kD = 0;
+  private static final double TOLERANCE = 0.5, RATE_TOLERANCE = 0.08;
+  private static final double OUTPUT_RANGE = 0.3;
+  
+  static {
+    SmartDashboard.putNumber("TURN_kP", TURN_kP);
+    SmartDashboard.putNumber("TURN_kI", TURN_kI);
+    SmartDashboard.putNumber("TURN_kD", TURN_kD);
+  }
+
   private final double finalAngle;
+  private double turn;
+  private final PIDController controller;
 
   public PIDTurn(double angle) {
-    finalAngle = angle;
     requires(Robot.drivetrain);
+
+    controller = new PIDController(
+      SmartDashboard.getNumber("TURN_kP", TURN_kP), 
+      SmartDashboard.getNumber("TURN_kI", TURN_kI), 
+      SmartDashboard.getNumber("TURN_kD", TURN_kD), 
+      Robot.drivetrain.getGyro(), o -> {turn = o;});
+    
+    finalAngle = angle;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    lastOutput = 1;
-    getPIDController().setSetpoint(0);
-    getPIDController().setOutputRange(-0.3, 0.3);
-    getPIDController().setPID(SmartDashboard.getNumber("kP", kP), SmartDashboard.getNumber("kI", kI), SmartDashboard.getNumber("kD", kD));
-    getPIDController().enable();
+    controller.setSetpoint(Robot.drivetrain.getGyro().getAngle() + finalAngle);
+    controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
+    controller.setPID(SmartDashboard.getNumber("TURN_kP", TURN_kP), 
+      SmartDashboard.getNumber("TURN_kI", TURN_kI), SmartDashboard.getNumber("TURN_kD", TURN_kD));
+    controller.setAbsoluteTolerance(TOLERANCE);
+    controller.enable();
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  // @Override
-  // protected void execute() {
-  //   tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-  //   ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    
-  //   if(tx > 0) {
-  //     steer_adjust = kX * tx;
-  //   }
-  //   else {
-  //     steer_adjust = kX * tx;
-  //   }
-  //   dis_adjust = kY * ty;
-  //   double leftSpeed = steer_adjust + dis_adjust;
-  //   double rightSpeed = -steer_adjust - dis_adjust;
-  //   if(Math.abs(leftSpeed) < baseSpeed) {
-  //     if(tx < 0) 
-  //       leftSpeed = -baseSpeed;
-  //     else
-  //       leftSpeed = baseSpeed;
-  //   }
-  //   if(Math.abs(rightSpeed) < baseSpeed) {
-  //     if(tx < 0) 
-  //       rightSpeed = baseSpeed;
-  //     else
-  //       rightSpeed = -baseSpeed;
-  //   }
-  //   Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
-  // }
   @Override
-  protected void usePIDOutput(double output) {
-    // if(Math.abs(output) < baseSpeed) {
-    //   if(tx < 0) 
-    //     output = -baseSpeed;
-    //   else 
-    //     output = baseSpeed;
-    // }
-    lastOutput = output;
-    Robot.drivetrain.arcadeDrive(0, -output);
+  protected void execute() {
+    Robot.drivetrain.arcadeDrive(0, -turn);
   }
-  @Override
-  protected double returnPIDInput() {
-    currentAngle = Robot.drivetrain.getGyro().getAngle();
-    return finalAngle - currentAngle ;
-  } 
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(finalAngle - currentAngle) <= 0.5 || Math.abs(lastOutput) <= 0.08;
+    return controller.onTarget() && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= RATE_TOLERANCE;
   }
 
   @Override
-  protected void interrupted() {
-    System.out.println("Interrupted!");
+  protected void terminate() {
+    controller.disable();
   }
 }

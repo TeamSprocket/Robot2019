@@ -11,7 +11,7 @@ import frc.util.commands.instant.InstantCommand;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
- * TODO: Add docs
+ * An instant command that toggles the vision pipeline, switching between the normal and processed view.
  */
 public class TogglePipeline extends InstantCommand {
   public TogglePipeline() {

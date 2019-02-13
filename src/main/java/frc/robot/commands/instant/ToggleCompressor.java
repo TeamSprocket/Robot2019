@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 
 /**
- * TODO: Add docs
+ * An instant command used to toggle the pneumatics compressor.
  */
 public class ToggleCompressor extends InstantCommand {
   @Override

@@ -13,7 +13,7 @@ import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * TODO: Add docs
+ * An instant command that cancels all currently running macro commands.
  */
 public class AbortMacro extends InstantCommand {
   public AbortMacro() {

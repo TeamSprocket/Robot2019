@@ -13,11 +13,27 @@ import frc.robot.Robot;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * TODO: Add docs
+ * A macro command to be used in teleop mode that moves the robot forward for a specified distance, 
+ * utilizing an encoder on each side to keep the robot moving straight.
  * TODO: Make it work
- * TODO: Extract constants
  */
 public class MoveForwardDualEncoder extends MacroCommand {
+  private static final double LEFT_TOLERANCE = 25, RIGHT_TOLERANCE = 25;
+  private static final double LEFT_RATE_TOLERANCE = 400, RIGHT_RATE_TOLERANCE = 400;
+  private static final double LEFT_OUTPUT_RANGE = 0.4, RIGHT_OUTPUT_RANGE = 0.4;
+  private static final double LEFT_kP = 0.4, LEFT_kI = 0.09, LEFT_kD = 1.6;
+  private static final double RIGHT_kP = 1.5, RIGHT_kI = 0.5, RIGHT_kD = 1.5;
+  
+  // TODO: See if this works
+  static {
+    SmartDashboard.putNumber("LEFT_kP", LEFT_kP);
+    SmartDashboard.putNumber("LEFT_kI", LEFT_kI);
+    SmartDashboard.putNumber("LEFT_kD", LEFT_kD);
+    SmartDashboard.putNumber("RIGHT_kP", RIGHT_kP);
+    SmartDashboard.putNumber("RIGHT_kI", RIGHT_kI);
+    SmartDashboard.putNumber("RIGHT_kD", RIGHT_kD);
+  }
+
   private final double distance;
   private final PIDController leftController, rightController;
 
@@ -25,15 +41,15 @@ public class MoveForwardDualEncoder extends MacroCommand {
     requires(Robot.drivetrain);
     this.distance = distance * 819.1875395;
     leftController = new PIDController(
-      SmartDashboard.getNumber("Left kP", 1),
-      SmartDashboard.getNumber("Left kI", 0),
-      SmartDashboard.getNumber("Left kD", 0),
+      SmartDashboard.getNumber("LEFT_kP", LEFT_kP),
+      SmartDashboard.getNumber("LEFT_kI", LEFT_kI),
+      SmartDashboard.getNumber("LEFT_kD", LEFT_kD),
       Robot.drivetrain.getLeftEncoder(),
       Robot.drivetrain::setLeft);
     rightController = new PIDController(
-      SmartDashboard.getNumber("Right kP", 1),
-      SmartDashboard.getNumber("Right kI", 0),
-      SmartDashboard.getNumber("Right kD", 0),
+      SmartDashboard.getNumber("RIGHT_kP", RIGHT_kP),
+      SmartDashboard.getNumber("RIGHT_kI", RIGHT_kI),
+      SmartDashboard.getNumber("RIGHT_kD", RIGHT_kD),
       Robot.drivetrain.getRightEncoder(),
       Robot.drivetrain::setRight);
   }
@@ -50,11 +66,11 @@ public class MoveForwardDualEncoder extends MacroCommand {
     System.out.println("Right current: " + Robot.drivetrain.getRightEncoder().getDistance() +
       " target: " + rightController.getSetpoint());
       
-    leftController.setAbsoluteTolerance(25);
-    rightController.setAbsoluteTolerance(25);
+    leftController.setAbsoluteTolerance(LEFT_TOLERANCE);
+    rightController.setAbsoluteTolerance(RIGHT_TOLERANCE);
 
-    leftController.setOutputRange(-0.4, 0.4);
-    rightController.setOutputRange(-0.4, 0.4);
+    leftController.setOutputRange(-LEFT_OUTPUT_RANGE, LEFT_OUTPUT_RANGE);
+    rightController.setOutputRange(-RIGHT_OUTPUT_RANGE, RIGHT_OUTPUT_RANGE);
 
     leftController.enable();
     rightController.enable();
@@ -68,8 +84,8 @@ public class MoveForwardDualEncoder extends MacroCommand {
   @Override
   protected boolean isFinished() {
     return leftController.onTarget() && rightController.onTarget()
-        && Math.abs(Robot.drivetrain.getLeftEncoder().getRate()) <= 400
-        && Math.abs(Robot.drivetrain.getRightEncoder().getRate()) <= 400;
+        && Math.abs(Robot.drivetrain.getLeftEncoder().getRate()) <= LEFT_RATE_TOLERANCE
+        && Math.abs(Robot.drivetrain.getRightEncoder().getRate()) <= RIGHT_RATE_TOLERANCE;
   }
 
   @Override
