@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleCompressor;
@@ -53,7 +52,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("Base Speed: ", 0.45);
+
   }
 
   /**
@@ -67,9 +66,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Pot Val", arm.getPot().get());
 
-    SmartDashboard.putNumber("Angle Rate", drivetrain.getGyro().getRate());
   }
 
   /**
@@ -120,7 +117,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    System.out.println(arm.getPot().get());
     Scheduler.getInstance().run();
   }
 
