@@ -16,8 +16,8 @@ import frc.util.Constants;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * A macro command that moves the robot forward a specified distance, utilizing a gyro to keep the bot
- * moving straight.
+ * A MacroCommand that implements an algorithm utilizing PIDControllers on both
+ * the gyro and the encoders in order to maintain a straight heading.
  */
 public class MoveForwardGyroEncoder extends MacroCommand {
   private static final double DIST_TOLERANCE = 40, ANGLE_TOLERANCE = 5;
