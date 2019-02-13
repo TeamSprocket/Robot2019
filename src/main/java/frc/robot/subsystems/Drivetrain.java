@@ -19,8 +19,10 @@ import frc.robot.RobotMap;
  */
 public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_LEFT_TALON);
-  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_RIGHT_TALON);
+  private final WPI_TalonSRX midLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_LEFT_TALON);
   private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_LEFT_TALON);
+  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_RIGHT_TALON);
+  private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_RIGHT_TALON);
   private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
   public static final int RIGHT_ENCODER_A = 0;
@@ -35,10 +37,13 @@ public class Drivetrain extends Subsystem {
   
   private Drivetrain() {
     frontRightTalon.setInverted(true);
+    midRightTalon.setInverted(true);
     backRightTalon.setInverted(true);
 
     backLeftTalon.follow(frontLeftTalon);
+    midLeftTalon.follow(frontLeftTalon);
     backRightTalon.follow(frontRightTalon);
+    midRightTalon.follow(frontRightTalon);
 	}
 
   public void setLeft(double speed) {
