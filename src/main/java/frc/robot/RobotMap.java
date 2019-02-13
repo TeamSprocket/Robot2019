@@ -21,6 +21,10 @@ public final class RobotMap {
     public static final int BACK_RIGHT_TALON = 2;
   }
 
+  public static final class Arm {
+    public static final int POT = 0;
+  }
+
   public static final class CargoShooter {
     public static final int LEFT_TALON = 1;
     public static final int RIGHT_TALON = 5;

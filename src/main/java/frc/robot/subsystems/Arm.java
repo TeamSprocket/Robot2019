@@ -9,25 +9,26 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Subsystem used for controlling the arm
  */
 public class Arm extends Subsystem {
-    public static final int POT = 0;
-    private final AnalogPotentiometer pot = new AnalogPotentiometer(POT, 720, 0);
+  private final AnalogPotentiometer pot = new AnalogPotentiometer(RobotMap.Arm.POT, 720, 0);
 
-    @Override
-    protected void initDefaultCommand() {
+  public AnalogPotentiometer getPot() {
+    return pot;
+  }
 
-    }
-    public AnalogPotentiometer getPot() {
-        return pot;
-      }
+  @Override
+  protected void initDefaultCommand() {
+  }
+
   // Singleton instance, getter, and constructor
-    private static final Arm instance = new Arm();
+  private static final Arm instance = new Arm();
 
-    public static Arm getInstance() {
-        return instance;
+  public static Arm getInstance() {
+  return instance;
   }
 }
