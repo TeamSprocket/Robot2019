@@ -11,9 +11,10 @@ import frc.util.FieldConfiguration;
 import frc.util.commands.auton.routine.AutonRoutine;
 
 /**
- * TODO: Add docs
+ * This class provides static factory methods for dynamically creating an
+ * appropriate AutonRoutine given a FieldConfiguration and AutonMode
  */
-public class AutonRoutineFactory {
+public final class AutonRoutineFactory {
   public static enum AutonMode {
     DO_NOTHING
   }
@@ -23,5 +24,9 @@ public class AutonRoutineFactory {
       default:
         return new DoNothing();
     }
+  }
+
+  // Private constructor to prevent instantiation
+  private AutonRoutineFactory() {
   }
 }
