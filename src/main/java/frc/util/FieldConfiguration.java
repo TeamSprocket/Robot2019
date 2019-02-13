@@ -8,7 +8,7 @@
 package frc.util;
 
 /**
- * TODO: Add docs
+ * A multipurpose class that stores field configurations
  */
 public class FieldConfiguration {
   private LCR startingPosition;

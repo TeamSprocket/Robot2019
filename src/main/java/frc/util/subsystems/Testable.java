@@ -8,7 +8,7 @@
 package frc.util.subsystems;
 
 /**
- * TODO: Add docs
+ * An interface used to ensure that subsystems have a method to test different parts
  */
 public interface Testable {
   public void test();

@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * TODO: Add docs
+ * A persistent command that assigns controls to drive the robot
  */
 public class Drive extends PersistentCommand {
   public Drive() {

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 /**
- * Add your docs here.
+ * This class is used to ensure that an event isn't fired consecutively
  */
 public class LatchedEventListener {
   private static List<LatchedEventListener> listeners = new ArrayList<>();
