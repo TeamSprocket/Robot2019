@@ -12,7 +12,7 @@ import frc.robot.Robot;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * TODO: Add docs
+ * A persistent command that assigns controls to shoot the cargo
  */
 public class Shoot extends PersistentCommand {
   public Shoot() {

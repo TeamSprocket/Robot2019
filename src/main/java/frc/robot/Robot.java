@@ -22,6 +22,7 @@ import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.MoveForwardGyroEncoder;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.Shoot;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchActuator;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
   public static final Drivetrain drivetrain = Drivetrain.getInstance();
   public static final HatchActuator hatchActuator = HatchActuator.getInstance();
   public static final CargoShooter cargoShooter = CargoShooter.getInstance();
+  public static final Arm arm = Arm.getInstance();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -65,7 +67,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Pot Val", drivetrain.getPot().get());
+    SmartDashboard.putNumber("Pot Val", arm.getPot().get());
 
     SmartDashboard.putNumber("Angle Rate", drivetrain.getGyro().getRate());
   }
@@ -118,7 +120,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    System.out.println(drivetrain.getPot().get());
+    System.out.println(arm.getPot().get());
     Scheduler.getInstance().run();
   }
 

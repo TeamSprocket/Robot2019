@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public final class OI {
-  private static final int A = 1, B = 2, X = 3, Y = 4;
+  private static final int X = 3;
 
   public static final class Controllers {
     public static Joystick leftJoystick = new Joystick(1);

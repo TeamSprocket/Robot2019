@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * TODO: Add docs
+ * Subsystem used for the talons that intake and outake the cargo
  */
 public class CargoShooter extends Subsystem {
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(RobotMap.CargoShooter.LEFT_TALON);
