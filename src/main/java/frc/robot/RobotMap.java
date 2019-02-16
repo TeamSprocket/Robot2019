@@ -32,8 +32,10 @@ public final class RobotMap {
   }
 
   public static final class Arm {
-    public static final int POT = 0;
+    public static final int ARM_TALON = 6;
 
+    public static final int POT = 0;
+    
     private Arm() {
     }
   }

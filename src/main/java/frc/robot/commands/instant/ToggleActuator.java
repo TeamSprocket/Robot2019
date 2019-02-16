@@ -16,17 +16,17 @@ import frc.util.commands.instant.InstantCommand;
  */
 public class ToggleActuator extends InstantCommand {
   public ToggleActuator() {
-    requires(Robot.hatchActuator);
+    // requires(Robot.hatchActuator);
   }
 
   @Override
   protected void initialize() {
-    if(Robot.hatchActuator.isOut()) {
-      Robot.hatchActuator.actuate(false);
-      SmartDashboard.putBoolean("Actuator Out", false);
-    } else {
-      Robot.hatchActuator.actuate(true);
-      SmartDashboard.putBoolean("Actuator Out", true);
-    }
+    // if(Robot.hatchActuator.isOut()) {
+    //   Robot.hatchActuator.actuate(false);
+    //   SmartDashboard.putBoolean("Actuator Out", false);
+    // } else {
+    //   Robot.hatchActuator.actuate(true);
+    //   SmartDashboard.putBoolean("Actuator Out", true);
+    // }
   }
 }

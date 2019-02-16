@@ -17,12 +17,12 @@ import frc.util.commands.instant.InstantCommand;
 public class ToggleCompressor extends InstantCommand {
   @Override
   protected void initialize() {
-    if(Robot.compressor.getClosedLoopControl()) {
-      Robot.compressor.setClosedLoopControl(false);
-      SmartDashboard.putBoolean("Compressing", false);
-    } else {
-      Robot.compressor.setClosedLoopControl(true);
-      SmartDashboard.putBoolean("Compressing", true);
-    }
+    // if(Robot.compressor.getClosedLoopControl()) {
+    //   Robot.compressor.setClosedLoopControl(false);
+    //   SmartDashboard.putBoolean("Compressing", false);
+    // } else {
+    //   Robot.compressor.setClosedLoopControl(true);
+    //   SmartDashboard.putBoolean("Compressing", true);
+    // }
   }
 }

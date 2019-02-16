@@ -35,45 +35,45 @@ public class MoveForwardDualEncoder extends MacroCommand {
   }
 
   private final double distance;
-  private final PIDController leftController, rightController;
+  // private final PIDController leftController, rightController;
 
   public MoveForwardDualEncoder(double distance) {
     requires(Robot.drivetrain);
     this.distance = distance * 819.1875395;
-    leftController = new PIDController(
-      SmartDashboard.getNumber("LEFT_kP", LEFT_kP),
-      SmartDashboard.getNumber("LEFT_kI", LEFT_kI),
-      SmartDashboard.getNumber("LEFT_kD", LEFT_kD),
-      Robot.drivetrain.getLeftEncoder(),
-      Robot.drivetrain::setLeft);
-    rightController = new PIDController(
-      SmartDashboard.getNumber("RIGHT_kP", RIGHT_kP),
-      SmartDashboard.getNumber("RIGHT_kI", RIGHT_kI),
-      SmartDashboard.getNumber("RIGHT_kD", RIGHT_kD),
-      Robot.drivetrain.getRightEncoder(),
-      Robot.drivetrain::setRight);
+    // leftController = new PIDController(
+    //   SmartDashboard.getNumber("LEFT_kP", LEFT_kP),
+    //   SmartDashboard.getNumber("LEFT_kI", LEFT_kI),
+    //   SmartDashboard.getNumber("LEFT_kD", LEFT_kD),
+    //   Robot.drivetrain.getLeftEncoder(),
+    //   Robot.drivetrain::setLeft);
+    // rightController = new PIDController(
+    //   SmartDashboard.getNumber("RIGHT_kP", RIGHT_kP),
+    //   SmartDashboard.getNumber("RIGHT_kI", RIGHT_kI),
+    //   SmartDashboard.getNumber("RIGHT_kD", RIGHT_kD),
+    //   Robot.drivetrain.getRightEncoder(),
+    //   Robot.drivetrain::setRight);
   }
 
   @Override
   protected void initialize() {
-    leftController.setSetpoint(
-      Robot.drivetrain.getLeftEncoder().getDistance() + distance);
-    rightController.setSetpoint(
-      Robot.drivetrain.getRightEncoder().getDistance() + distance);
+    // leftController.setSetpoint(
+    //   Robot.drivetrain.getLeftEncoder().getDistance() + distance);
+    // rightController.setSetpoint(
+    //   Robot.drivetrain.getRightEncoder().getDistance() + distance);
 
-    System.out.println("Left current: " + Robot.drivetrain.getLeftEncoder().getDistance() +
-      " target: " + leftController.getSetpoint());
-    System.out.println("Right current: " + Robot.drivetrain.getRightEncoder().getDistance() +
-      " target: " + rightController.getSetpoint());
+    // System.out.println("Left current: " + Robot.drivetrain.getLeftEncoder().getDistance() +
+    //   " target: " + leftController.getSetpoint());
+    // System.out.println("Right current: " + Robot.drivetrain.getRightEncoder().getDistance() +
+    //   " target: " + rightController.getSetpoint());
       
-    leftController.setAbsoluteTolerance(LEFT_TOLERANCE);
-    rightController.setAbsoluteTolerance(RIGHT_TOLERANCE);
+    // leftController.setAbsoluteTolerance(LEFT_TOLERANCE);
+    // rightController.setAbsoluteTolerance(RIGHT_TOLERANCE);
 
-    leftController.setOutputRange(-LEFT_OUTPUT_RANGE, LEFT_OUTPUT_RANGE);
-    rightController.setOutputRange(-RIGHT_OUTPUT_RANGE, RIGHT_OUTPUT_RANGE);
+    // leftController.setOutputRange(-LEFT_OUTPUT_RANGE, LEFT_OUTPUT_RANGE);
+    // rightController.setOutputRange(-RIGHT_OUTPUT_RANGE, RIGHT_OUTPUT_RANGE);
 
-    leftController.enable();
-    rightController.enable();
+    // leftController.enable();
+    // rightController.enable();
   }
 
   @Override
@@ -83,15 +83,16 @@ public class MoveForwardDualEncoder extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    return leftController.onTarget() && rightController.onTarget()
-        && Math.abs(Robot.drivetrain.getLeftEncoder().getRate()) <= LEFT_RATE_TOLERANCE
-        && Math.abs(Robot.drivetrain.getRightEncoder().getRate()) <= RIGHT_RATE_TOLERANCE;
+    return false;
+    // return leftController.onTarget() && rightController.onTarget()
+    //     && Math.abs(Robot.drivetrain.getLeftEncoder().getRate()) <= LEFT_RATE_TOLERANCE
+    //     && Math.abs(Robot.drivetrain.getRightEncoder().getRate()) <= RIGHT_RATE_TOLERANCE;
   }
 
   @Override
   protected void terminate() {
-    leftController.disable();
-    rightController.disable();
-    SmartDashboard.putBoolean("Dual Running", false);
+    // leftController.disable();
+    // rightController.disable();
+    // SmartDashboard.putBoolean("Dual Running", false);
   }
 }

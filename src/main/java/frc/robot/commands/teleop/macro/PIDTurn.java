@@ -28,16 +28,16 @@ public class PIDTurn extends MacroCommand {
 
   private final double finalAngle;
   private double turn;
-  private final PIDController controller;
+  // private final PIDController controller;
 
   public PIDTurn(double angle) {
     requires(Robot.drivetrain);
 
-    controller = new PIDController(
-      SmartDashboard.getNumber("TURN_kP", TURN_kP), 
-      SmartDashboard.getNumber("TURN_kI", TURN_kI), 
-      SmartDashboard.getNumber("TURN_kD", TURN_kD), 
-      Robot.drivetrain.getGyro(), o -> {turn = o;});
+    // controller = new PIDController(
+    //   SmartDashboard.getNumber("TURN_kP", TURN_kP), 
+    //   SmartDashboard.getNumber("TURN_kI", TURN_kI), 
+    //   SmartDashboard.getNumber("TURN_kD", TURN_kD), 
+    //   Robot.drivetrain.getGyro(), o -> {turn = o;});
     
     finalAngle = angle;
   }
@@ -45,12 +45,12 @@ public class PIDTurn extends MacroCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    controller.setSetpoint(Robot.drivetrain.getGyro().getAngle() + finalAngle);
-    controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
-    controller.setPID(SmartDashboard.getNumber("TURN_kP", TURN_kP), 
-      SmartDashboard.getNumber("TURN_kI", TURN_kI), SmartDashboard.getNumber("TURN_kD", TURN_kD));
-    controller.setAbsoluteTolerance(TOLERANCE);
-    controller.enable();
+    // controller.setSetpoint(Robot.drivetrain.getGyro().getAngle() + finalAngle);
+    // controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
+    // controller.setPID(SmartDashboard.getNumber("TURN_kP", TURN_kP), 
+    //   SmartDashboard.getNumber("TURN_kI", TURN_kI), SmartDashboard.getNumber("TURN_kD", TURN_kD));
+    // controller.setAbsoluteTolerance(TOLERANCE);
+    // controller.enable();
   }
 
   @Override
@@ -61,11 +61,14 @@ public class PIDTurn extends MacroCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return controller.onTarget() && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= RATE_TOLERANCE;
+    // return controller.onTarget() && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= RATE_TOLERANCE;
+  return false;
   }
+
+
 
   @Override
   protected void terminate() {
-    controller.disable();
+    // controller.disable();
   }
 }

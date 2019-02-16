@@ -7,24 +7,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.instant.AbortMacro;
-import frc.robot.commands.instant.ToggleActuator;
-import frc.robot.commands.instant.ToggleCompressor;
-import frc.robot.commands.instant.TogglePipeline;
-import frc.robot.commands.teleop.macro.Align;
-import frc.robot.commands.teleop.macro.MoveForwardGyroEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.teleop.persistent.Drive;
-import frc.robot.commands.teleop.persistent.Shoot;
+import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.LatchedEventListener;
 
@@ -36,11 +27,11 @@ import frc.util.drivers.LatchedEventListener;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static final Compressor compressor = new Compressor(0);
+  // public static final Compressor compressor = new Compressor(0);
 
   public static final Drivetrain drivetrain = Drivetrain.getInstance();
-  public static final HatchActuator hatchActuator = HatchActuator.getInstance();
-  public static final CargoShooter cargoShooter = CargoShooter.getInstance();
+  // public static final HatchActuator hatchActuator = HatchActuator.getInstance();
+  // public static final CargoShooter cargoShooter = CargoShooter.getInstance();
   public static final Arm arm = Arm.getInstance();
 
   Command m_autonomousCommand;
@@ -66,7 +57,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
+    SmartDashboard.putNumber("Pot", arm.getPot().get());
   }
 
   /**
@@ -111,8 +102,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.start();
     }
 
-    Robot.drivetrain.getLeftEncoder().reset();
-    Robot.drivetrain.getRightEncoder().reset();
+    // Robot.drivetrain.getLeftEncoder().reset();
+    // Robot.drivetrain.getRightEncoder().reset();
   }
 
   @Override
@@ -122,26 +113,26 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    HatchActuator.getInstance().actuate(false);
+    // HatchActuator.getInstance().actuate(false);
     
     PersistentCommand.bindPersistent(new Drive(), Robot.drivetrain);
-    PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
+    // PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
+    PersistentCommand.bindPersistent(new MoveArm(), Robot.arm);
     PersistentCommand.startAllPersistent();
 
-    // Robot
-    OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
-    OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
-    OI.Buttons.alignRobot.whenPressed(new Align());
-    OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
-    
-    new LatchedEventListener(
-      () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
-      () -> {new AbortMacro().start();}
-    );
+    // // Robot
+    // OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
+    // // OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
+    // OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
+    // OI.Buttons.alignRobot.whenPressed(new Align());
+    // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
+    // new LatchedEventListener(
+    //   () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
+    //   () -> {new AbortMacro().start();}
+    // );
 
-    // Vision
-    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+    // // Vision
+    // OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
   }
 
   @Override

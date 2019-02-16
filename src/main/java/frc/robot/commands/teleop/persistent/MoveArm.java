@@ -5,26 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.instant;
+package frc.robot.commands.teleop.persistent;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.OI;
 import frc.robot.Robot;
-import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
-/**
- * An instant command that cancels all currently running macro commands.
- */
-public class AbortMacro extends InstantCommand {
-  public AbortMacro() {
-    // requires(Robot.drivetrain);
-    // requires(Robot.hatchActuator);
-    // requires(Robot.cargoShooter);
+public class MoveArm extends PersistentCommand {
+  public MoveArm() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.arm);
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void initialize() {
-    PersistentCommand.startAllPersistent();
-    DriverStation.reportWarning("All MacroCommands aborted!", false);
+  protected void execute() {
+    if(Math.abs(OI.Controllers.gamepad.getRawAxis(5)) > 0.05) {
+      Robot.arm.setSpeed(OI.Controllers.gamepad.getRawAxis(5)*0.5);
+    }
+    else {
+      Robot.arm.setSpeed(0);
+    }
   }
+
 }

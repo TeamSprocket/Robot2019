@@ -37,7 +37,7 @@ public class MoveForwardGyroEncoder extends MacroCommand {
   }
 
   private final double distance;
-  private final PIDController distController, angleController;
+  // private final PIDController distController, angleController;
 
   private double speed, turn;
 
@@ -45,61 +45,61 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     requires(Robot.drivetrain);
     this.distance = distance * Constants.ENCODER_TO_METER;
 
-    distController = new PIDController(
-      SmartDashboard.getNumber("DIST_kP", DIST_kP),
-      SmartDashboard.getNumber("DIST_kI", DIST_kI),
-      SmartDashboard.getNumber("DIST_kD", DIST_kD),
-      new PIDSource() {
-        @Override
-        public void setPIDSourceType(PIDSourceType pidSource) {
-        }
+    // distController = new PIDController(
+    //   SmartDashboard.getNumber("DIST_kP", DIST_kP),
+    //   SmartDashboard.getNumber("DIST_kI", DIST_kI),
+    //   SmartDashboard.getNumber("DIST_kD", DIST_kD),
+    //   new PIDSource() {
+    //     @Override
+    //     public void setPIDSourceType(PIDSourceType pidSource) {
+    //     }
       
-        @Override
-        public double pidGet() {
-          return Robot.drivetrain.getAverageEncoderDistance();
-        }
+    //     @Override
+    //     public double pidGet() {
+    //       return Robot.drivetrain.getAverageEncoderDistance();
+    //     }
       
-        @Override
-        public PIDSourceType getPIDSourceType() {
-          return PIDSourceType.kDisplacement;
-        }
-      },
-      o -> {speed = o;});
-    angleController = new PIDController(
-      SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
-      SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
-      SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD),
-      Robot.drivetrain.getGyro(),
-      o -> {turn = o;});
+    //     @Override
+    //     public PIDSourceType getPIDSourceType() {
+    //       return PIDSourceType.kDisplacement;
+    //     }
+    //   },
+    //   o -> {speed = o;});
+    // angleController = new PIDController(
+    //   SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
+    //   SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
+    //   SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD),
+    //   Robot.drivetrain.getGyro(),
+    //   o -> {turn = o;});
   }
 
   @Override
   protected void initialize() {
-    distController.setPID(
-      SmartDashboard.getNumber("DIST_kP", DIST_kP),
-      SmartDashboard.getNumber("DIST_kI", DIST_kI),
-      SmartDashboard.getNumber("DIST_kD", DIST_kD));
-    angleController.setPID(
-      SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
-      SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
-      SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD));
+    // distController.setPID(
+    //   SmartDashboard.getNumber("DIST_kP", DIST_kP),
+    //   SmartDashboard.getNumber("DIST_kI", DIST_kI),
+    //   SmartDashboard.getNumber("DIST_kD", DIST_kD));
+    // angleController.setPID(
+    //   SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
+    //   SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
+    //   SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD));
 
-    distController.setSetpoint(Robot.drivetrain.getAverageEncoderDistance() + distance);
-    angleController.setSetpoint(Robot.drivetrain.getGyro().getAngle());
+    // distController.setSetpoint(Robot.drivetrain.getAverageEncoderDistance() + distance);
+    // angleController.setSetpoint(Robot.drivetrain.getGyro().getAngle());
 
-    System.out.println("Dist current: " + Robot.drivetrain.getAverageEncoderDistance() +
-      " target: " + distController.getSetpoint());
-    System.out.println("Angle current: " + Robot.drivetrain.getGyro().getAngle() +
-      " target: " + angleController.getSetpoint());
+    // System.out.println("Dist current: " + Robot.drivetrain.getAverageEncoderDistance() +
+    //   " target: " + distController.getSetpoint());
+    // System.out.println("Angle current: " + Robot.drivetrain.getGyro().getAngle() +
+    //   " target: " + angleController.getSetpoint());
 
-    distController.setAbsoluteTolerance(DIST_TOLERANCE);
-    angleController.setAbsoluteTolerance(ANGLE_TOLERANCE);
+    // distController.setAbsoluteTolerance(DIST_TOLERANCE);
+    // angleController.setAbsoluteTolerance(ANGLE_TOLERANCE);
 
-    distController.setOutputRange(-DIST_OUTPUT_RANGE, DIST_OUTPUT_RANGE);
-    angleController.setOutputRange(-ANGLE_OUTPUT_RANGE, ANGLE_OUTPUT_RANGE);
+    // distController.setOutputRange(-DIST_OUTPUT_RANGE, DIST_OUTPUT_RANGE);
+    // angleController.setOutputRange(-ANGLE_OUTPUT_RANGE, ANGLE_OUTPUT_RANGE);
     
-    distController.enable();
-    angleController.enable();
+    // distController.enable();
+    // angleController.enable();
   }
 
   @Override
@@ -109,14 +109,15 @@ public class MoveForwardGyroEncoder extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    return distController.onTarget() && angleController.onTarget()
-      && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= DIST_RATE_TOLERANCE
-      && Math.abs(Robot.drivetrain.getGyro().getRate()) <= ANGLE_RATE_TOLERANCE;
+    // return distController.onTarget() && angleController.onTarget()
+    //   && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= DIST_RATE_TOLERANCE
+    //   && Math.abs(Robot.drivetrain.getGyro().getRate()) <= ANGLE_RATE_TOLERANCE;
+    return false;
   }
 
   @Override
   protected void terminate() {
-    distController.disable();
-    angleController.disable();
+    // distController.disable();
+    // angleController.disable();
   }
 }
