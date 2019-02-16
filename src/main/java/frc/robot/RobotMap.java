@@ -44,8 +44,8 @@ public final class RobotMap {
   }
 
   public static final class CargoShooter {
-    public static final int LEFT_TALON = 1;
-    public static final int RIGHT_TALON = 5;
+    public static final int LEFT_TALON = 4;
+    public static final int RIGHT_TALON = 9;
 
     private CargoShooter() {
     }
@@ -57,6 +57,18 @@ public final class RobotMap {
 
     private HatchActuator() {
     }
+  }
+
+  public static final class HabPneumatics {
+    public static final int FRONT_LEFT_PISTON_FORWARD = 8;
+    public static final int FRONT_LEFT_PISTON_REVERSE = 9;
+    public static final int BACK_LEFT_PISTON_FORWARD = 10;
+    public static final int BACK_LEFT_PISTON_REVERSE = 10;
+
+    public static final int FRONT_RIGHT_PISTON_FORWARD = 8;
+    public static final int FRONT_RIGHT_PISTON_REVERSE = 9;
+    public static final int BACK_RIGHT_PISTON_FORWARD = 10;
+    public static final int BACK_RIGHT_PISTON_REVERSE = 10;
   }
 
   // Private constructor to prevent instantiation

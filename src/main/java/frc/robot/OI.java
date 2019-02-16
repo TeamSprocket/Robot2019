@@ -32,6 +32,10 @@ public final class OI {
     public static final Button togglePipeline = new JoystickButton(Controllers.rightJoystick, 5);
     public static final Button alignRobot = new JoystickButton(Controllers.leftJoystick, 1);
     public static final Button moveForward = new JoystickButton(Controllers.leftJoystick, 2);
+
+    public static final Button toggleFrontPistons = new JoystickButton(Controllers.gamepad, 5);
+    public static final Button toggleBackPistons = new JoystickButton(Controllers.gamepad, 6);
+
     
   }
 
