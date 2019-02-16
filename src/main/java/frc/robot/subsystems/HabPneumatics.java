@@ -73,7 +73,7 @@ public class HabPneumatics extends Subsystem {
 
   private static final HabPneumatics instance = new HabPneumatics();
 
-	public static HabPneumatics getInstance() {
+	public static HabPneumatics get() {
 		return instance;
 	}
 
