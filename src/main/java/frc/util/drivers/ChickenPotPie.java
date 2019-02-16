@@ -28,18 +28,18 @@ public class ChickenPotPie extends AnalogPotentiometer {
   }
 
   public ChickenPotPie(int channel) {
-    this(new AnalogInput(channel));
+    super(channel);
   }
 
   public ChickenPotPie(int channel, double scale) {
-    this(new AnalogInput(channel), scale);
+    super(channel, scale);
   }
 
   public ChickenPotPie(int channel, double fullRange, double offset) {
-    this(new AnalogInput(channel), fullRange, offset);
+    super(channel, fullRange, offset);
   }
 
-  // public double getRate() {
-  //   // new Encoder();
-  // }
+  public double getRate() {
+    return 0;
+  }
 }
