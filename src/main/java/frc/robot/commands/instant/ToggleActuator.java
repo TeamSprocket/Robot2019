@@ -8,7 +8,7 @@
 package frc.robot.commands.instant;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.instant.InstantCommand;
 
 /**
@@ -16,17 +16,17 @@ import frc.util.commands.instant.InstantCommand;
  */
 public class ToggleActuator extends InstantCommand {
   public ToggleActuator() {
-    // requires(Robot.hatchActuator);
+    requires(HatchActuator.get());
   }
 
   @Override
   protected void initialize() {
-    // if(Robot.hatchActuator.isOut()) {
-    //   Robot.hatchActuator.actuate(false);
-    //   SmartDashboard.putBoolean("Actuator Out", false);
-    // } else {
-    //   Robot.hatchActuator.actuate(true);
-    //   SmartDashboard.putBoolean("Actuator Out", true);
-    // }
+    if(HatchActuator.get().isOut()) {
+      HatchActuator.get().actuate(false);
+      SmartDashboard.putBoolean("Actuator Out", false);
+    } else {
+      HatchActuator.get().actuate(true);
+      SmartDashboard.putBoolean("Actuator Out", true);
+    }
   }
 }

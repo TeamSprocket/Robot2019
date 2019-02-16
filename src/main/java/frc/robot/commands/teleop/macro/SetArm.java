@@ -9,11 +9,12 @@ package frc.robot.commands.teleop.macro;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.macro.MacroCommand;
 
-public class SetArmPosition extends MacroCommand {
+public class SetArm extends MacroCommand {
   public static enum ArmPosition {
+    // TODO: Find actual angles
     DOWN(0), HATCH(1), CARGO(2);
 
     private final double angle;
@@ -41,12 +42,12 @@ public class SetArmPosition extends MacroCommand {
   private final PIDController armController;
   private final double targetAngle;
 
-  public SetArmPosition(ArmPosition pos) {
+  public SetArm(ArmPosition pos) {
     this(pos.getAngle());
   }
 
-  public SetArmPosition(double angle) {
-    requires(Robot.arm);
+  public SetArm(double angle) {
+    requires(Arm.get());
 
     targetAngle = angle;
 
@@ -55,8 +56,8 @@ public class SetArmPosition extends MacroCommand {
       SmartDashboard.getNumber("ARM_kI", ARM_kI), 
       SmartDashboard.getNumber("ARM_kD", ARM_kD),
       SmartDashboard.getNumber("ARM_kF", ARM_kF),
-      Robot.arm.getPot(),
-      Robot.arm::setSpeed);
+      Arm.get().getPot(),
+      Arm.get()::setSpeed);
   }
 
   @Override
@@ -78,6 +79,7 @@ public class SetArmPosition extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
+    // return armController.onTarget() && Math.abs(Arm.get().getPot().get);
     return false;
   }
 

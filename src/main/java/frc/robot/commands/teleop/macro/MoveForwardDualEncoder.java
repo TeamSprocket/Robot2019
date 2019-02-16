@@ -7,9 +7,8 @@
 
 package frc.robot.commands.teleop.macro;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
@@ -38,7 +37,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
   // private final PIDController leftController, rightController;
 
   public MoveForwardDualEncoder(double distance) {
-    requires(Robot.drivetrain);
+    requires(Drivetrain.get());
     this.distance = distance * 819.1875395;
     // leftController = new PIDController(
     //   SmartDashboard.getNumber("LEFT_kP", LEFT_kP),

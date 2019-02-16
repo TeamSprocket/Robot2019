@@ -8,7 +8,7 @@
 package frc.robot.commands.teleop.persistent;
 
 import frc.robot.OI;
-import frc.robot.Robot;
+import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 public class MoveArm extends PersistentCommand {
@@ -18,7 +18,7 @@ public class MoveArm extends PersistentCommand {
   public MoveArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.arm);
+    requires(Arm.get());
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -28,24 +28,24 @@ public class MoveArm extends PersistentCommand {
     // not tested yet
     if(Math.abs(speed) > 0.05) {
       // test for potentiometer limit and motion direction  
-      if((Robot.arm.getPot().get() > UPPER_POT_LIMIT && speed < 0) || 
-      (Robot.arm.getPot().get() < LOWER_POT_LIMIT && speed > 0)) {
-        Robot.arm.setSpeed(speed * 0.5);
+      if((Arm.get().getPot().get() > UPPER_POT_LIMIT && speed < 0) || 
+      (Arm.get().getPot().get() < LOWER_POT_LIMIT && speed > 0)) {
+        Arm.get().setSpeed(speed * 0.5);
       }
       // test for limit switches and motion direction
-      if((Robot.arm.getLimit1().get() && speed < 0) || 
-      (Robot.arm.getLimit2().get() && speed > 0)) {
-        Robot.arm.setSpeed(speed * 0.5);
+      if((Arm.get().getLimit1().get() && speed < 0) || 
+      (Arm.get().getLimit2().get() && speed > 0)) {
+        Arm.get().setSpeed(speed * 0.5);
       }
       // general limit test
-      if(Robot.arm.getPot().get() < UPPER_POT_LIMIT 
-      && Robot.arm.getPot().get() > LOWER_POT_LIMIT && 
-      !Robot.arm.getLimit1().get() && !Robot.arm.getLimit2().get()) {
-        Robot.arm.setSpeed(speed * 0.5);
+      if(Arm.get().getPot().get() < UPPER_POT_LIMIT 
+      && Arm.get().getPot().get() > LOWER_POT_LIMIT && 
+      !Arm.get().getLimit1().get() && !Arm.get().getLimit2().get()) {
+        Arm.get().setSpeed(speed * 0.5);
       }
     }
     else {
-      Robot.arm.setSpeed(0);
+      Arm.get().setSpeed(0);
     }
   }
 // 575, 350

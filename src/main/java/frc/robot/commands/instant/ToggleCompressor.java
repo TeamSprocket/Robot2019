@@ -7,8 +7,6 @@
 
 package frc.robot.commands.instant;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 
 /**

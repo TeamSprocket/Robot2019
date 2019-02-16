@@ -31,11 +31,6 @@ import frc.util.drivers.LatchedEventListener;
 public class Robot extends TimedRobot {
   // public static final Compressor compressor = new Compressor(0);
 
-  public static final Drivetrain drivetrain = Drivetrain.getInstance();
-  // public static final HatchActuator hatchActuator = HatchActuator.getInstance();
-  public static final CargoShooter cargoShooter = CargoShooter.getInstance();
-  public static final Arm arm = Arm.getInstance();
-
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -59,7 +54,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Pot", arm.getPot().get());
+    SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
   }
 
   /**
@@ -117,9 +112,9 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     // HatchActuator.getInstance().actuate(false);
     
-    PersistentCommand.bindPersistent(new Drive(), Robot.drivetrain);
-    PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
-    PersistentCommand.bindPersistent(new MoveArm(), Robot.arm);
+    PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
+    PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
+    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // // Robot

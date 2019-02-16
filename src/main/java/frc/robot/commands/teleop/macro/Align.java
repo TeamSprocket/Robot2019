@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
@@ -34,7 +34,7 @@ public class Align extends MacroCommand {
   private PIDController controller;
 
   public Align() {
-    requires(Robot.drivetrain);
+    requires(Drivetrain.get());
     baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", 0.45);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
@@ -76,7 +76,7 @@ public class Align extends MacroCommand {
   @Override
   protected void execute() {
     System.out.println(tx);
-    Robot.drivetrain.arcadeDrive(baseSpeed, -speed);
+    Drivetrain.get().arcadeDrive(baseSpeed, -speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

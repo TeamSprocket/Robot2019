@@ -7,11 +7,8 @@
 
 package frc.robot.commands.teleop.macro;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 import frc.util.Constants;
 import frc.util.commands.teleop.macro.MacroCommand;
 
@@ -42,7 +39,7 @@ public class MoveForwardGyroEncoder extends MacroCommand {
   private double speed, turn;
 
   public MoveForwardGyroEncoder(double distance) {
-    requires(Robot.drivetrain);
+    requires(Drivetrain.get());
     targetDistance = distance * Constants.ENCODER_TO_METER;
 
     // distController = new PIDController(
@@ -56,7 +53,7 @@ public class MoveForwardGyroEncoder extends MacroCommand {
       
     //     @Override
     //     public double pidGet() {
-    //       return Robot.drivetrain.getAverageEncoderDistance();
+    //       return Drivetrain.get().getAverageEncoderDistance();
     //     }
       
     //     @Override
@@ -69,7 +66,7 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     //   SmartDashboard.getNumber("ANGLE_kP", ANGLE_kP),
     //   SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
     //   SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD),
-    //   Robot.drivetrain.getGyro(),
+    //   Drivetrain.get().getGyro(),
     //   o -> {turn = o;});
   }
 
@@ -84,12 +81,12 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     //   SmartDashboard.getNumber("ANGLE_kI", ANGLE_kI),
     //   SmartDashboard.getNumber("ANGLE_kD", ANGLE_kD));
 
-    // distController.setSetpoint(Robot.drivetrain.getAverageEncoderDistance() + distance);
-    // angleController.setSetpoint(Robot.drivetrain.getGyro().getAngle());
+    // distController.setSetpoint(Drivetrain.get().getAverageEncoderDistance() + distance);
+    // angleController.setSetpoint(Drivetrain.get().getGyro().getAngle());
 
-    // System.out.println("Dist current: " + Robot.drivetrain.getAverageEncoderDistance() +
+    // System.out.println("Dist current: " + Drivetrain.get().getAverageEncoderDistance() +
     //   " target: " + distController.getSetpoint());
-    // System.out.println("Angle current: " + Robot.drivetrain.getGyro().getAngle() +
+    // System.out.println("Angle current: " + Drivetrain.get().getGyro().getAngle() +
     //   " target: " + angleController.getSetpoint());
 
     // distController.setAbsoluteTolerance(DIST_TOLERANCE);
@@ -104,14 +101,14 @@ public class MoveForwardGyroEncoder extends MacroCommand {
 
   @Override
   protected void execute() {
-    Robot.drivetrain.arcadeDrive(speed, turn);
+    Drivetrain.get().arcadeDrive(speed, turn);
   }
 
   @Override
   protected boolean isFinished() {
     // return distController.onTarget() && angleController.onTarget()
-    //   && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= DIST_RATE_TOLERANCE
-    //   && Math.abs(Robot.drivetrain.getGyro().getRate()) <= ANGLE_RATE_TOLERANCE;
+    //   && Math.abs(Drivetrain.get().getAverageEncoderRate()) <= DIST_RATE_TOLERANCE
+    //   && Math.abs(Drivetrain.get().getGyro().getRate()) <= ANGLE_RATE_TOLERANCE;
     return false;
   }
 

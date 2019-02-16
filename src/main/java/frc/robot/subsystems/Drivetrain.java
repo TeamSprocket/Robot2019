@@ -9,8 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -90,7 +88,7 @@ public class Drivetrain extends Subsystem {
   // Singleton instance, getter, and constructor
 	private static final Drivetrain instance = new Drivetrain();
 
-	public static Drivetrain getInstance() {
+	public static Drivetrain get() {
 		return instance;
 	}
 }

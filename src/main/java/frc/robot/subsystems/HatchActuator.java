@@ -40,7 +40,7 @@ public class HatchActuator extends Subsystem {
   // Singleton instance, getter, and constructor
   private static final HatchActuator instance = new HatchActuator();
 
-	public static HatchActuator getInstance() {
+	public static HatchActuator get() {
 		return instance;
 	}
 

@@ -7,9 +7,8 @@
 
 package frc.robot.commands.teleop.macro;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
@@ -31,13 +30,13 @@ public class PIDTurn extends MacroCommand {
   // private final PIDController controller;
 
   public PIDTurn(double angle) {
-    requires(Robot.drivetrain);
+    requires(Drivetrain.get());
 
     // controller = new PIDController(
     //   SmartDashboard.getNumber("TURN_kP", TURN_kP), 
     //   SmartDashboard.getNumber("TURN_kI", TURN_kI), 
     //   SmartDashboard.getNumber("TURN_kD", TURN_kD), 
-    //   Robot.drivetrain.getGyro(), o -> {turn = o;});
+    //   Drivetrain.get().getGyro(), o -> {turn = o;});
     
     finalAngle = angle;
   }
@@ -45,7 +44,7 @@ public class PIDTurn extends MacroCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // controller.setSetpoint(Robot.drivetrain.getGyro().getAngle() + finalAngle);
+    // controller.setSetpoint(Drivetrain.get().getGyro().getAngle() + finalAngle);
     // controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
     // controller.setPID(SmartDashboard.getNumber("TURN_kP", TURN_kP), 
     //   SmartDashboard.getNumber("TURN_kI", TURN_kI), SmartDashboard.getNumber("TURN_kD", TURN_kD));
@@ -55,13 +54,13 @@ public class PIDTurn extends MacroCommand {
 
   @Override
   protected void execute() {
-    Robot.drivetrain.arcadeDrive(0, -turn);
+    Drivetrain.get().arcadeDrive(0, -turn);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // return controller.onTarget() && Math.abs(Robot.drivetrain.getAverageEncoderRate()) <= RATE_TOLERANCE;
+    // return controller.onTarget() && Math.abs(Drivetrain.get().getAverageEncoderRate()) <= RATE_TOLERANCE;
   return false;
   }
 

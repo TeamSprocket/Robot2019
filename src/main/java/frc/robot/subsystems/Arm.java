@@ -46,7 +46,7 @@ public class Arm extends Subsystem {
   // Singleton instance, getter, and constructor
   private static final Arm instance = new Arm();
 
-  public static Arm getInstance() {
+  public static Arm get() {
     return instance;
   }
 }

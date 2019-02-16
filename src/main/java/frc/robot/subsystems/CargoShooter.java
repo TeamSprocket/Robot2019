@@ -35,7 +35,7 @@ public class CargoShooter extends Subsystem {
   // Singleton instance, getter, and constructor
 	private static final CargoShooter instance = new CargoShooter();
 
-	public static CargoShooter getInstance() {
+	public static CargoShooter get() {
 		return instance;
 	}
 

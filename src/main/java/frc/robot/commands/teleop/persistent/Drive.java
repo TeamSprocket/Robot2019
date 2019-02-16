@@ -8,7 +8,7 @@
 package frc.robot.commands.teleop.persistent;
 
 import frc.robot.OI;
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
@@ -16,7 +16,7 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  */
 public class Drive extends PersistentCommand {
   public Drive() {
-    requires(Robot.drivetrain);
+    requires(Drivetrain.get());
   }
 
   @Override
@@ -29,6 +29,6 @@ public class Drive extends PersistentCommand {
     if(Math.abs(turn) < 0.1)
       turn = 0.0;
 
-    Robot.drivetrain.arcadeDrive(speed, turn);
+    Drivetrain.get().arcadeDrive(speed, turn);
   }
 }

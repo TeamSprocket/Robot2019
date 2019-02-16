@@ -8,7 +8,7 @@
 package frc.robot.commands.teleop.persistent;
 
 import frc.robot.OI;
-import frc.robot.Robot;
+import frc.robot.subsystems.CargoShooter;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
@@ -16,15 +16,15 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  */
 public class Shoot extends PersistentCommand {
   public Shoot() {
-    requires(Robot.cargoShooter);
+    requires(CargoShooter.get());
   }
 
   @Override
   protected void execute() {
     double speed = OI.Controllers.gamepad.getRawAxis(1);
     if(Math.abs(speed) >= 0.1)
-      Robot.cargoShooter.setSpeed(speed);
+      CargoShooter.get().setSpeed(speed);
     else
-      Robot.cargoShooter.setSpeed(0);
+      CargoShooter.get().setSpeed(0);
   }
 }
