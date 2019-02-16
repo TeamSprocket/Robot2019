@@ -71,13 +71,13 @@ public class HabPneumatics extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+  // Singleton instance and getter
   private static final HabPneumatics instance = new HabPneumatics();
 
 	public static HabPneumatics get() {
 		return instance;
-	}
-
-	private HabPneumatics() {
-	}
-
+  }
+  
+  private HabPneumatics() {
+  }
 }

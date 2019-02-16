@@ -19,6 +19,9 @@ public class HatchActuator extends Subsystem {
   private final DoubleSolenoid piston = new DoubleSolenoid(
       RobotMap.HatchActuator.PISTON_FORWARD, RobotMap.HatchActuator.PISTON_REVERSE);
 
+  private HatchActuator() {
+  }
+  
   public boolean isOut() {
     if(piston.get() == Value.kReverse)
       return true;
@@ -37,13 +40,10 @@ public class HatchActuator extends Subsystem {
   protected void initDefaultCommand() {
   }
 
-  // Singleton instance, getter, and constructor
+  // Singleton instance and getter
   private static final HatchActuator instance = new HatchActuator();
 
 	public static HatchActuator get() {
 		return instance;
-	}
-
-	private HatchActuator() {
 	}
 }

@@ -19,6 +19,9 @@ public class CargoShooter extends Subsystem {
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(RobotMap.CargoShooter.LEFT_TALON);
   private final WPI_TalonSRX rightTalon = new WPI_TalonSRX(RobotMap.CargoShooter.RIGHT_TALON);
 
+  private CargoShooter() {
+	}
+
   public void setSpeed(double speed) {
     leftTalon.set(speed);
     rightTalon.set(speed);
@@ -32,13 +35,10 @@ public class CargoShooter extends Subsystem {
   public void initDefaultCommand() {
   }
 
-  // Singleton instance, getter, and constructor
+  // Singleton instance and getter
 	private static final CargoShooter instance = new CargoShooter();
 
 	public static CargoShooter get() {
 		return instance;
-	}
-
-	private CargoShooter() {
 	}
 }

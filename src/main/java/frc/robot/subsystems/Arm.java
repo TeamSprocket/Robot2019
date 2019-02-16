@@ -13,16 +13,20 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.util.drivers.ChickenPotPie;
 
 /**
  * Subsystem used for controlling the arm
  */
 public class Arm extends Subsystem {
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
-  private final AnalogPotentiometer pot = new AnalogPotentiometer(RobotMap.Arm.POT, 3600, 0);
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, 0);
   
   private final DigitalInput limit1 = new DigitalInput(RobotMap.Arm.LIMIT_1);
   private final DigitalInput limit2 = new DigitalInput(RobotMap.Arm.LIMIT_2);
+
+  private Arm() {
+  }
 
   @Override
   protected void initDefaultCommand() {
@@ -43,7 +47,8 @@ public class Arm extends Subsystem {
   public DigitalInput getLimit2() {
     return limit2;
   }
-  // Singleton instance, getter, and constructor
+
+  // Singleton instance and getter
   private static final Arm instance = new Arm();
 
   public static Arm get() {

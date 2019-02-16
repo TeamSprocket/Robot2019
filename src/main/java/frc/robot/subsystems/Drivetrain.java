@@ -85,10 +85,10 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
   }
 
-  // Singleton instance, getter, and constructor
+  // Singleton instance and getter
 	private static final Drivetrain instance = new Drivetrain();
 
 	public static Drivetrain get() {
 		return instance;
-	}
+  }
 }
