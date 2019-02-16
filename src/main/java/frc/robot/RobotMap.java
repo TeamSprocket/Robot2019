@@ -44,8 +44,8 @@ public final class RobotMap {
   }
 
   public static final class CargoShooter {
-    public static final int LEFT_TALON = 1;
-    public static final int RIGHT_TALON = 5;
+    public static final int LEFT_TALON = 4;
+    public static final int RIGHT_TALON = 9;
 
     private CargoShooter() {
     }
