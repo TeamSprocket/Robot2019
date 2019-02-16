@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.MoveArm;
+import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.LatchedEventListener;
@@ -31,7 +33,7 @@ public class Robot extends TimedRobot {
 
   public static final Drivetrain drivetrain = Drivetrain.getInstance();
   // public static final HatchActuator hatchActuator = HatchActuator.getInstance();
-  // public static final CargoShooter cargoShooter = CargoShooter.getInstance();
+  public static final CargoShooter cargoShooter = CargoShooter.getInstance();
   public static final Arm arm = Arm.getInstance();
 
   Command m_autonomousCommand;
@@ -116,7 +118,7 @@ public class Robot extends TimedRobot {
     // HatchActuator.getInstance().actuate(false);
     
     PersistentCommand.bindPersistent(new Drive(), Robot.drivetrain);
-    // PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
+    PersistentCommand.bindPersistent(new Shoot(), Robot.cargoShooter);
     PersistentCommand.bindPersistent(new MoveArm(), Robot.arm);
     PersistentCommand.startAllPersistent();
 
