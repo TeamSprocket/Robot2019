@@ -36,14 +36,14 @@ public class MoveForwardGyroEncoder extends MacroCommand {
     SmartDashboard.putNumber("ANGLE_kD", ANGLE_kD);
   }
 
-  private final double distance;
+  private final double targetDistance;
   // private final PIDController distController, angleController;
 
   private double speed, turn;
 
   public MoveForwardGyroEncoder(double distance) {
     requires(Robot.drivetrain);
-    this.distance = distance * Constants.ENCODER_TO_METER;
+    targetDistance = distance * Constants.ENCODER_TO_METER;
 
     // distController = new PIDController(
     //   SmartDashboard.getNumber("DIST_kP", DIST_kP),
