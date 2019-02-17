@@ -10,7 +10,7 @@ package frc.robot.commands.auton.routine;
 import frc.util.commands.auton.routine.AutonRoutine;
 
 /**
- * This is an auton routine that does absolutely nothing.
+ * This is an AutonRoutine that does absolutely nothing.
  */
 public class DoNothing extends AutonRoutine {
   public DoNothing() {

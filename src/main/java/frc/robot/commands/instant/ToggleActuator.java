@@ -12,7 +12,7 @@ import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.instant.InstantCommand;
 
 /**
- * An instant command that toggles the hatch actuator.
+ * An InstantCommand that toggles the solenoids of the HatchActuator.
  */
 public class ToggleActuator extends InstantCommand {
   public ToggleActuator() {

@@ -7,20 +7,23 @@
 
 package frc.robot.commands.instant;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.util.commands.instant.InstantCommand;
 
 /**
- * An instant command used to toggle the pneumatics compressor.
+ * An InstantCommand used to toggle the closed loop control state of the
+ * compressor.
  */
 public class ToggleCompressor extends InstantCommand {
   @Override
   protected void initialize() {
-    // if(Robot.compressor.getClosedLoopControl()) {
-    //   Robot.compressor.setClosedLoopControl(false);
-    //   SmartDashboard.putBoolean("Compressing", false);
-    // } else {
-    //   Robot.compressor.setClosedLoopControl(true);
-    //   SmartDashboard.putBoolean("Compressing", true);
-    // }
+    if(Robot.compressor.getClosedLoopControl()) {
+      Robot.compressor.setClosedLoopControl(false);
+      SmartDashboard.putBoolean("Compressing", false);
+    } else {
+      Robot.compressor.setClosedLoopControl(true);
+      SmartDashboard.putBoolean("Compressing", true);
+    }
   }
 }

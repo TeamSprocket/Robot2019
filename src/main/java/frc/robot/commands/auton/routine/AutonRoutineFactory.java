@@ -7,7 +7,6 @@
 
 package frc.robot.commands.auton.routine;
 
-import frc.util.FieldConfiguration;
 import frc.util.commands.auton.routine.AutonRoutine;
 
 /**
@@ -19,7 +18,15 @@ public final class AutonRoutineFactory {
     DO_NOTHING
   }
 
-  public static AutonRoutine createRoutine(FieldConfiguration config, AutonMode mode) {
+  public static enum StartPosition {
+    LEFT, CENTER, RIGHT;
+  }
+
+  public static enum StartLevel {
+    LEVEL_ONE, LEVEL_2;
+  }
+
+  public static AutonRoutine createRoutine(AutonMode mode, StartPosition pos, StartLevel lev) {
     switch(mode) {
       default:
         return new DoNothing();

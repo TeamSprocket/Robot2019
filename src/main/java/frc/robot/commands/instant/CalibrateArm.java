@@ -10,6 +10,9 @@ package frc.robot.commands.instant;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.instant.InstantCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class CalibrateArm extends InstantCommand {
   public CalibrateArm() {
   }

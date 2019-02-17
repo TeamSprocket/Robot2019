@@ -10,12 +10,13 @@ package frc.robot.commands.instant;
 import frc.util.commands.instant.InstantCommand;
 import frc.robot.subsystems.HabPneumatics;
 
+/**
+ * TODO: Add docs
+ */
 public class ToggleFrontPistons extends InstantCommand {
-
   @Override
   protected void initialize() {
     HabPneumatics.get().actuateFront();
   }
-
 }
 
