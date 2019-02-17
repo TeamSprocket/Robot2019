@@ -36,7 +36,7 @@ public class Arm extends Subsystem {
     armTalon.set(speed);
   }
 
-  public AnalogPotentiometer getPot() {
+  public ChickenPotPie getPot() {
     return pot;
   }
 

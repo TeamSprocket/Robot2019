@@ -79,8 +79,7 @@ public class SetArm extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    // return armController.onTarget() && Math.abs(Arm.get().getPot().get);
-    return false;
+    return armController.onTarget() && Math.abs(Arm.get().getPot().getRate()) <= ARM_RATE_TOLERANCE;
   }
 
   @Override

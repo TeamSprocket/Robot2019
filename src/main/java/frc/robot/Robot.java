@@ -22,6 +22,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.persistent.PersistentCommand;
+import frc.util.drivers.ChickenPotPie;
 import frc.util.drivers.LatchedEventListener;
 
 /**
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
+    ChickenPotPie.updateAll();
   }
 
   /**
