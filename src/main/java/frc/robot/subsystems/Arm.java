@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -22,8 +21,8 @@ public class Arm extends Subsystem {
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, 0);
   
-  private final DigitalInput limit1 = new DigitalInput(RobotMap.Arm.LIMIT_1);
-  private final DigitalInput limit2 = new DigitalInput(RobotMap.Arm.LIMIT_2);
+  private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
+  private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
   private Arm() {
   }
@@ -36,16 +35,25 @@ public class Arm extends Subsystem {
     armTalon.set(speed);
   }
 
+  public void stop() {
+    setSpeed(0);
+  }
+
+  public void calibrate() {
+    pot.setOffset(0);
+    pot.setOffset(-pot.get());
+  }
+  
   public ChickenPotPie getPot() {
     return pot;
   }
 
-  public DigitalInput getLimit1() {
-    return limit1;
+  public DigitalInput getFrontLimitSwitch() {
+    return frontLimitSwitch;
   }
 
-  public DigitalInput getLimit2() {
-    return limit2;
+  public DigitalInput getBackLimitSwitch() {
+    return backLimitSwitch;
   }
 
   // Singleton instance and getter
