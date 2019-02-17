@@ -9,8 +9,8 @@ package frc.robot.commands.teleop.macro;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
-import frc.util.Constants;
 import frc.util.commands.teleop.macro.MacroCommand;
+import frc.util.units.distances.Distance;
 
 /**
  * A MacroCommand that implements an algorithm utilizing PIDControllers on both
@@ -38,9 +38,9 @@ public class MoveForwardGyroEncoder extends MacroCommand {
 
   private double speed, turn;
 
-  public MoveForwardGyroEncoder(double distance) {
+  public MoveForwardGyroEncoder(Distance distance) {
     requires(Drivetrain.get());
-    targetDistance = distance * Constants.ENCODER_TO_METER;
+    targetDistance = distance.inPulses().getValue();
 
     // distController = new PIDController(
     //   SmartDashboard.getNumber("DIST_kP", DIST_kP),

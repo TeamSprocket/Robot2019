@@ -9,6 +9,7 @@ package frc.robot.commands.teleop.macro;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.util.units.distances.Meter;
 
 public class TriangleAlign extends CommandGroup {
   private final double h1 = 0.65;
@@ -30,7 +31,7 @@ public class TriangleAlign extends CommandGroup {
     r = d/Math.toDegrees(Math.cos(tx));
     distance = r * Math.toDegrees(Math.sin(tx))/Math.toDegrees(Math.sin(180 - 2 * tx));
     addSequential(new PIDTurn(tx * 2));
-    addSequential(new MoveForwardGyroEncoder(distance));
+    addSequential(new MoveForwardGyroEncoder(new Meter(distance)));
     addSequential(new PIDTurn(tx * -2));
     addSequential(new Align());
   }
