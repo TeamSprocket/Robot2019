@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public final class OI {
-  private static final int X = 3;
+  private static final int X = 3, Y = 4;
 
   public static final class Controllers {
     public static Joystick leftJoystick = new Joystick(1);
@@ -32,6 +32,8 @@ public final class OI {
     public static final Button togglePipeline = new JoystickButton(Controllers.rightJoystick, 5);
     public static final Button alignRobot = new JoystickButton(Controllers.leftJoystick, 1);
     public static final Button moveForward = new JoystickButton(Controllers.leftJoystick, 2);
+
+    public static final Button calibrateArm = new JoystickButton(Controllers.gamepad, Y);
 
     public static final Button toggleFrontPistons = new JoystickButton(Controllers.gamepad, 5);
     public static final Button toggleBackPistons = new JoystickButton(Controllers.gamepad, 6);

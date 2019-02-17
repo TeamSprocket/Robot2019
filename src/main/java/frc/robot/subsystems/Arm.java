@@ -40,7 +40,7 @@ public class Arm extends Subsystem {
   }
 
   public void calibrate() {
-    pot.setOffset(0);
+    // pot.setOffset(0);
     pot.setOffset(-pot.get());
   }
   

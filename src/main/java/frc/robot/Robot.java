@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
+import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.ToggleBackPistons;
+import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.MoveArm;
@@ -124,8 +126,9 @@ public class Robot extends TimedRobot {
 
     // // Robot
     // OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
-    // // OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
+    OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
+    OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     // OI.Buttons.alignRobot.whenPressed(new Align());
     // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
     // new LatchedEventListener(
