@@ -8,7 +8,10 @@
 package frc.robot.commands.instant;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
@@ -19,6 +22,9 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
 public class AbortMacro extends InstantCommand {
   public AbortMacro() {
     requires(Drivetrain.get());
+    requires(Arm.get());
+    requires(HatchActuator.get());
+    requires(CargoShooter.get());
   }
 
   @Override

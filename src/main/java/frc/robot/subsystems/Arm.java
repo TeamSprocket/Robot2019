@@ -19,7 +19,7 @@ import frc.util.drivers.ChickenPotPie;
  */
 public class Arm extends Subsystem {
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
-  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, 0);
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 2700, 0);
   
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
@@ -40,7 +40,7 @@ public class Arm extends Subsystem {
   }
 
   public void calibrate() {
-    // pot.setOffset(0);
+    pot.setOffset(0);
     pot.setOffset(-pot.get());
   }
   

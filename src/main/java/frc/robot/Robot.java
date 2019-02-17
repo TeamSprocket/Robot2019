@@ -18,6 +18,7 @@ import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
+import frc.robot.commands.teleop.macro.FeedForwardArm;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -141,6 +142,8 @@ public class Robot extends TimedRobot {
     // OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+
+    OI.Buttons.armFeedForwardButton.whenPressed5,(new FeedForwardArm());
   }
 
   @Override
