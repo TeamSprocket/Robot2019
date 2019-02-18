@@ -13,9 +13,8 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 public class MoveArm extends PersistentCommand {
-  private static final double SPEED_MODIFIER = 0.5;
-  // TODO: Find out limit difference
-  private static final double UPPER_POT_LIMIT = 200, LOWER_POT_LIMIT = -5;
+  private static final double SPEED_MODIFIER = 1.0;
+  private static final double UPPER_POT_LIMIT = 205, LOWER_POT_LIMIT = -5;
 
   public MoveArm() {
     requires(Arm.get());
@@ -29,10 +28,10 @@ public class MoveArm extends PersistentCommand {
       || (speed > 0.1 && Arm.get().getPot().get() > LOWER_POT_LIMIT && !Arm.get().getFrontLimitSwitch().get())) {
       Arm.get().setSpeed(speed * SPEED_MODIFIER);
       SmartDashboard.putNumber("Arm speed", speed * SPEED_MODIFIER);
+      SmartDashboard.putBoolean("MoveArm Running", true);
     } else {
       Arm.get().stop();
+      SmartDashboard.putBoolean("MoveArm Running", false);
     }
   }
-// TODO: What's this???
-// 575, 350
 }

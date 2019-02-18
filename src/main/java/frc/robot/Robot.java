@@ -18,9 +18,15 @@ import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
+import frc.robot.commands.instant.TogglePipeline;
+import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.FeedForwardArm;
+import frc.robot.commands.teleop.macro.FindLowerBound;
+import frc.robot.commands.teleop.macro.SetArm;
+import frc.robot.commands.teleop.macro.SetArm.ArmPosition;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.MoveArm;
+import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
@@ -63,6 +69,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
+    SmartDashboard.putNumber("Pot Rate", Arm.get().getPot().getRate());
     ChickenPotPie.updateAll();
   }
 
@@ -119,11 +126,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    
+
+
     // HatchActuator.getInstance().actuate(false);
     
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // // Robot
@@ -131,7 +141,7 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
-    // OI.Buttons.alignRobot.whenPressed(new Align());
+    OI.Buttons.alignRobot.whenPressed(new Align());
     // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
     // new LatchedEventListener(
     //   () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
@@ -139,11 +149,13 @@ public class Robot extends TimedRobot {
     // );
 
     // // Vision
-    // OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
 
-    OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
+    // OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
+
+    // OI.Buttons.lowerBoundButton.whenPressed(new SetArm(ArmPosition.TEST));
   }
 
   @Override

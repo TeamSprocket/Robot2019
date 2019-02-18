@@ -37,8 +37,9 @@ public abstract class PersistentCommand extends Command {
     }
   }
 
+  // TODO: Clean
   @Override
-  protected final void initialize() {
+  protected void initialize() {
   }
 
   @Override

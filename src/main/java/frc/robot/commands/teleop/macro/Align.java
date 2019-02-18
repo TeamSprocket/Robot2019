@@ -20,11 +20,11 @@ import frc.util.commands.teleop.macro.MacroCommand;
  */
 public class Align extends MacroCommand {
   private static final double ALIGN_kP = 0, ALIGN_kI = 0, ALIGN_kD = 0;
-  private static final double DEFAULT_BASE_SPEED = 0.45;
+  private static final double ALIGN_BASE_SPEED = 0.45;
   private static final double OUTPUT_RANGE = 0.3;
 
   static {
-    SmartDashboard.putNumber("ALIGN_BASE_SPEED", DEFAULT_BASE_SPEED);
+    SmartDashboard.putNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
     SmartDashboard.putNumber("ALIGN_kP", ALIGN_kP);
     SmartDashboard.putNumber("ALIGN_kI", ALIGN_kI);
     SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
@@ -61,7 +61,6 @@ public class Align extends MacroCommand {
       o -> {speed = o;});
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     controller.setPID(
@@ -79,7 +78,6 @@ public class Align extends MacroCommand {
     Drivetrain.get().arcadeDrive(baseSpeed, -speed);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     // return Math.abs(tx) <= 0.5 || Math.abs(lastOutput) <= 0.08;

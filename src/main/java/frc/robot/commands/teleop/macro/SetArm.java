@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.macro.MacroCommand;
+import frc.util.units.angle.Degree;
 
 public class SetArm extends MacroCommand {
   public static enum ArmPosition {
     // TODO: Find actual angles
-    DOWN(0), HATCH(1), CARGO(2);
+    DOWN(0), HATCH(1), CARGO(2), TEST(45);
 
     private final double angle;
 
@@ -23,31 +24,29 @@ public class SetArm extends MacroCommand {
       this.angle = angle;
     }
 
-    public double getAngle() {
-      return angle;
+    public Degree getAngle() {
+      return new Degree(angle);
     }
   }
 
   private static final double ARM_kP = 1, ARM_kI = 0, ARM_kD = 0, ARM_kF = 0;
   private static final double ARM_TOLERANCE = 4, ARM_RATE_TOLERANCE = 4;
-  private static final double ARM_OUTPUT_RANGE = 0.3;
-
-  static {
-    SmartDashboard.putNumber("ARM_kP", ARM_kP);
-    SmartDashboard.putNumber("ARM_kI", ARM_kI);
-    SmartDashboard.putNumber("ARM_kD", ARM_kD);
-    SmartDashboard.putNumber("ARM_kF", ARM_kF);
-  }
+  private static final double ARM_OUTPUT_RANGE = 0.6;
   
   private final PIDController armController;
   private final double targetAngle;
 
   public SetArm(ArmPosition pos) {
-    this(pos.getAngle());
+    this(pos.getAngle().getValue());
   }
 
   public SetArm(double angle) {
     requires(Arm.get());
+
+    // SmartDashboard.putNumber("ARM_kP", ARM_kP);
+    // SmartDashboard.putNumber("ARM_kI", ARM_kI);
+    // SmartDashboard.putNumber("ARM_kD", ARM_kD);
+    // SmartDashboard.putNumber("ARM_kF", ARM_kF);
 
     targetAngle = angle;
 
@@ -79,10 +78,11 @@ public class SetArm extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    return armController.onTarget() && Math.abs(Arm.get().getPot().getRate()) <= ARM_RATE_TOLERANCE;
+    return false;
   }
 
   @Override
   protected void terminate() {
+    armController.disable();
   }
 }

@@ -9,12 +9,9 @@ package frc.robot.commands.teleop.macro;
 
 import frc.robot.OI;
 import frc.robot.subsystems.Arm;
-import frc.util.commands.instant.InstantCommand;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 public class FeedForwardArm extends MacroCommand {
-  private static final double a = -0.129699, b = -0.029082, c = 0.0319926;
-
   public FeedForwardArm() {
     requires(Arm.get());
   }
@@ -26,7 +23,9 @@ public class FeedForwardArm extends MacroCommand {
 
   @Override
   protected void execute() {
-    Arm.get().setSpeed(a * Math.sin(b * Arm.get().getPot().get()) + c);
+    double angle = Arm.get().getPot().get();
+
+
   }
 
   @Override
@@ -36,6 +35,6 @@ public class FeedForwardArm extends MacroCommand {
 
   @Override
   protected void terminate() {
-    Arm.get().stop();
+    
   }
 }

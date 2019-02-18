@@ -39,6 +39,8 @@ public final class OI {
     public static final Button toggleBackPistons = new JoystickButton(Controllers.gamepad, 6);
 
     public static final Button armFeedForwardButton = new JoystickButton(Controllers.gamepad, B);
+
+    public static final Button lowerBoundButton = new JoystickButton(Controllers.gamepad, A);
   }
 
   // Private constructor to prevent instantiation
