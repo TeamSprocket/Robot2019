@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
 
-    OI.Buttons.armFeedForwardButton.whenPressed5,(new FeedForwardArm());
+    OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
   }
 
   @Override
