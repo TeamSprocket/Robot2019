@@ -20,7 +20,7 @@ public class PIDMoveArm extends PersistentCommand {
   private static final double ARM_kP = 0.02, ARM_kI = 0, ARM_kD = 0.01;
   private static final double ARM_OUTPUT_RANGE = 0.75;
 
-  private static final double SETPOINT_MULTIPLIER = 2.5;
+  private static final double DELTA_SETPOINT_MULTIPLIER = 2.5;
 
   private final PIDController armController;
 
@@ -65,7 +65,8 @@ public class PIDMoveArm extends PersistentCommand {
         break;
     }
 
-    Arm.get().changeSetpoint(OI.deadband(-OI.Controllers.gamepad.getRawAxis(5)) * SETPOINT_MULTIPLIER);
+    double deltaSetpoint = -OI.Controllers.gamepad.getRawAxis(5);
+    Arm.get().changeSetpoint(OI.deadband(deltaSetpoint) * DELTA_SETPOINT_MULTIPLIER);
   }
 
   @Override

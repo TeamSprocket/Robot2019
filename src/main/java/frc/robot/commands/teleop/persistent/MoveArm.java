@@ -25,7 +25,8 @@ public class MoveArm extends PersistentCommand {
 
   @Override
   protected void execute() {
-    Arm.get().setSpeed(OI.deadband(OI.Controllers.gamepad.getRawAxis(5)) * SPEED_MODIFIER);
+    double speed = OI.Controllers.gamepad.getRawAxis(5);
+    Arm.get().setSpeed(OI.deadband(speed) * SPEED_MODIFIER);
   }
 
   @Override

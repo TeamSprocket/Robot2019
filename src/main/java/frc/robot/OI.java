@@ -26,6 +26,7 @@ public final class OI {
   }
 
   public static final class Buttons {
+    // TODO: Finalize control layout
     public static final Button abortMacroPrimary = new JoystickButton(Controllers.rightJoystick, 2);
     public static final Button toggleActuator = new JoystickButton(Controllers.gamepad, X);
     public static final Button toggleCompressor = new JoystickButton(Controllers.rightJoystick, 3);
@@ -41,6 +42,13 @@ public final class OI {
     public static final Button armFeedForwardButton = new JoystickButton(Controllers.gamepad, B);
 
     public static final Button lowerBoundButton = new JoystickButton(Controllers.gamepad, A);
+  }
+
+  public static final double deadband(double input) {
+    if(input < -0.1 || input > 0.1)
+      return input;
+    else
+      return 0;
   }
 
   // Private constructor to prevent instantiation
