@@ -13,21 +13,24 @@ import frc.robot.OI;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class PIDMoveArm extends PersistentCommand {
+  private static final double ARM_kP = 0.02, ARM_kI = 0, ARM_kD = 0.01;
   private static final double ARM_OUTPUT_RANGE = 0.75;
-  private static final double UPPER_POT_LIMIT = 205, LOWER_POT_LIMIT = -5;
+
+  private static final double SETPOINT_MULTIPLIER = 2.5;
 
   private final PIDController armController;
-
-  private double setpoint = 0;
 
   public PIDMoveArm() {
     requires(Arm.get());
 
     armController = new PIDController(
-      SmartDashboard.getNumber("ARM_kP", 0), 
-      SmartDashboard.getNumber("ARM_kI", 0), 
-      SmartDashboard.getNumber("ARM_kD", 0),
+      SmartDashboard.getNumber("ARM_kP", ARM_kP), 
+      SmartDashboard.getNumber("ARM_kI", ARM_kI), 
+      SmartDashboard.getNumber("ARM_kD", ARM_kD),
       Arm.get().getPot(),
       o -> Arm.get().setSpeed(-o));
   }
@@ -44,26 +47,25 @@ public class PIDMoveArm extends PersistentCommand {
       SmartDashboard.getNumber("ARM_kP", 0), 
       SmartDashboard.getNumber("ARM_kI", 0), 
       SmartDashboard.getNumber("ARM_kD", 0));
-    armController.setSetpoint(setpoint);
-
-    double axis = -OI.Controllers.gamepad.getRawAxis(5);
-    SmartDashboard.putNumber("setpoint", armController.getSetpoint());
-    SmartDashboard.putNumber("output", armController.get());
+    armController.setSetpoint(Arm.get().getSetpoint());
 
     SmartDashboard.putNumber("POV", OI.Controllers.gamepad.getPOV());
     switch(OI.Controllers.gamepad.getPOV()) {
-      case 180:
-        setpoint = 0;
-        break;
       case 0:
-        setpoint = 90;
+        Arm.get().setSetpoint(90);
+        break;
+      case 90:
+        Arm.get().setSetpoint(60);
+        break;
+      case 180:
+        Arm.get().setSetpoint(0);
+        break;
+      case 270:
+        Arm.get().setSetpoint(120);
         break;
     }
 
-    if((axis < -0.1 && setpoint > LOWER_POT_LIMIT && !Arm.get().getBackLimitSwitch().get())
-      || (axis > 0.1 && setpoint < UPPER_POT_LIMIT && !Arm.get().getFrontLimitSwitch().get())) {
-      setpoint += 2.5 * axis;
-    }
+    Arm.get().changeSetpoint(OI.deadband(-OI.Controllers.gamepad.getRawAxis(5)) * SETPOINT_MULTIPLIER);
   }
 
   @Override
@@ -71,6 +73,8 @@ public class PIDMoveArm extends PersistentCommand {
     armController.disable();
     Arm.get().stop();
   }
+
+  // TODO: Clean up
 
   // y~acos(x+b)+c
   // private static final double a1 = 0.238837, b1 = -27.3604, c1 = -0.354398;

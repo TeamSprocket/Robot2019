@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,31 +20,65 @@ import frc.util.drivers.ChickenPotPie;
  * Subsystem used for controlling the arm
  */
 public class Arm extends Subsystem {
-  private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
-  private final ChickenPotPie pot;
+  private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -5;
+
+  private static final double kA1 = 0.208435, kB1 = 70.101, kC1 = 0.0816035;
+  private static final double kA2 = 0.231395, kB2 = 51.8217, kC2 = -0.125988;
+  private static final double UPPER_BOUND_WEIGHT = -0.45, LOWER_BOUND_WEIGHT = -0.3;
   
+  private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
+  
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, 0);
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
+  private boolean feedForwardOn = true;
+  private double setpoint;
+
   private Arm() {
-    AnalogInput potInput = new AnalogInput(RobotMap.Arm.POT);
-
-    pot = new ChickenPotPie(potInput, 3600, 0);
-
     armTalon.setNeutralMode(NeutralMode.Brake);
-  }
-
-  @Override
-  protected void initDefaultCommand() {
   }
   
   public void setSpeed(double speed) {
-    armTalon.set(speed - getFeedForward());
-    SmartDashboard.putNumber("Arm Speed", speed - getFeedForward());
+    if(((speed > 0) && pot.get() < UPPER_ANGLE_LIMIT && !backLimitSwitch.get())
+      || ((speed < 0) && pot.get() > LOWER_ANGLE_LIMIT && !frontLimitSwitch.get())) {
+      if(feedForwardOn)
+        armTalon.set(speed + getFeedForward());
+      else
+        armTalon.set(speed);
+    } else {
+      armTalon.set(0);
+    }
+    SmartDashboard.putNumber("Arm Speed", armTalon.get());
   }
 
   public void stop() {
     setSpeed(0);
+  }
+
+  public double getSetpoint() {
+    return setpoint;
+  }
+
+  public void setSetpoint(double angle) {
+    if(angle > UPPER_ANGLE_LIMIT)
+      setpoint = UPPER_ANGLE_LIMIT;
+    else if(angle < LOWER_ANGLE_LIMIT)
+      setpoint = LOWER_ANGLE_LIMIT;
+    else
+      setpoint = angle;
+  }
+
+  public void changeSetpoint(double angle) {
+    setSetpoint(setpoint + angle);
+  }
+
+  public boolean feedForwardOn() {
+    return feedForwardOn;
+  }
+
+  public void setFeedForward(boolean feedForward) {
+    feedForwardOn = feedForward;
   }
 
   public void calibrate() {
@@ -53,28 +86,19 @@ public class Arm extends Subsystem {
     pot.setOffset(-pot.get());
   }
   
+  private double getFeedForward() {
+    double angle = Arm.get().getPot().get();
+    double upperBound = kA1 * Math.sin(Math.toRadians(angle + kB1)) + kC1;
+    double lowerBound = kA2 * Math.sin(Math.toRadians(angle + kB2)) + kC2;
+    return UPPER_BOUND_WEIGHT * upperBound + LOWER_BOUND_WEIGHT * lowerBound;
+  }
+
   public ChickenPotPie getPot() {
     return pot;
   }
 
-  public DigitalInput getFrontLimitSwitch() {
-    return frontLimitSwitch;
-  }
-
-  public DigitalInput getBackLimitSwitch() {
-    return backLimitSwitch;
-  }
-  
-  private static final double a1 = 0.208435, b1 = 70.101, c1 = 0.0816035;
-  private static final double a2 = 0.231395, b2 = 51.8217, c2 = -0.125988;
-  
-  private double getFeedForward() {
-    double angle = Arm.get().getPot().get();
-
-    double upperBound = a1 * Math.sin(Math.toRadians(angle + b1)) + c1;
-    double lowerBound = a2 * Math.sin(Math.toRadians(angle + b2)) + c2;
-
-    return 0.45 * upperBound + 0.3 * lowerBound;
+  @Override
+  protected void initDefaultCommand() {
   }
 
   // Singleton instance and getter

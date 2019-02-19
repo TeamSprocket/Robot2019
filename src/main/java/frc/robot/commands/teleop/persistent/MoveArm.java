@@ -12,6 +12,9 @@ import frc.robot.OI;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
+/**
+ * TODO: Add docs
+ */
 public class MoveArm extends PersistentCommand {
   private static final double SPEED_MODIFIER = 0.5;
   private static final double UPPER_POT_LIMIT = 205, LOWER_POT_LIMIT = -5;
@@ -22,16 +25,7 @@ public class MoveArm extends PersistentCommand {
 
   @Override
   protected void execute() {
-    double speed = OI.Controllers.gamepad.getRawAxis(5);
-
-    if((speed < 0.1 && Arm.get().getPot().get() < UPPER_POT_LIMIT && !Arm.get().getBackLimitSwitch().get())
-      || (speed > 0.1 && Arm.get().getPot().get() > LOWER_POT_LIMIT && !Arm.get().getFrontLimitSwitch().get())) {
-      Arm.get().setSpeed(speed * SPEED_MODIFIER);
-      SmartDashboard.putBoolean("MoveArm Running", true);
-    } else {
-      Arm.get().stop();
-      SmartDashboard.putBoolean("MoveArm Running", false);
-    }
+    Arm.get().setSpeed(OI.deadband(OI.Controllers.gamepad.getRawAxis(5)) * SPEED_MODIFIER);
   }
 
   @Override

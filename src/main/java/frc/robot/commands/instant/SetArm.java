@@ -7,15 +7,19 @@
 
 package frc.robot.commands.instant;
 
-import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Arm;
 import frc.util.commands.instant.InstantCommand;
+import frc.util.units.angle.Angle;
 
 public class SetArm extends InstantCommand {
-  public SetArm() {
+  private final Angle angle;
+
+  public SetArm(Angle angle) {
+    this.angle = angle;
   }
 
   @Override
   protected void initialize() {
-    
+    Arm.get().setSetpoint(angle.inDegrees().getValue());
   }
 }
