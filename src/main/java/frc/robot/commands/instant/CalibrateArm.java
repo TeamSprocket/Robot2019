@@ -11,7 +11,8 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.instant.InstantCommand;
 
 /**
- * TODO: Add docs
+ * An instant command that sets the value of the arm potentiometer to 0
+ * at its current position.
  */
 public class CalibrateArm extends InstantCommand {
   public CalibrateArm() {

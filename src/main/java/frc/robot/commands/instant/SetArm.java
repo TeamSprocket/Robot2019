@@ -12,7 +12,7 @@ import frc.util.commands.instant.InstantCommand;
 import frc.util.units.angle.Angle;
 
 /**
- * TODO: Add docs
+ * An instant command that automatically sets the arm to the specified angle.
  */
 public class SetArm extends InstantCommand {
   private final Angle angle;

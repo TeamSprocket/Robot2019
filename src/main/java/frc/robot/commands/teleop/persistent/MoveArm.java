@@ -7,17 +7,16 @@
 
 package frc.robot.commands.teleop.persistent;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * TODO: Add docs
+ * A persistent command that allows for manual control of the arm without the
+ * feed forward functionality.
  */
 public class MoveArm extends PersistentCommand {
   private static final double SPEED_MODIFIER = 0.5;
-  private static final double UPPER_POT_LIMIT = 205, LOWER_POT_LIMIT = -5;
 
   public MoveArm() {
     requires(Arm.get());

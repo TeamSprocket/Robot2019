@@ -14,7 +14,8 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * TODO: Add docs
+ * A persistent command that utilizes a PID controller to reach and maintain arm 
+ * positions specified by joystick input.
  */
 public class PIDMoveArm extends PersistentCommand {
   private static final double ARM_kP = 0.02, ARM_kI = 0, ARM_kD = 0.01;

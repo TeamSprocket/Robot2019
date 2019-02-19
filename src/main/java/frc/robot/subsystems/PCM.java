@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * TODO: Add docs
+ * Subsystem used for the pneumatic compressor.
  */
 public class PCM extends Subsystem {
   private final Compressor compressor = new Compressor(0);

@@ -8,7 +8,8 @@
 package frc.util.units;
 
 /**
- * // TODO: Add docs for all abstract units
+ * An abstract class that provides methods for storing and accessing the value of a 
+ * measurement.
  */
 public abstract class Unit {
   protected double value;
