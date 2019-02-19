@@ -26,10 +26,10 @@ public class PIDMoveArm extends PersistentCommand {
   public PIDMoveArm() {
     requires(Arm.get());
 
-    SmartDashboard.putNumber("ARM_kP", 0.1);
+    SmartDashboard.putNumber("ARM_kP", 0.0);
     SmartDashboard.putNumber("ARM_kI", 0.0);
-    SmartDashboard.putNumber("ARM_kD", 0.4);
-    SmartDashboard.putNumber("ARM_kF", 0.4);
+    SmartDashboard.putNumber("ARM_kD", 0.0);
+    SmartDashboard.putNumber("ARM_kF", 0.0);
 
     armController = new PIDController(
       SmartDashboard.getNumber("ARM_kP", 0), 
@@ -58,21 +58,26 @@ public class PIDMoveArm extends PersistentCommand {
     double axis = -OI.Controllers.gamepad.getRawAxis(5);
     System.out.println(armController.getSetpoint());
     
-
     if((axis < -0.1 && Arm.get().getPot().get() < UPPER_POT_LIMIT && !Arm.get().getBackLimitSwitch().get())
       || (axis > 0.1 && Arm.get().getPot().get() > LOWER_POT_LIMIT && !Arm.get().getFrontLimitSwitch().get())) {
       setpoint += axis;
     }
   }
 
-  private static final double a1 = 0.238837, b1 = -27.3604, c1 = -0.354398;
-  private static final double a2 = 0.320962, b2 = -62.7432, c2 = 0.283038;
+  // y~acos(x+b)+c
+  // private static final double a1 = 0.238837, b1 = -27.3604, c1 = -0.354398;
+  // private static final double a2 = 0.320962, b2 = -62.7432, c2 = 0.283038;
+
+  // cim w/ hatch
+  // y~a*sin(x+b)+c
+  private static final double a1 = 0.208435, b1 = 70.101, c1 = 0.0816035;
+  private static final double a2 = 0.231395, b2 = 51.8217, c2 = -0.125988;
   
   private double feedForward() {
     double angle = Arm.get().getPot().get();
 
-    double upperBound = a1 * Math.cos(angle + b1) + c1;
-    double lowerBound = a2 * Math.cos(angle + b2) + c2;
+    double upperBound = a1 * Math.sin(Math.toRadians(angle + b1)) + c1;
+    double lowerBound = a2 * Math.sin(Math.toRadians(angle + b2)) + c2;
 
     return (upperBound + lowerBound) / 2;
   }
