@@ -16,7 +16,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * A macro command to be used in teleop mode that aligns the robot to a vision target.
+ * A MacroCommand to be used in teleop mode that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
   private static final double ALIGN_kP = 0, ALIGN_kI = 0, ALIGN_kD = 0;

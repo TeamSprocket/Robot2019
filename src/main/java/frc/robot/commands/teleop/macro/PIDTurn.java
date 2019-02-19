@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * A macro command to be used in teleop mode that turns the robot a specified angle measure.
+ * A MacroCommand to that turns the robot a specified angle measure.
  */
 public class PIDTurn extends MacroCommand {
   private static final double TURN_kP = 1, TURN_kI = 0, TURN_kD = 0;

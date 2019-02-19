@@ -11,7 +11,7 @@ import frc.util.commands.auton.routine.AutonRoutine;
 
 /**
  * This class provides static factory methods for dynamically creating an
- * appropriate AutonRoutine given a FieldConfiguration and AutonMode
+ * appropriate AutonRoutine given an AutonMode, StartPosition, and StartLevel
  */
 public final class AutonRoutineFactory {
   public static enum AutonMode {

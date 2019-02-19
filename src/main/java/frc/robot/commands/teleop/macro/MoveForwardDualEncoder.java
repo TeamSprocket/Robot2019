@@ -12,10 +12,11 @@ import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * A macro command to be used in teleop mode that moves the robot forward for a specified distance, 
- * utilizing an encoder on each side to keep the robot moving straight.
+ * A MacroCommand that utilizes PIDControllers on both encoders in order to
+ * maintain a straight heading.
  * TODO: Make it work
  */
+@Deprecated
 public class MoveForwardDualEncoder extends MacroCommand {
   private static final double LEFT_TOLERANCE = 25, RIGHT_TOLERANCE = 25;
   private static final double LEFT_RATE_TOLERANCE = 400, RIGHT_RATE_TOLERANCE = 400;
@@ -24,6 +25,7 @@ public class MoveForwardDualEncoder extends MacroCommand {
   private static final double RIGHT_kP = 1.5, RIGHT_kI = 0.5, RIGHT_kD = 1.5;
   
   // TODO: See if this works
+  // TODO: Extract PID constants for all commands elsewhere since this doesn't work
   static {
     SmartDashboard.putNumber("LEFT_kP", LEFT_kP);
     SmartDashboard.putNumber("LEFT_kI", LEFT_kI);

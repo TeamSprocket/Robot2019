@@ -68,6 +68,9 @@ public final class RobotMap {
     public static final int FRONT_RIGHT_PISTON_REVERSE = 9;
     public static final int BACK_RIGHT_PISTON_FORWARD = 10;
     public static final int BACK_RIGHT_PISTON_REVERSE = 10;
+
+    private HabPneumatics() {
+    }
   }
 
   // Private constructor to prevent instantiation

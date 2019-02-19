@@ -11,6 +11,9 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.instant.InstantCommand;
 import frc.util.units.angle.Angle;
 
+/**
+ * TODO: Add docs
+ */
 public class SetArm extends InstantCommand {
   private final Angle angle;
 
