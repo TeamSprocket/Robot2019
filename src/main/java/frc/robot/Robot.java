@@ -43,8 +43,6 @@ import frc.util.drivers.LatchedEventListener;
  * project.
  */
 public class Robot extends TimedRobot {
-  // public static final Compressor compressor = new Compressor(0);
-
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 

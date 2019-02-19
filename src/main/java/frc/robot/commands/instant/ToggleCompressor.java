@@ -9,6 +9,7 @@ package frc.robot.commands.instant;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.PCM;
 import frc.util.commands.instant.InstantCommand;
 
 /**
@@ -18,12 +19,12 @@ import frc.util.commands.instant.InstantCommand;
 public class ToggleCompressor extends InstantCommand {
   @Override
   protected void initialize() {
-    // if(Robot.compressor.getClosedLoopControl()) {
-    //   Robot.compressor.setClosedLoopControl(false);
-    //   SmartDashboard.putBoolean("Compressing", false);
-    // } else {
-    //   Robot.compressor.setClosedLoopControl(true);
-    //   SmartDashboard.putBoolean("Compressing", true);
-    // }
+    if(PCM.get().getCompressor().getClosedLoopControl()) {
+      PCM.get().getCompressor().setClosedLoopControl(false);
+      SmartDashboard.putBoolean("Compressing", false);
+    } else {
+      PCM.get().getCompressor().setClosedLoopControl(true);
+      SmartDashboard.putBoolean("Compressing", true);
+    }
   }
 }
