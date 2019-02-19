@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An improved AnalogPotentiometer with a multitude of additional
@@ -24,12 +25,12 @@ public class ChickenPotPie extends AnalogPotentiometer {
   private double offset;
 
   public static void updateAll() {
-    for (ChickenPotPie p : pies) {
+    for(ChickenPotPie p : pies) {
       p.update();
     }
   }
 
-  private double previous, lastUpdatePiestamp;
+  private double previous = 10, lastUpdatePiestamp;
 
   public ChickenPotPie(AnalogInput input) {
     super(input);
@@ -64,8 +65,12 @@ public class ChickenPotPie extends AnalogPotentiometer {
   }
 
   private void update() {
-    previous = get();
-    lastUpdatePiestamp = System.nanoTime();
+    double current = get();
+    if(Math.abs(current - previous) < 0.5) {
+      previous = current;
+    }
+
+    SmartDashboard.putNumber("previous", previous);
   }
   
   public void setOffset(double offset) {
@@ -81,6 +86,6 @@ public class ChickenPotPie extends AnalogPotentiometer {
   }
   
   public double getRate() {
-    return (get() - previous) / ((System.nanoTime() - lastUpdatePiestamp) / 1e9);
+    return (get() - previous) / 0.02;
   }
 }

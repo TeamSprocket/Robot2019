@@ -7,6 +7,7 @@
 
 package frc.robot.commands.teleop.persistent;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.subsystems.CargoShooter;
 import frc.util.commands.teleop.persistent.PersistentCommand;
@@ -22,9 +23,15 @@ public class Shoot extends PersistentCommand {
   @Override
   protected void execute() {
     double speed = OI.Controllers.gamepad.getRawAxis(1);
+    SmartDashboard.putNumber("Shooter speed", speed);
     if(Math.abs(speed) >= 0.1)
       CargoShooter.get().setSpeed(speed);
     else
       CargoShooter.get().setSpeed(0);
+  }
+
+  @Override
+  protected void terminate() {
+    CargoShooter.get().stop();
   }
 }

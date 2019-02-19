@@ -127,13 +127,15 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     
-
+    SmartDashboard.putNumber("ARM_kP", 0.02);
+    SmartDashboard.putNumber("ARM_kI", 0.0);
+    SmartDashboard.putNumber("ARM_kD", 0.01);
 
     // HatchActuator.getInstance().actuate(false);
     
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // // Robot

@@ -29,7 +29,6 @@ public class Arm extends Subsystem {
 
   private Arm() {
     AnalogInput potInput = new AnalogInput(RobotMap.Arm.POT);
-    potInput.setAverageBits(1);
 
     pot = new ChickenPotPie(potInput, 3600, 0);
 
@@ -41,8 +40,8 @@ public class Arm extends Subsystem {
   }
   
   public void setSpeed(double speed) {
-    armTalon.set(speed);
-    SmartDashboard.putNumber("Arm speed", speed);
+    armTalon.set(speed - getFeedForward());
+    SmartDashboard.putNumber("Arm Speed", speed - getFeedForward());
   }
 
   public void stop() {
@@ -66,6 +65,18 @@ public class Arm extends Subsystem {
     return backLimitSwitch;
   }
   
+  private static final double a1 = 0.208435, b1 = 70.101, c1 = 0.0816035;
+  private static final double a2 = 0.231395, b2 = 51.8217, c2 = -0.125988;
+  
+  private double getFeedForward() {
+    double angle = Arm.get().getPot().get();
+
+    double upperBound = a1 * Math.sin(Math.toRadians(angle + b1)) + c1;
+    double lowerBound = a2 * Math.sin(Math.toRadians(angle + b2)) + c2;
+
+    return 0.45 * upperBound + 0.3 * lowerBound;
+  }
+
   // Singleton instance and getter
   private static final Arm instance = new Arm();
 

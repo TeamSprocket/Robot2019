@@ -22,12 +22,11 @@ public class MoveArm extends PersistentCommand {
 
   @Override
   protected void execute() {
-    double speed = -OI.Controllers.gamepad.getRawAxis(5);
+    double speed = OI.Controllers.gamepad.getRawAxis(5);
 
     if((speed < 0.1 && Arm.get().getPot().get() < UPPER_POT_LIMIT && !Arm.get().getBackLimitSwitch().get())
       || (speed > 0.1 && Arm.get().getPot().get() > LOWER_POT_LIMIT && !Arm.get().getFrontLimitSwitch().get())) {
       Arm.get().setSpeed(speed * SPEED_MODIFIER);
-      SmartDashboard.putNumber("Arm speed", speed * SPEED_MODIFIER);
       SmartDashboard.putBoolean("MoveArm Running", true);
     } else {
       Arm.get().stop();
@@ -35,15 +34,8 @@ public class MoveArm extends PersistentCommand {
     }
   }
 
-  private static final double a1 = 0.208435, b1 = 70.101, c1 = 0.0816035;
-  private static final double a2 = 0.231395, b2 = 51.8217, c2 = -0.125988;
-  
-  private double feedForward() {
-    double angle = Arm.get().getPot().get();
-
-    double upperBound = a1 * Math.sin(Math.toRadians(angle + b1)) + c1;
-    double lowerBound = a2 * Math.sin(Math.toRadians(angle + b2)) + c2;
-
-    return (upperBound + lowerBound) / 2;
+  @Override
+  protected void terminate() {
+    Arm.get().stop();
   }
 }

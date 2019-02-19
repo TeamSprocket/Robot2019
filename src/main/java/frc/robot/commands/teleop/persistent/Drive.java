@@ -31,4 +31,9 @@ public class Drive extends PersistentCommand {
 
     Drivetrain.get().arcadeDrive(speed, turn);
   }
+
+  @Override
+  protected void terminate() {
+    Drivetrain.get().stop();
+  }
 }

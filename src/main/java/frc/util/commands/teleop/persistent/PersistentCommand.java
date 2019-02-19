@@ -52,9 +52,13 @@ public abstract class PersistentCommand extends Command {
   
   @Override
   protected final void end() {
+    terminate();
   }
 
   @Override
   protected final void interrupted() {
+    terminate();
   }
+
+  protected abstract void terminate();
 }
