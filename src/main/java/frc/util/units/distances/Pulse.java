@@ -26,4 +26,9 @@ public class Pulse extends Distance {
   public Pulse inPulses() {
     return this;
   }
+
+  @Override
+  public String toString() {
+    return value + " pulses";
+  }
 }

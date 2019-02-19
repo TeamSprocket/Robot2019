@@ -20,4 +20,6 @@ public abstract class Unit {
   public double getValue() {
     return value;
   }
+
+  public abstract String toString();
 }

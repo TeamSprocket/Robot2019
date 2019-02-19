@@ -24,4 +24,9 @@ public class Degree extends Angle {
   public Radian inRadians() {
     return new Radian(Math.toRadians(value));
   }
+
+  @Override
+  public String toString() {
+    return value + " degrees";
+  }
 }

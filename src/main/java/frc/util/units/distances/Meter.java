@@ -26,4 +26,9 @@ public class Meter extends Distance {
   public Pulse inPulses() {
     return new Pulse(value * TO_ENCODER);
   }
+
+  @Override
+  public String toString() {
+    return value + " meters";
+  }
 }
