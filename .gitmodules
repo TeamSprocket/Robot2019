@@ -1,0 +1,3 @@
+[submodule "src/main/java/frc/util"]
+	path = src/main/java/frc/util
+	url = https://github.com/TeamSprocket/SprocketLib.git
