@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -16,60 +17,16 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class HabPneumatics extends Subsystem {
-  private final DoubleSolenoid pistonLeft = new DoubleSolenoid(
-      RobotMap.HabPneumatics.FRONT_LEFT_PISTON, RobotMap.HabPneumatics.BACK_LEFT_PISTON);
+  private final Solenoid frontPistons = new Solenoid(RobotMap.HabPneumatics.FRONT_SOLENOID);
+  private final Solenoid backPistons = new Solenoid(RobotMap.HabPneumatics.BACK_SOLENOID); 
 
-  private final DoubleSolenoid pistonRight = new DoubleSolenoid(
-    RobotMap.HabPneumatics.FRONT_RIGHT_PISTON, RobotMap.HabPneumatics.BACK_RIGHT_PISTON);
-    
-
-  public boolean isFrontOut() {
-    if(pistonLeft.get() == Value.kForward || pistonRight.get() == Value.kForward)
-      return true;
-    else
-      return false;
+  public void actuateFront() {
+    frontPistons.set(true);
   }
-
-  public void actuate() {
-    
-    if(isFrontOut()) {
-      pistonLeft.set(Value.kReverse);
-      pistonRight.set(Value.kReverse);
-    }
-    else {
-      pistonLeft.set(Value.kForward);
-      pistonRight.set(Value.kForward);
-    }
-  }
-  // public boolean isBackOut() {
-  //   if(pistonBackLeft.get() == Value.kReverse || pistonBackRight.get() == Value.kReverse)
-  //     return true;
-  //   else
-  //     return false;
-  // }
-
-  // public void actuateFront() {
-  //   if(isFrontOut()) {
-  //     pistonFrontLeft.set(Value.kReverse);
-  //     pistonFrontRight.set(Value.kReverse);
-  //   }
-  //   else{
-  //     pistonFrontLeft.set(Value.kForward);
-  //     pistonFrontRight.set(Value.kForward);
-  //   }
-  // }
-
-  // public void actuateBack() {
-  //   if(isBackOut()){
-  //     pistonBackLeft.set(Value.kReverse);
-  //     pistonBackRight.set(Value.kReverse);
-  //   }
-  //   else {
-  //     pistonBackLeft.set(Value.kForward);
-  //     pistonBackRight.set(Value.kForward);
-  //   }
-  // }
   
+  public void actuateBack() {
+    backPistons.set(true);
+  }
 
   @Override
   public void initDefaultCommand() {

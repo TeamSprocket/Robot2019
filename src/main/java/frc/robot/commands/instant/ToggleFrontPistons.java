@@ -15,7 +15,7 @@ import frc.robot.subsystems.HabPneumatics;
 public class ToggleFrontPistons extends InstantCommand {
   @Override
   protected void initialize() {
-    HabPneumatics.get().actuate();
+    HabPneumatics.get().actuateFront();
   }
 }
 

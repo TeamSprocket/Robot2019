@@ -145,8 +145,9 @@ public class Robot extends TimedRobot {
 
     // // Vision
     OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+    
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
-    // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
 
     // OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
 
