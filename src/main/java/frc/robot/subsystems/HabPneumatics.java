@@ -19,19 +19,24 @@ import frc.robot.RobotMap;
 public class HabPneumatics extends Subsystem {
   // private final Solenoid frontPistons = new Solenoid(RobotMap.HabPneumatics.FRONT_SOLENOID);
   // private final Solenoid backPistons = new Solenoid(RobotMap.HabPneumatics.BACK_SOLENOID); 
-  private final DoubleSolenoid leftPistons = new DoubleSolenoid(RobotMap.HabPneumatics.FRONT_LEFT, RobotMap.HabPneumatics.BACK_LEFT);
-  private final DoubleSolenoid rightPistons = new DoubleSolenoid(RobotMap.HabPneumatics.FRONT_RIGHT, RobotMap.HabPneumatics.BACK_RIGHT);
-
+  private final DoubleSolenoid frontPistons = new DoubleSolenoid(RobotMap.HabPneumatics.FRONT_FORWARD, RobotMap.HabPneumatics.FRONT_REVERSE);
+  private final DoubleSolenoid backPistons = new DoubleSolenoid(RobotMap.HabPneumatics.BACK_FORWARD, RobotMap.HabPneumatics.BACK_REVERSE);
   public void actuateFront() {
-    // frontPistons.set(true);
-    leftPistons.set(Value.kForward);
-    rightPistons.set(Value.kForward);
+    if(frontPistons.get() == Value.kForward) {
+      frontPistons.set(Value.kReverse);
+    }
+    else {
+      frontPistons.set(Value.kForward);
+    }
   }
   
   public void actuateBack() {
-    // backPistons.set(true);
-    leftPistons.set(Value.kReverse);
-    rightPistons.set(Value.kReverse);
+    if(backPistons.get() == Value.kForward) {
+      backPistons.set(Value.kReverse);
+    }
+    else {
+      backPistons.set(Value.kForward);
+    }
   }
 
   @Override

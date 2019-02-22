@@ -18,7 +18,7 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * This class is kept for testing purposes and should not be bound during
  * competition
  */
-@Deprecated
+// @Deprecated
 public class MoveArm extends PersistentCommand {
   private static final double SPEED_MODIFIER = 0.5;
 
