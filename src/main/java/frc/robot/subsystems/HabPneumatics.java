@@ -16,25 +16,31 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class HabPneumatics extends Subsystem {
-  // private final DoubleSolenoid pistonFrontLeft = new DoubleSolenoid(
-  //     RobotMap.HabPneumatics.FRONT_LEFT_PISTON_FORWARD, RobotMap.HabPneumatics.FRONT_LEFT_PISTON_REVERSE);
+  private final DoubleSolenoid pistonLeft = new DoubleSolenoid(
+      RobotMap.HabPneumatics.FRONT_LEFT_PISTON, RobotMap.HabPneumatics.BACK_LEFT_PISTON);
 
-  // private final DoubleSolenoid pistonFrontRight = new DoubleSolenoid(
-  //   RobotMap.HabPneumatics.FRONT_RIGHT_PISTON_FORWARD, RobotMap.HabPneumatics.FRONT_RIGHT_PISTON_REVERSE);
-      
-  // private final DoubleSolenoid pistonBackLeft = new DoubleSolenoid(
-  //   RobotMap.HabPneumatics.BACK_LEFT_PISTON_FORWARD, RobotMap.HabPneumatics.BACK_LEFT_PISTON_REVERSE);
+  private final DoubleSolenoid pistonRight = new DoubleSolenoid(
+    RobotMap.HabPneumatics.FRONT_RIGHT_PISTON, RobotMap.HabPneumatics.BACK_RIGHT_PISTON);
+    
 
-  // private final DoubleSolenoid pistonBackRight = new DoubleSolenoid(
-  //   RobotMap.HabPneumatics.BACK_RIGHT_PISTON_FORWARD, RobotMap.HabPneumatics.BACK_RIGHT_PISTON_REVERSE);
+  public boolean isFrontOut() {
+    if(pistonLeft.get() == Value.kForward || pistonRight.get() == Value.kForward)
+      return true;
+    else
+      return false;
+  }
 
-  // public boolean isFrontOut() {
-  //   if(pistonFrontLeft.get() == Value.kReverse || pistonFrontRight.get() == Value.kReverse)
-  //     return true;
-  //   else
-  //     return false;
-  // }
-
+  public void actuate() {
+    
+    if(isFrontOut()) {
+      pistonLeft.set(Value.kReverse);
+      pistonRight.set(Value.kReverse);
+    }
+    else {
+      pistonLeft.set(Value.kForward);
+      pistonRight.set(Value.kForward);
+    }
+  }
   // public boolean isBackOut() {
   //   if(pistonBackLeft.get() == Value.kReverse || pistonBackRight.get() == Value.kReverse)
   //     return true;

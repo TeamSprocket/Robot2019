@@ -7,13 +7,13 @@
 
 package frc.robot.commands.teleop.persistent;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.subsystems.CargoShooter;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * A persistent command that assigns controls to shoot the cargo
+ * A PersistentCommand that controls shooting cargo with the left gamepad
+ * joystick.
  */
 public class Shoot extends PersistentCommand {
   public Shoot() {
@@ -23,7 +23,7 @@ public class Shoot extends PersistentCommand {
   @Override
   protected void execute() {
     double speed = OI.Controllers.gamepad.getRawAxis(1);
-    CargoShooter.get().setSpeed(OI.deadband(speed));
+    CargoShooter.get().setSpeed(Math.signum(OI.deadband(speed)));
   }
 
   @Override

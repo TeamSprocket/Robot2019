@@ -12,9 +12,13 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * A persistent command that allows for manual control of the arm without the
- * feed forward functionality.
+ * A PersistentCommand that controls the arm by setting speed using the right
+ * gamepad joystick, allowing for more direct control.
+ * 
+ * This class is kept for testing purposes and should not be bound during
+ * competition
  */
+@Deprecated
 public class MoveArm extends PersistentCommand {
   private static final double SPEED_MODIFIER = 0.5;
 

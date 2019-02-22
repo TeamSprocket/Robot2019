@@ -22,9 +22,15 @@ import frc.util.drivers.ChickenPotPie;
 public class Arm extends Subsystem {
   private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -5;
 
-  private static final double kA1 = 0.208435, kB1 = 70.101, kC1 = 0.0816035;
-  private static final double kA2 = 0.231395, kB2 = 51.8217, kC2 = -0.125988;
-  private static final double UPPER_BOUND_WEIGHT = -0.45, LOWER_BOUND_WEIGHT = -0.3;
+  // Wood arm + hatch
+  // private static final double kA1 = 0.208435, kB1 = 70.101, kC1 = 0.0816035;
+  // private static final double kA2 = 0.231395, kB2 = 51.8217, kC2 = -0.125988;
+  
+  // New arm + hatch
+  private static final double kA1 = -0.204212, kB1 = 49.1661, kC1 = 0.102572;
+  private static final double kA2 = -0.20369, kB2 = 62.8452, kC2 = -0.0627395;
+  
+  private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
   
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   
@@ -32,7 +38,7 @@ public class Arm extends Subsystem {
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
-  private boolean feedForwardOn = true;
+  private boolean feedForward = true;
   private double setpoint;
 
   private Arm() {
@@ -42,8 +48,8 @@ public class Arm extends Subsystem {
   public void setSpeed(double speed) {
     if(((speed > 0) && pot.get() < UPPER_ANGLE_LIMIT && !backLimitSwitch.get())
       || ((speed < 0) && pot.get() > LOWER_ANGLE_LIMIT && !frontLimitSwitch.get())) {
-      if(feedForwardOn)
-        armTalon.set(speed + getFeedForward());
+      if(feedForward)
+        armTalon.set(speed + calculateFeedForward());
       else
         armTalon.set(speed);
     } else {
@@ -74,11 +80,11 @@ public class Arm extends Subsystem {
   }
 
   public boolean feedForwardOn() {
-    return feedForwardOn;
+    return feedForward;
   }
 
   public void setFeedForward(boolean feedForward) {
-    feedForwardOn = feedForward;
+    this.feedForward = feedForward;
   }
 
   public void calibrate() {
@@ -86,7 +92,7 @@ public class Arm extends Subsystem {
     pot.setOffset(-pot.get());
   }
   
-  private double getFeedForward() {
+  private double calculateFeedForward() {
     double angle = Arm.get().getPot().get();
     double upperBound = kA1 * Math.sin(Math.toRadians(angle + kB1)) + kC1;
     double lowerBound = kA2 * Math.sin(Math.toRadians(angle + kB2)) + kC2;

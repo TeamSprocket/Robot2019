@@ -22,10 +22,10 @@ public final class RobotMap {
     public static final int MID_RIGHT_TALON = 5;
     public static final int BACK_RIGHT_TALON = 2;
 
-    public static final int RIGHT_ENCODER_A = 0;
-    public static final int RIGHT_ENCODER_B = 1;
-    public static final int LEFT_ENCODER_A = 2;
-    public static final int LEFT_ENCODER_B = 3;
+    public static final int RIGHT_ENCODER_A = 2;
+    public static final int RIGHT_ENCODER_B = 3;
+    public static final int LEFT_ENCODER_A = 4;
+    public static final int LEFT_ENCODER_B = 5;
 
     private Drivetrain() {
     }
@@ -51,23 +51,18 @@ public final class RobotMap {
   }
 
   public static final class HatchActuator {
-    public static final int PISTON_FORWARD = 4;
-    public static final int PISTON_REVERSE = 5;
+    public static final int PISTON_FORWARD = 11;
+    public static final int PISTON_REVERSE = 12;
 
     private HatchActuator() {
     }
   }
 
   public static final class HabPneumatics {
-    public static final int FRONT_LEFT_PISTON_FORWARD = 8;
-    public static final int FRONT_LEFT_PISTON_REVERSE = 9;
-    public static final int BACK_LEFT_PISTON_FORWARD = 10;
-    public static final int BACK_LEFT_PISTON_REVERSE = 10;
-
-    public static final int FRONT_RIGHT_PISTON_FORWARD = 8;
-    public static final int FRONT_RIGHT_PISTON_REVERSE = 9;
-    public static final int BACK_RIGHT_PISTON_FORWARD = 10;
-    public static final int BACK_RIGHT_PISTON_REVERSE = 10;
+    public static final int FRONT_LEFT_PISTON = 4;
+    public static final int FRONT_RIGHT_PISTON = 6;
+    public static final int BACK_LEFT_PISTON = 2;
+    public static final int BACK_RIGHT_PISTON = 3;
 
     private HabPneumatics() {
     }

@@ -8,14 +8,14 @@
 package frc.robot.commands.instant;
 
 import frc.util.commands.instant.InstantCommand;
-
+import frc.robot.subsystems.HabPneumatics;
 /**
  * An instant command that actuates the pistons on the front of the bot.
  */
 public class ToggleFrontPistons extends InstantCommand {
   @Override
   protected void initialize() {
-    // HabPneumatics.get().actuateFront();
+    HabPneumatics.get().actuate();
   }
 }
 

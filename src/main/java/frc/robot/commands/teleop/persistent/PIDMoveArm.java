@@ -14,8 +14,9 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * A persistent command that utilizes a PID controller to reach and maintain arm 
- * positions specified by joystick input.
+ * A PersistentCommand that controls the arm by changing the setpoint of a
+ * PIDController using the right gamepad joystick, allowing for more robust
+ * control.
  */
 public class PIDMoveArm extends PersistentCommand {
   private static final double ARM_kP = 0.02, ARM_kI = 0, ARM_kD = 0.01;
@@ -38,6 +39,8 @@ public class PIDMoveArm extends PersistentCommand {
 
   @Override
   protected void initialize() {
+    Arm.get().setSetpoint(Arm.get().getPot().get());
+
     armController.setOutputRange(-ARM_OUTPUT_RANGE, ARM_OUTPUT_RANGE);
     armController.enable();
   }

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -24,8 +25,8 @@ public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
   // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  // private final Encoder leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_ENCODER_A, RobotMap.Drivetrain.LEFT_ENCODER_B);
-  // private final Encoder rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_ENCODER_A, RobotMap.Drivetrain.RIGHT_ENCODER_B);
+  private final Encoder leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_ENCODER_A, RobotMap.Drivetrain.LEFT_ENCODER_B);
+  private final Encoder rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_ENCODER_A, RobotMap.Drivetrain.RIGHT_ENCODER_B);
 
   private Drivetrain() {
     frontRightTalon.setInverted(true);
@@ -65,13 +66,13 @@ public class Drivetrain extends Subsystem {
   //   return gyro;
   // }
 
-  // public Encoder getLeftEncoder() {
-  //   return leftEncoder;
-  // }
+  public Encoder getLeftEncoder() {
+    return leftEncoder;
+  }
 
-  // public Encoder getRightEncoder() {
-  //   return rightEncoder;
-  // }
+  public Encoder getRightEncoder() {
+    return rightEncoder;
+  }
   
   // public double getAverageEncoderDistance() {
   //   return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;

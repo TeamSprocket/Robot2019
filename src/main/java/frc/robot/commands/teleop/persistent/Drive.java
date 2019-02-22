@@ -12,9 +12,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * A persistent command that assigns controls to drive the robot
+ * A PersistentCommand that controls the drivetrain of the robot using the
+ * primary joysticks.
  */
 public class Drive extends PersistentCommand {
+  private static double SPEED_MULTIPLIER = 1.0, TURN_MULTIPLIER = 0.8;
+
   public Drive() {
     requires(Drivetrain.get());
   }
@@ -23,7 +26,7 @@ public class Drive extends PersistentCommand {
   protected void execute() {
     double speed = -OI.Controllers.leftJoystick.getY();
     double turn = OI.Controllers.rightJoystick.getX();
-    Drivetrain.get().arcadeDrive(OI.deadband(speed), OI.deadband(turn));
+    Drivetrain.get().arcadeDrive(SPEED_MULTIPLIER * OI.deadband(speed), TURN_MULTIPLIER * OI.deadband(turn));
   }
 
   @Override
