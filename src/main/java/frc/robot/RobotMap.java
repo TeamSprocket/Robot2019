@@ -59,8 +59,12 @@ public final class RobotMap {
   }
 
   public static final class HabPneumatics {
-    public static final int FRONT_SOLENOID = 0;
-    public static final int BACK_SOLENOID = 0;
+    // public static final int FRONT_SOLENOID = 0;
+    // public static final int BACK_SOLENOID = 0;
+    public static final int FRONT_LEFT = 4;
+    public static final int FRONT_RIGHT = 7;
+    public static final int BACK_LEFT = 2;
+    public static final int BACK_RIGHT = 3;
 
     private HabPneumatics() {
     }
