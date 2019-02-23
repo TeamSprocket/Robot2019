@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.CalibrateArm;
+import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
 import frc.robot.commands.instant.TogglePipeline;
+import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.MoveArm;
@@ -129,11 +131,11 @@ public class Robot extends TimedRobot {
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
     // PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
-    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // // Robot
-    // OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
+    OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
     OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
@@ -146,7 +148,7 @@ public class Robot extends TimedRobot {
 
     // // Vision
     OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
-    
+
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
 

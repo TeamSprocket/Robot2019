@@ -46,14 +46,17 @@ public class Arm extends Subsystem {
   }
   
   public void setSpeed(double speed) {
-    if(((speed > 0) && pot.get() < UPPER_ANGLE_LIMIT && !backLimitSwitch.get())
-      || ((speed < 0) && pot.get() > LOWER_ANGLE_LIMIT && !frontLimitSwitch.get())) {
+    if(((speed > 0) && pot.get() < UPPER_ANGLE_LIMIT) /*&& !backLimitSwitch.get() */
+      || ((speed < 0) && pot.get() > LOWER_ANGLE_LIMIT /*&& !frontLimitSwitch.get()*/)) {
       if(feedForward)
         armTalon.set(speed + calculateFeedForward());
       else
         armTalon.set(speed);
     } else {
-      armTalon.set(0);
+      if(feedForward)
+        armTalon.set(calculateFeedForward());
+      else
+        armTalon.set(0);
     }
     SmartDashboard.putNumber("Arm Speed", armTalon.get());
   }

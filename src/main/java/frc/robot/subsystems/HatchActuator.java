@@ -16,25 +16,25 @@ import frc.robot.RobotMap;
  * Subsystem used for actuators that place the hatch on the ship or cargo
  */
 public class HatchActuator extends Subsystem {
-  // private final DoubleSolenoid piston = new DoubleSolenoid(
-  //     RobotMap.HatchActuator.PISTON_FORWARD, RobotMap.HatchActuator.PISTON_REVERSE);
+  private final DoubleSolenoid piston = new DoubleSolenoid(
+      RobotMap.HatchActuator.PISTON_FORWARD, RobotMap.HatchActuator.PISTON_REVERSE);
 
-  // private HatchActuator() {
-  // }
+  private HatchActuator() {
+  }
   
-  // public boolean isOut() {
-  //   if(piston.get() == Value.kReverse)
-  //     return true;
-  //   else
-  //     return false;
-  // }
+  public boolean isOut() {
+    if(piston.get() == Value.kReverse)
+      return true;
+    else
+      return false;
+  }
 
-  // public void actuate(boolean out) {
-  //   if(out)
-  //     piston.set(Value.kReverse);
-  //   else
-  //     piston.set(Value.kForward);
-  // }
+  public void actuate(boolean out) {
+    if(out)
+      piston.set(Value.kReverse);
+    else
+      piston.set(Value.kForward);
+  }
   
   @Override
   protected void initDefaultCommand() {
