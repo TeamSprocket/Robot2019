@@ -20,21 +20,24 @@ import frc.util.drivers.ChickenPotPie;
  * Subsystem used for controlling the arm
  */
 public class Arm extends Subsystem {
-  private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -5;
+  private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -13;
 
   // Wood arm + hatch
   // private static final double kA1 = 0.208435, kB1 = 70.101, kC1 = 0.0816035;
   // private static final double kA2 = 0.231395, kB2 = 51.8217, kC2 = -0.125988;
   
   // New arm + hatch
+
   private static final double kA1 = -0.204212, kB1 = 49.1661, kC1 = 0.102572;
   private static final double kA2 = -0.20369, kB2 = 62.8452, kC2 = -0.0627395;
   
   private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
   
+  private static final double OFFSET = -3344;
+
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   
-  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, 0);
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, OFFSET);
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
@@ -93,6 +96,7 @@ public class Arm extends Subsystem {
   public void calibrate() {
     pot.setOffset(0);
     pot.setOffset(-pot.get());
+    Arm.get().setSetpoint(pot.get());
   }
   
   private double calculateFeedForward() {

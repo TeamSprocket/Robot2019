@@ -7,7 +7,6 @@
 
 package frc.robot.commands.teleop.macro;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.util.commands.teleop.macro.MacroCommand;
 import frc.robot.subsystems.HatchActuator;
 
@@ -21,7 +20,7 @@ public class ActuateHatch extends MacroCommand {
   @Override
   protected void initialize() {
     HatchActuator.get().actuate(true);
-    setTimeout(0.4);
+    setTimeout(0.75);
   }
 
   // Called repeatedly when this Command is scheduled to run

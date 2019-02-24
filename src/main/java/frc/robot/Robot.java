@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.CalibrateArm;
-import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
@@ -22,7 +22,6 @@ import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.persistent.Drive;
-import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
@@ -49,7 +48,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
+    SmartDashboard.putNumber("ALIGN_BASE_SPEED", 0.3);
+    SmartDashboard.putNumber("ALIGN_kP", 0.2);
+    SmartDashboard.putNumber("ALIGN_kI", 0);
+    SmartDashboard.putNumber("ALIGN_kD", 0.3);
   }
 
   /**
@@ -121,36 +123,36 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    
+    Arm.get().setSetpoint(Arm.get().getPot().get());
+    // PID constants
     SmartDashboard.putNumber("ARM_kP", 0.02);
     SmartDashboard.putNumber("ARM_kI", 0.0);
     SmartDashboard.putNumber("ARM_kD", 0.01);
 
-    // HatchActuator.getInstance().actuate(false);
-    
+    // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    // PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
-    // // Robot
+    // Macro/instant commands
     OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
-    OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
-    OI.Buttons.alignRobot.whenPressed(new Align());
-    // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
-    // new LatchedEventListener(
-    //   () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
-    //   () -> {new AbortMacro().start();}
-    // );
-
-    // // Vision
-    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
-
     OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
+    OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
+
+    // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
+    new LatchedEventListener(
+      () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
+      () -> {new AbortMacro().start();}
+    );
+
+    // Vision
+    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+    OI.Buttons.alignRobot.whenPressed(new Align());
+    
 
     // OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
 

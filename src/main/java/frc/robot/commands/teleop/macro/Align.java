@@ -19,23 +19,23 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * A MacroCommand to be used in teleop mode that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
-  private static final double ALIGN_kP = 0, ALIGN_kI = 0, ALIGN_kD = 0;
-  private static final double ALIGN_BASE_SPEED = 0.45;
-  private static final double OUTPUT_RANGE = 0.3;
+  private static final double ALIGN_kP = 0.2, ALIGN_kI = 0.0001, ALIGN_kD = 0.3;
+  private static final double ALIGN_BASE_SPEED = 0.3;
+  private static final double OUTPUT_RANGE = 0.1;
 
-  static {
-    SmartDashboard.putNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
-    SmartDashboard.putNumber("ALIGN_kP", ALIGN_kP);
-    SmartDashboard.putNumber("ALIGN_kI", ALIGN_kI);
-    SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
-  }
+  // static {
+  //   SmartDashboard.putNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
+  //   SmartDashboard.putNumber("ALIGN_kP", ALIGN_kP);
+  //   SmartDashboard.putNumber("ALIGN_kI", ALIGN_kI);
+  //   SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
+  // }
   
   private double tx, speed, baseSpeed;
   private PIDController controller;
 
   public Align() {
     requires(Drivetrain.get());
-    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", 0.45);
+    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 
     controller = new PIDController(
@@ -49,7 +49,7 @@ public class Align extends MacroCommand {
       
         @Override
         public double pidGet() {
-          tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+          tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
           return tx;
         }
       
@@ -63,6 +63,7 @@ public class Align extends MacroCommand {
 
   @Override
   protected void initialize() {
+    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
     controller.setPID(
       SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
       SmartDashboard.getNumber("ALIGN_kI", ALIGN_kI),
@@ -86,6 +87,7 @@ public class Align extends MacroCommand {
 
   @Override
   protected void terminate() {
+    Drivetrain.get().stop();
     controller.disable();
   }
 }
