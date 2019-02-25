@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.drivers.ChickenPotPie;
 
@@ -33,7 +34,7 @@ public class Arm extends Subsystem {
   
   private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
   
-  private static final double OFFSET = -3344;
+  private static final double OFFSET = -3003 + 2821 - 3145 + 0.7 + 104 + 69;
 
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   
@@ -95,7 +96,7 @@ public class Arm extends Subsystem {
 
   public void calibrate() {
     pot.setOffset(0);
-    pot.setOffset(-pot.get());
+    pot.setOffset(-pot.getRaw());
     Arm.get().setSetpoint(pot.get());
   }
   

@@ -10,6 +10,7 @@ package frc.robot.commands.teleop.persistent;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
+import frc.robot.Robot;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
@@ -19,10 +20,17 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * control.
  */
 public class PIDMoveArm extends PersistentCommand {
-  private static final double ARM_kP = 0.02, ARM_kI = 0, ARM_kD = 0.01;
+  private static final double ARM_kP = 0.01, ARM_kI = 0.01, ARM_kD = 0.01;
   private static final double ARM_OUTPUT_RANGE = 0.75;
 
   private static final double DELTA_SETPOINT_MULTIPLIER = 2.5;
+
+  static {
+    Robot.addSmartDashboardNumber("ARM_kP", ARM_kP);
+    Robot.addSmartDashboardNumber("ARM_kI", ARM_kI);
+    Robot.addSmartDashboardNumber("ARM_kD", ARM_kD);
+    System.out.println("Numbers added");
+  }
 
   private final PIDController armController;
 
@@ -56,7 +64,7 @@ public class PIDMoveArm extends PersistentCommand {
     SmartDashboard.putNumber("POV", OI.Controllers.gamepad.getPOV());
     switch(OI.Controllers.gamepad.getPOV()) {
       case 0:
-        Arm.get().setSetpoint(95);
+        Arm.get().setSetpoint(100);
         break;
       case 90:
         Arm.get().setSetpoint(60);
