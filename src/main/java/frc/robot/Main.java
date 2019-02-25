@@ -21,7 +21,7 @@ public final class Main {
    * If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+    RobotBase.startRobot(Robot::get);
   }
 
   // Private constructor to prevent instantiation

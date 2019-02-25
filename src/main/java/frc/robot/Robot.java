@@ -8,6 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,6 +26,7 @@ import frc.robot.commands.instant.TogglePipeline;
 import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.persistent.Drive;
+import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
@@ -38,9 +43,18 @@ import frc.util.drivers.LatchedEventListener;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public final class Robot extends TimedRobot {
+  private static Map<String, Double> numbers = new HashMap<>();
+
+  public static void addSmartDashboardNumber(String key, double value) {
+    numbers.put(key, value);
+  }
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  private Robot() {
+  }
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -48,10 +62,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    numbers.entrySet().stream()
+      .forEach(e -> SmartDashboard.putNumber(e.getKey(), e.getValue()));
+
+    System.out.println("Robot init");
+
+    System.out.println(numbers);
+
     SmartDashboard.putNumber("ALIGN_BASE_SPEED", 0.3);
-    SmartDashboard.putNumber("ALIGN_kP", 0.2);
-    SmartDashboard.putNumber("ALIGN_kI", 0);
-    SmartDashboard.putNumber("ALIGN_kD", 0.3);
+    SmartDashboard.putNumber("ARM_kP", 0.01);
+    SmartDashboard.putNumber("ARM_kI", 0.01);
+    SmartDashboard.putNumber("ARM_kD", 0.01);
   }
 
   /**
@@ -124,10 +145,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     Arm.get().setSetpoint(Arm.get().getPot().get());
-    // PID constants
-    SmartDashboard.putNumber("ARM_kP", 0.02);
-    SmartDashboard.putNumber("ARM_kI", 0.0);
-    SmartDashboard.putNumber("ARM_kD", 0.01);
 
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
@@ -174,4 +191,11 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+  // Singleton instance and getter
+  private static final Robot instance = new Robot();
+
+	public static Robot get() {
+		return instance;
+	}
 }
