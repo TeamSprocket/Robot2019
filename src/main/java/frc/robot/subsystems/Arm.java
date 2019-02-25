@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.drivers.ChickenPotPie;
 
@@ -38,7 +37,7 @@ public class Arm extends Subsystem {
 
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   
-  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, OFFSET);
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, OFFSET, 5);
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
