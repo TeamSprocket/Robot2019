@@ -33,7 +33,7 @@ public class Arm extends Subsystem {
   
   private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
   
-  private static final double OFFSET = -3003 + 2821 - 3145 + 0.7 + 104 + 69;
+  private static final double OFFSET = -2120.3;
 
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   

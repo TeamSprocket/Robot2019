@@ -70,9 +70,13 @@ public final class Robot extends TimedRobot {
     System.out.println(numbers);
 
     SmartDashboard.putNumber("ALIGN_BASE_SPEED", 0.3);
-    SmartDashboard.putNumber("ARM_kP", 0.01);
-    SmartDashboard.putNumber("ARM_kI", 0.01);
-    SmartDashboard.putNumber("ARM_kD", 0.01);
+    SmartDashboard.putNumber("ARM_kP", 0.0125);
+    SmartDashboard.putNumber("ARM_kI", 0.00);
+    SmartDashboard.putNumber("ARM_kD", 0.05);
+
+    SmartDashboard.putNumber("ALIGN_kP", 0.13);
+    SmartDashboard.putNumber("ALIGN_kI", 0.0001);
+    SmartDashboard.putNumber("ALIGN_kD", 0.3);
   }
 
   /**
