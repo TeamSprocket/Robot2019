@@ -64,16 +64,16 @@ public class PIDMoveArm extends PersistentCommand {
     SmartDashboard.putNumber("POV", OI.Controllers.gamepad.getPOV());
     switch(OI.Controllers.gamepad.getPOV()) {
       case 0:
-        Arm.get().setSetpoint(100);
+        Arm.get().setSetpoint(85);
         break;
       case 90:
-        Arm.get().setSetpoint(60);
+        Arm.get().setSetpoint(50);
         break;
       case 180:
         Arm.get().setSetpoint(5);
         break;
       case 270:
-        Arm.get().setSetpoint(120);
+        Arm.get().setSetpoint(135);
         break;
     }
 
