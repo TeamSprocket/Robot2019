@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -24,7 +25,7 @@ public class Drivetrain extends Subsystem {
   private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_RIGHT_TALON);
   private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
-  // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   private final Encoder leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_ENCODER_A, RobotMap.Drivetrain.LEFT_ENCODER_B);
   private final Encoder rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_ENCODER_A, RobotMap.Drivetrain.RIGHT_ENCODER_B);
 
@@ -62,9 +63,9 @@ public class Drivetrain extends Subsystem {
     setRight(speed - turn);
   }
 
-  // public ADXRS450_Gyro getGyro() {
-  //   return gyro;
-  // }
+  public ADXRS450_Gyro getGyro() {
+    return gyro;
+  }
 
   public Encoder getLeftEncoder() {
     return leftEncoder;
