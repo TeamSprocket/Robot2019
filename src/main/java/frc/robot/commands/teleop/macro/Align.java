@@ -30,7 +30,8 @@ public class Align extends MacroCommand {
   //   SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
   // }
   
-  private double tx, speed, baseSpeed;
+  private double tx, ty, ta, speed, baseSpeed;
+  private boolean previousTyZero, previousPreviousTyZero;
   private PIDController controller;
 
   public Align() {
@@ -50,6 +51,7 @@ public class Align extends MacroCommand {
         @Override
         public double pidGet() {
           tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+          ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
           return tx;
         }
       
@@ -75,14 +77,14 @@ public class Align extends MacroCommand {
 
   @Override
   protected void execute() {
-    System.out.println(tx);
-    Drivetrain.get().arcadeDrive(baseSpeed, -speed);
+    previousTyZero = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0;
+    System.out.println(tx + "\t" + ta);
+    Drivetrain.get().arcadeDrive(baseSpeed * (20 - ta) / 20, -speed);
   }
 
   @Override
   protected boolean isFinished() {
-    // return Math.abs(tx) <= 0.5 || Math.abs(lastOutput) <= 0.08;
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0;
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0 && previousTyZero;
   }
 
   @Override
