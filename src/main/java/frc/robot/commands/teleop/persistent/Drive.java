@@ -26,7 +26,8 @@ public class Drive extends PersistentCommand {
   protected void execute() {
     double speed = -OI.Controllers.leftJoystick.getY();
     double turn = OI.Controllers.rightJoystick.getX();
-    Drivetrain.get().arcadeDrive(SPEED_MULTIPLIER * OI.deadband(speed), TURN_MULTIPLIER * OI.deadband(turn));
+    Drivetrain.get().arcadeDrive(SPEED_MULTIPLIER * OI.deadband(speed),
+      TURN_MULTIPLIER * OI.deadband(turn));
   }
 
   @Override

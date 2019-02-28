@@ -17,9 +17,9 @@ import frc.robot.RobotMap;
 import frc.util.drivers.ChickenPotPie;
 
 /**
- * Subsystem used for controlling the arm.
+ * A Subsystem used for controlling the arm.
  */
-public class Arm extends Subsystem {
+public final class Arm extends Subsystem {
   private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -13;
 
   private static final double kA1 = -0.204212, kB1 = 49.1661, kC1 = 0.102572;

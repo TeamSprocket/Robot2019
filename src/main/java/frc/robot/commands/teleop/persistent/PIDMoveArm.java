@@ -25,13 +25,6 @@ public class PIDMoveArm extends PersistentCommand {
 
   private static final double DELTA_SETPOINT_MULTIPLIER = 2.5;
 
-  static {
-    Robot.addSmartDashboardNumber("ARM_kP", ARM_kP);
-    Robot.addSmartDashboardNumber("ARM_kI", ARM_kI);
-    Robot.addSmartDashboardNumber("ARM_kD", ARM_kD);
-    System.out.println("Numbers added");
-  }
-
   private final PIDController armController;
 
   public PIDMoveArm() {

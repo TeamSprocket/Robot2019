@@ -13,9 +13,9 @@ import frc.robot.RobotMap;
 
 
 /**
- * Subsystem used to control the pistons to climb the Hab.
+ * A Subsystem used to control the pistons to climb the Hab.
  */
-public class HabPneumatics extends Subsystem {
+public final class HabPneumatics extends Subsystem {
   private final DoubleSolenoid frontPistons = new DoubleSolenoid(
     RobotMap.HabPneumatics.FRONT_FORWARD,
     RobotMap.HabPneumatics.FRONT_REVERSE);

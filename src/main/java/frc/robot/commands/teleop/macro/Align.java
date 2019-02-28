@@ -16,20 +16,13 @@ import frc.robot.subsystems.Drivetrain;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
- * A MacroCommand to be used in teleop mode that aligns the robot to a vision target.
+ * A MacroCommand that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
   private static final double ALIGN_kP = 0.2, ALIGN_kI = 0.0001, ALIGN_kD = 0.3;
   private static final double ALIGN_BASE_SPEED = 0.1, ALIGN_INCREMENT = 0.3, ALIGN_MAX_AREA = 20;
   private static final double ALIGN_BASE_TURN = 0.1;
   private static final double OUTPUT_RANGE = 0.1;
-
-  // static {
-  //   SmartDashboard.putNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
-  //   SmartDashboard.putNumber("ALIGN_kP", ALIGN_kP);
-  //   SmartDashboard.putNumber("ALIGN_kI", ALIGN_kI);
-  //   SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
-  // }
   
   private double tx, ty, ta, turn, baseSpeed;
   private boolean previousTyZero, previousPreviousTyZero;

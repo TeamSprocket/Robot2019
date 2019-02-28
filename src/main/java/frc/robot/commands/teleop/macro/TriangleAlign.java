@@ -11,6 +11,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.util.units.distances.Meter;
 
+/**
+ * A MacroCommand that aligns the robot to a vision target using the 
+ * experimental isoceles triangle formula.
+ * 
+ * TODO: Make it work
+ */
 public class TriangleAlign extends CommandGroup {
   private final double h1 = 0.65;
   private final double h2 = 0.85;

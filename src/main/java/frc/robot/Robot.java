@@ -44,31 +44,11 @@ import frc.util.drivers.LatchedEventListener;
  * project.
  */
 public final class Robot extends TimedRobot {
-  private static Map<String, Double> numbers = new HashMap<>();
-
-  public static void addSmartDashboardNumber(String key, double value) {
-    numbers.put(key, value);
-  }
-
-  Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
-
   private Robot() {
   }
 
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
   @Override
   public void robotInit() {
-    numbers.entrySet().stream()
-      .forEach(e -> SmartDashboard.putNumber(e.getKey(), e.getValue()));
-
-    System.out.println("Robot init");
-
-    System.out.println(numbers);
-
     SmartDashboard.putNumber("ARM_kP", 0.015);
     SmartDashboard.putNumber("ARM_kI", 0.00);
     SmartDashboard.putNumber("ARM_kD", 0.04);
@@ -83,15 +63,6 @@ public final class Robot extends TimedRobot {
     SmartDashboard.putNumber("ALIGN_kD", 0.3);
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for
-   * items like diagnostics that you want ran during disabled, autonomous,
-   * teleoperated and test.
-   *
-   * <p>
-   * This runs after the mode specific periodic functions, but before LiveWindow
-   * and SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
@@ -99,11 +70,6 @@ public final class Robot extends TimedRobot {
     ChickenPotPie.updateAll();
   }
 
-  /**
-   * This function is called once each time the robot enters Disabled mode. You
-   * can use it to reset any subsystem information you want to clear when the
-   * robot is disabled.
-   */
   @Override
   public void disabledInit() {
   }
@@ -113,36 +79,8 @@ public final class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable chooser
-   * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
-   * remove all of the chooser code and uncomment the getString code to get the
-   * auto name from the text box below the Gyro
-   *
-   * <p>
-   * You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons to
-   * the switch structure below with additional strings & commands.
-   */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
-
-    // Robot.drivetrain.getLeftEncoder().reset();
-    // Robot.drivetrain.getRightEncoder().reset();
   }
 
   @Override

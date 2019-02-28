@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Subsystem used to control the Pneumatics Control Module.
+ * A Subsystem used to control the Pneumatics Control Module.
  */
-public class PCM extends Subsystem {
+public final class PCM extends Subsystem {
   private final Compressor compressor = new Compressor(0);
 
   private PCM() {

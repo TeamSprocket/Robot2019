@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Subsystem used to control the talons and sensors to drive the robot.
+ * A Subsystem used to control the talons and sensors to drive the robot.
  */
-public class Drivetrain extends Subsystem {
+public final class Drivetrain extends Subsystem {
   private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.FRONT_LEFT_TALON);
   private final WPI_TalonSRX midLeftTalon = new WPI_TalonSRX(

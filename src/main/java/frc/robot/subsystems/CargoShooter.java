@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Subsystem used to control the talons that intake and outake cargo.
+ * A Subsystem used to control the talons that intake and outake cargo.
  */
-public class CargoShooter extends Subsystem {
+public final class CargoShooter extends Subsystem {
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(
     RobotMap.CargoShooter.LEFT_TALON);
   private final WPI_TalonSRX rightTalon = new WPI_TalonSRX(
