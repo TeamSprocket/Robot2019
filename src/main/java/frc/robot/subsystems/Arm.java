@@ -33,11 +33,11 @@ public class Arm extends Subsystem {
   
   private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
   
-  private static final double OFFSET = -2120.3;
+  private static final double OFFSET = -60.08 + 16.4 - 2.8;
 
   private final WPI_TalonSRX armTalon = new WPI_TalonSRX(RobotMap.Arm.ARM_TALON);
   
-  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 3600, OFFSET, 5);
+  private final ChickenPotPie pot = new ChickenPotPie(RobotMap.Arm.POT, 225, OFFSET, 5);
   private final DigitalInput frontLimitSwitch = new DigitalInput(RobotMap.Arm.FRONT_LIMIT_SWITCH);
   private final DigitalInput backLimitSwitch = new DigitalInput(RobotMap.Arm.BACK_LIMIT_SWITCH);
 
