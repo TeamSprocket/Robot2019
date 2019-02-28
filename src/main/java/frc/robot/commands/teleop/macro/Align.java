@@ -20,7 +20,8 @@ import frc.util.commands.teleop.macro.MacroCommand;
  */
 public class Align extends MacroCommand {
   private static final double ALIGN_kP = 0.2, ALIGN_kI = 0.0001, ALIGN_kD = 0.3;
-  private static final double ALIGN_BASE_SPEED = 0.3;
+  private static final double ALIGN_BASE_SPEED = 0.1, ALIGN_INCREMENT = 0.3, ALIGN_MAX_AREA = 20;
+  private static final double ALIGN_BASE_TURN = 0.1;
   private static final double OUTPUT_RANGE = 0.1;
 
   // static {
@@ -30,7 +31,7 @@ public class Align extends MacroCommand {
   //   SmartDashboard.putNumber("ALIGN_kD", ALIGN_kD);
   // }
   
-  private double tx, ty, ta, speed, baseSpeed;
+  private double tx, ty, ta, turn, baseSpeed;
   private boolean previousTyZero, previousPreviousTyZero;
   private PIDController controller;
 
@@ -60,7 +61,7 @@ public class Align extends MacroCommand {
           return PIDSourceType.kDisplacement;
         }
       },
-      o -> {speed = o;});
+      o -> {turn = o;});
   }
 
   @Override
@@ -79,12 +80,19 @@ public class Align extends MacroCommand {
   protected void execute() {
     previousTyZero = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0;
     System.out.println(tx + "\t" + ta);
-    Drivetrain.get().arcadeDrive(baseSpeed * (20 - ta) / 20, -speed);
+    Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", ALIGN_BASE_SPEED) + 
+    SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", 0) * 
+    (SmartDashboard.getNumber("ALIGN_MAX_AREA", 0) - ta) / 
+    SmartDashboard.getNumber("ALIGN_MAX_AREA", 0), 
+    SmartDashboard.getNumber("ALIGN_TURN_BASE", 0) +
+    SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", 0) * 
+    (ta / SmartDashboard.getNumber("ALIGN_MAX_AREA", 0)) -
+    turn);
   }
 
   @Override
   protected boolean isFinished() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0 && previousTyZero;
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 0 && previousTyZero;
   }
 
   @Override
