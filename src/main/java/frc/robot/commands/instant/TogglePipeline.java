@@ -20,6 +20,6 @@ public class TogglePipeline extends InstantCommand {
 
   @Override
   protected void initialize() {
-    Limelight.get().togglePipleine();
+    Limelight.get().toggleCamMode();
   }
 }

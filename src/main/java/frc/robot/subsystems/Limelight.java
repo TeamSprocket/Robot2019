@@ -18,10 +18,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * TODO: Refactor existing commands utilizing vision to use this subsystem.
  */
 public final class Limelight extends Subsystem {
-  private static enum Pipeline {
-    DRIVER, VISION
-  }
-
   private final NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
 
   private Limelight() {
@@ -43,22 +39,18 @@ public final class Limelight extends Subsystem {
     return limelightTable.getEntry("ta").getDouble(0);
   }
 
-  public void setPipeline(Pipeline pipeline) {
-    switch(pipeline) {
-      case DRIVER:
-        limelightTable.getEntry("pipeline").setNumber(1);
-        break;
-      default:
-        limelightTable.getEntry("pipeline").setNumber(0);
-    }
-    DriverStation.reportWarning("Switched to pipeline " + pipeline + "!", false);
+  public void toggleCamMode() {
+    if(limelightTable.getEntry("camMode").getDouble(0) == 0)
+      limelightTable.getEntry("camMode").setNumber(1);
+    else
+      limelightTable.getEntry("camMode").setNumber(0);
   }
 
-  public void togglePipleine() {
-    if(limelightTable.getEntry("pipeline").getDouble(0) == 0)
-      setPipeline(Pipeline.DRIVER);
+  public void setCamMode(boolean mode){
+    if(mode)
+      limelightTable.getEntry("camMode").setNumber(1);
     else
-      setPipeline(Pipeline.VISION);
+      limelightTable.getEntry("camMode").setNumber(0);
   }
 
   @Override
