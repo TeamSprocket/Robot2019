@@ -22,7 +22,7 @@ import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
-import frc.robot.commands.instant.TogglePipeline;
+import frc.robot.commands.instant.ToggleCamMode;
 import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.persistent.Drive;
@@ -113,7 +113,7 @@ public final class Robot extends TimedRobot {
     );
 
     // Vision
-    OI.Buttons.togglePipeline.whenPressed(new TogglePipeline());
+    OI.Buttons.togglePipeline.whenPressed(new ToggleCamMode());
     OI.Buttons.alignRobot.whenPressed(new Align());
     
 

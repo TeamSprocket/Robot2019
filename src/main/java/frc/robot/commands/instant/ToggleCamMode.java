@@ -14,8 +14,8 @@ import frc.util.commands.instant.InstantCommand;
  * An InstantCommand that toggles the vision pipeline, switching between the
  * driver and vision view.
  */
-public class TogglePipeline extends InstantCommand {
-  public TogglePipeline() {
+public class ToggleCamMode extends InstantCommand {
+  public ToggleCamMode() {
   }
 
   @Override
