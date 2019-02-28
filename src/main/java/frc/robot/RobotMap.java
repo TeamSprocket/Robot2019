@@ -15,12 +15,12 @@ package frc.robot;
  */
 public final class RobotMap {
   public static final class Drivetrain {
-    public static final int FRONT_LEFT_TALON = 3;
-    public static final int MID_LEFT_TALON = 10;
-    public static final int BACK_LEFT_TALON = 11;
-    public static final int FRONT_RIGHT_TALON = 1;
-    public static final int MID_RIGHT_TALON = 5;
-    public static final int BACK_RIGHT_TALON = 2;
+    public static final int FRONT_LEFT_TALON = 2;
+    public static final int MID_LEFT_TALON = 3;
+    public static final int BACK_LEFT_TALON = 4;
+    public static final int FRONT_RIGHT_TALON = 7;
+    public static final int MID_RIGHT_TALON = 6;
+    public static final int BACK_RIGHT_TALON = 5;
 
     public static final int RIGHT_ENCODER_A = 2;
     public static final int RIGHT_ENCODER_B = 3;
@@ -32,7 +32,7 @@ public final class RobotMap {
   }
 
   public static final class Arm {
-    public static final int ARM_TALON = 6;
+    public static final int ARM_TALON = 9;
 
     public static final int POT = 1;
     public static final int FRONT_LIMIT_SWITCH = 0;
@@ -43,8 +43,8 @@ public final class RobotMap {
   }
 
   public static final class CargoShooter {
-    public static final int LEFT_TALON = 4;
-    public static final int RIGHT_TALON = 9;
+    public static final int LEFT_TALON = 1;
+    public static final int RIGHT_TALON = 8;
 
     private CargoShooter() {
     }
