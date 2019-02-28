@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import frc.util.commands.teleop.macro.MacroCommand;
 
 /**
@@ -31,7 +32,7 @@ public class Align extends MacroCommand {
   public Align() {
     requires(Drivetrain.get());
     baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
-    tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    tx = Limelight.get().getTx();
 
     controller = new PIDController(
       SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
@@ -44,8 +45,8 @@ public class Align extends MacroCommand {
       
         @Override
         public double pidGet() {
-          tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-          ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+          tx = Limelight.get().getTx();
+          ta = Limelight.get().getTa();
           return tx;
         }
       
@@ -71,7 +72,7 @@ public class Align extends MacroCommand {
 
   @Override
   protected void execute() {
-    previousTyZero = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0) == 0;
+    previousTyZero = Limelight.get().getTy() == 0;
     System.out.println(tx + "\t" + ta);
     Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", ALIGN_BASE_SPEED) + 
     SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", 0) * 
@@ -85,7 +86,7 @@ public class Align extends MacroCommand {
 
   @Override
   protected boolean isFinished() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 0 && previousTyZero;
+    return Limelight.get().getTv() == 0 && previousTyZero;
   }
 
   @Override
