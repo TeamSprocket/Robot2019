@@ -13,35 +13,35 @@ import frc.robot.RobotMap;
 
 
 /**
- * Add your docs here.
+ * Subsystem used to control the pistons to climb the Hab.
  */
 public class HabPneumatics extends Subsystem {
-  // private final Solenoid frontPistons = new Solenoid(RobotMap.HabPneumatics.FRONT_SOLENOID);
-  // private final Solenoid backPistons = new Solenoid(RobotMap.HabPneumatics.BACK_SOLENOID); 
-  private final DoubleSolenoid frontPistons = new DoubleSolenoid(RobotMap.HabPneumatics.FRONT_FORWARD, RobotMap.HabPneumatics.FRONT_REVERSE);
-  private final DoubleSolenoid backPistons = new DoubleSolenoid(RobotMap.HabPneumatics.BACK_FORWARD, RobotMap.HabPneumatics.BACK_REVERSE);
+  private final DoubleSolenoid frontPistons = new DoubleSolenoid(
+    RobotMap.HabPneumatics.FRONT_FORWARD,
+    RobotMap.HabPneumatics.FRONT_REVERSE);
+  private final DoubleSolenoid backPistons = new DoubleSolenoid(
+    RobotMap.HabPneumatics.BACK_FORWARD,
+    RobotMap.HabPneumatics.BACK_REVERSE);
+
+  private HabPneumatics() {
+  }
+
   public void actuateFront() {
-    if(frontPistons.get() == Value.kForward) {
+    if(frontPistons.get() == Value.kForward)
       frontPistons.set(Value.kReverse);
-    }
-    else {
+    else
       frontPistons.set(Value.kForward);
-    }
   }
   
   public void actuateBack() {
-    if(backPistons.get() == Value.kForward) {
+    if(backPistons.get() == Value.kForward)
       backPistons.set(Value.kReverse);
-    }
-    else {
+    else
       backPistons.set(Value.kForward);
-    }
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 
   // Singleton instance and getter
@@ -49,8 +49,5 @@ public class HabPneumatics extends Subsystem {
 
 	public static HabPneumatics get() {
 		return instance;
-  }
-  
-  private HabPneumatics() {
   }
 }

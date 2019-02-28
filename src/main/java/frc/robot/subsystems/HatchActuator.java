@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Subsystem used for actuators that place the hatch on the ship or cargo
+ * Subsystem used to actuate the pistons that place the hatch on the Cargo
+ * Ship or Rocket.
  */
 public class HatchActuator extends Subsystem {
   private final DoubleSolenoid piston = new DoubleSolenoid(
-      RobotMap.HatchActuator.PISTON_FORWARD, RobotMap.HatchActuator.PISTON_REVERSE);
+    RobotMap.HatchActuator.PISTON_FORWARD,
+    RobotMap.HatchActuator.PISTON_REVERSE);
 
   private HatchActuator() {
   }

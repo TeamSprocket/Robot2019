@@ -15,19 +15,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * A Subsystem which represents the talons and sensors used to drive the robot.
+ * Subsystem used to control the talons and sensors to drive the robot.
  */
 public class Drivetrain extends Subsystem {
-  private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_LEFT_TALON);
-  private final WPI_TalonSRX midLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_LEFT_TALON);
-  private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_LEFT_TALON);
-  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.FRONT_RIGHT_TALON);
-  private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.MID_RIGHT_TALON);
-  private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(RobotMap.Drivetrain.BACK_RIGHT_TALON);
+  private final WPI_TalonSRX frontLeftTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.FRONT_LEFT_TALON);
+  private final WPI_TalonSRX midLeftTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.MID_LEFT_TALON);
+  private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.BACK_LEFT_TALON);
+  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.FRONT_RIGHT_TALON);
+  private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.MID_RIGHT_TALON);
+  private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(
+    RobotMap.Drivetrain.BACK_RIGHT_TALON);
 
   private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  private final Encoder leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_ENCODER_A, RobotMap.Drivetrain.LEFT_ENCODER_B);
-  private final Encoder rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_ENCODER_A, RobotMap.Drivetrain.RIGHT_ENCODER_B);
+  private final Encoder leftEncoder = new Encoder(
+    RobotMap.Drivetrain.LEFT_ENCODER_A,
+    RobotMap.Drivetrain.LEFT_ENCODER_B);
+  private final Encoder rightEncoder = new Encoder(
+    RobotMap.Drivetrain.RIGHT_ENCODER_A,
+    RobotMap.Drivetrain.RIGHT_ENCODER_B);
 
   private Drivetrain() {
     frontRightTalon.setInverted(true);
@@ -75,13 +85,15 @@ public class Drivetrain extends Subsystem {
     return rightEncoder;
   }
   
-  // public double getAverageEncoderDistance() {
-  //   return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
-  // }
+  @Deprecated
+  public double getAverageEncoderDistance() {
+    return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
+  }
 
-  // public double getAverageEncoderRate() {
-  //   return (leftEncoder.getRate() + rightEncoder.getRate()) / 2;
-  // }
+  @Deprecated
+  public double getAverageEncoderRate() {
+    return (leftEncoder.getRate() + rightEncoder.getRate()) / 2;
+  }
 
   @Override
   public void initDefaultCommand() {

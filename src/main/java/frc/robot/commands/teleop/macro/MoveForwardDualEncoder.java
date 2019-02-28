@@ -14,7 +14,10 @@ import frc.util.commands.teleop.macro.MacroCommand;
 /**
  * A MacroCommand that utilizes PIDControllers on both encoders in order to
  * maintain a straight heading.
+ * 
  * TODO: Make it work
+ * 
+ * Deprecated as of ? because we likely won't be using this command anymore.
  */
 @Deprecated
 public class MoveForwardDualEncoder extends MacroCommand {

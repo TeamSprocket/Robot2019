@@ -11,13 +11,15 @@ import frc.util.commands.teleop.macro.MacroCommand;
 import frc.robot.subsystems.HatchActuator;
 
 /**
- * TODOL Add docs
+ * A MacroCommand that actuates the HatchActuator outward, delays for a
+ * timeout, then unactuates the HatchActuator inward.
  */
 public class ActuateHatch extends MacroCommand {
   private static double TIMEOUT = 0.75;
 
   public ActuateHatch() {
     requires(HatchActuator.get());
+    
   }
 
   @Override

@@ -11,13 +11,15 @@ import frc.robot.subsystems.Arm;
 import frc.util.commands.instant.InstantCommand;
 
 /**
- * An instant command that sets the value of the arm potentiometer to 0
- * at its current position.
+ * An InstantCommand that calibrates the arm potentiometer, setting the current
+ * angle as zero.
+ * 
+ * Deprecated as of 2/27 because we got a pot and mount that actually works
+ * and is reliable so there is not really a need to calibrate it every now and
+ * then anymore.
  */
+@Deprecated
 public class CalibrateArm extends InstantCommand {
-  public CalibrateArm() {
-  }
-
   @Override
   protected void initialize() {
     Arm.get().calibrate();

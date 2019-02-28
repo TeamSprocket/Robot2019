@@ -15,7 +15,10 @@ import frc.util.units.distances.Distance;
 /**
  * A MacroCommand that implements an algorithm utilizing PIDControllers on both
  * the gyro and the encoders in order to maintain a straight heading.
+ * 
+ * Deprecated as of 2/27 because we likely won't be using this command anymore.
  */
+@Deprecated
 public class MoveForwardGyroEncoder extends MacroCommand {
   private static final double DIST_TOLERANCE = 40, ANGLE_TOLERANCE = 5;
   private static final double DIST_RATE_TOLERANCE = 150, ANGLE_RATE_TOLERANCE = 5;

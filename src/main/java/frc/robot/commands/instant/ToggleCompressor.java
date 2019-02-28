@@ -18,11 +18,11 @@ import frc.util.commands.instant.InstantCommand;
 public class ToggleCompressor extends InstantCommand {
   @Override
   protected void initialize() {
-    if(PCM.get().getCompressor().getClosedLoopControl()) {
-      PCM.get().getCompressor().setClosedLoopControl(false);
+    if(PCM.get().getClosedLoopControl()) {
+      PCM.get().setClosedLoopControl(false);
       SmartDashboard.putBoolean("Compressing", false);
     } else {
-      PCM.get().getCompressor().setClosedLoopControl(true);
+      PCM.get().setClosedLoopControl(true);
       SmartDashboard.putBoolean("Compressing", true);
     }
   }
