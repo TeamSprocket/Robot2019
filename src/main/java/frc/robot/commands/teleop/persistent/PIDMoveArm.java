@@ -10,7 +10,6 @@ package frc.robot.commands.teleop.persistent;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
-import frc.robot.Robot;
 import frc.robot.subsystems.Arm;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 
@@ -20,7 +19,7 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * control.
  */
 public class PIDMoveArm extends PersistentCommand {
-  private static final double ARM_kP = 0.01, ARM_kI = 0.01, ARM_kD = 0.01;
+  private static final double ARM_kP = 0.015, ARM_kI = 0.00, ARM_kD = 0.04;
   private static final double ARM_OUTPUT_RANGE = 0.75;
 
   private static final double DELTA_SETPOINT_MULTIPLIER = 2.5;
@@ -36,6 +35,8 @@ public class PIDMoveArm extends PersistentCommand {
       SmartDashboard.getNumber("ARM_kD", ARM_kD),
       Arm.get().getPot(),
       o -> Arm.get().setSpeed(-o));
+
+    setDefaultConstants();
   }
 
   @Override
@@ -80,12 +81,9 @@ public class PIDMoveArm extends PersistentCommand {
     Arm.get().stop();
   }
 
-  // TODO: Clean up
-
-  // y~acos(x+b)+c
-  // private static final double a1 = 0.238837, b1 = -27.3604, c1 = -0.354398;
-  // private static final double a2 = 0.320962, b2 = -62.7432, c2 = 0.283038;
-
-  // cim w/ hatch
-  // y~a*sin(x+b)+c
+  private void setDefaultConstants() {
+    SmartDashboard.setDefaultNumber("ARM_kP", ARM_kP);
+    SmartDashboard.setDefaultNumber("ARM_kI", ARM_kI);
+    SmartDashboard.setDefaultNumber("ARM_kD", ARM_kD);
+  }
 }

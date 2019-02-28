@@ -49,18 +49,7 @@ public final class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    SmartDashboard.putNumber("ARM_kP", 0.015);
-    SmartDashboard.putNumber("ARM_kI", 0.00);
-    SmartDashboard.putNumber("ARM_kD", 0.04);
-
-    SmartDashboard.putNumber("ALIGN_SPEED_BASE", 0.2);
-    SmartDashboard.putNumber("ALIGN_SPEED_INCREMENT", 0.2);
-    SmartDashboard.putNumber("ALIGN_TURN_BASE", 0.0);
-    SmartDashboard.putNumber("ALIGN_TURN_INCREMENT", 0.2);
-    SmartDashboard.putNumber("ALIGN_MAX_AREA", 15);
-    SmartDashboard.putNumber("ALIGN_kP", 0.13);
-    SmartDashboard.putNumber("ALIGN_kI", 0.0001);
-    SmartDashboard.putNumber("ALIGN_kD", 0.3);
+    
   }
 
   @Override

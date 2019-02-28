@@ -7,7 +7,6 @@
 
 package frc.robot.commands.teleop.macro;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
@@ -20,24 +19,24 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * A MacroCommand that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
-  private static final double ALIGN_kP = 0.2, ALIGN_kI = 0.0001, ALIGN_kD = 0.3;
-  private static final double ALIGN_BASE_SPEED = 0.1, ALIGN_INCREMENT = 0.3, ALIGN_MAX_AREA = 20;
-  private static final double ALIGN_BASE_TURN = 0.1;
+  private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.2;
+  private static final double TURN_BASE = 0.0, TURN_INCREMENT = 0.2;
+  private static final double MAX_AREA = 15;
+  private static final double kP = 0.2, kI = 0.0001, kD = 0.3;
+
   private static final double OUTPUT_RANGE = 0.1;
   
-  private double tx, ty, ta, turn, baseSpeed;
-  private boolean previousTyZero, previousPreviousTyZero;
-  private PIDController controller;
+  private final PIDController controller;
+
+  private double turn;
 
   public Align() {
     requires(Drivetrain.get());
-    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
-    tx = Limelight.get().getTx();
 
     controller = new PIDController(
-      SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
-      SmartDashboard.getNumber("ALIGN_kI", ALIGN_kI),
-      SmartDashboard.getNumber("ALIGN_kD", ALIGN_kD),
+      SmartDashboard.getNumber("ALIGN_kP", kP),
+      SmartDashboard.getNumber("ALIGN_kI", kI),
+      SmartDashboard.getNumber("ALIGN_kD", kD),
       new PIDSource() {
         @Override
         public void setPIDSourceType(PIDSourceType pidSource) {
@@ -45,9 +44,7 @@ public class Align extends MacroCommand {
       
         @Override
         public double pidGet() {
-          tx = Limelight.get().getTx();
-          ta = Limelight.get().getTa();
-          return tx;
+          return Limelight.get().getTx();
         }
       
         @Override
@@ -55,16 +52,17 @@ public class Align extends MacroCommand {
           return PIDSourceType.kDisplacement;
         }
       },
-      o -> {turn = o;});
+      o -> turn = o);
+
+      setDefaultConstants();
   }
 
   @Override
   protected void initialize() {
-    baseSpeed = SmartDashboard.getNumber("ALIGN_BASE_SPEED", ALIGN_BASE_SPEED);
     controller.setPID(
-      SmartDashboard.getNumber("ALIGN_kP", ALIGN_kP),
-      SmartDashboard.getNumber("ALIGN_kI", ALIGN_kI),
-      SmartDashboard.getNumber("ALIGN_kD", ALIGN_kD));
+      SmartDashboard.getNumber("ALIGN_kP", kP),
+      SmartDashboard.getNumber("ALIGN_kI", kI),
+      SmartDashboard.getNumber("ALIGN_kD", kD));
     controller.setSetpoint(0);
     controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
     controller.enable();
@@ -72,26 +70,35 @@ public class Align extends MacroCommand {
 
   @Override
   protected void execute() {
-    previousTyZero = Limelight.get().getTy() == 0;
-    System.out.println(tx + "\t" + ta);
-    Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", ALIGN_BASE_SPEED) + 
-    SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", 0) * 
-    (SmartDashboard.getNumber("ALIGN_MAX_AREA", 0) - ta) / 
-    SmartDashboard.getNumber("ALIGN_MAX_AREA", 0), 
-    SmartDashboard.getNumber("ALIGN_TURN_BASE", 0) +
-    SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", 0) * 
-    (ta / SmartDashboard.getNumber("ALIGN_MAX_AREA", 0)) -
+    Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", SPEED_BASE) + 
+    SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", SPEED_INCREMENT) * 
+    (SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA) - Limelight.get().getTa()) / 
+    SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA), 
+    SmartDashboard.getNumber("ALIGN_TURN_BASE", TURN_BASE) +
+    SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", TURN_INCREMENT) * 
+    (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
     turn);
   }
 
   @Override
   protected boolean isFinished() {
-    return Limelight.get().getTv() == 0 && previousTyZero;
+    return Limelight.get().targetVisible();
   }
 
   @Override
   protected void terminate() {
     Drivetrain.get().stop();
     controller.disable();
+  }
+
+  private void setDefaultConstants() {
+    SmartDashboard.putNumber("ALIGN_SPEED_BASE", SPEED_BASE);
+    SmartDashboard.putNumber("ALIGN_SPEED_INCREMENT", SPEED_INCREMENT);
+    SmartDashboard.putNumber("ALIGN_TURN_BASE", TURN_BASE);
+    SmartDashboard.putNumber("ALIGN_TURN_INCREMENT", TURN_INCREMENT);
+    SmartDashboard.putNumber("ALIGN_MAX_AREA", MAX_AREA);
+    SmartDashboard.putNumber("ALIGN_kP", kP);
+    SmartDashboard.putNumber("ALIGN_kI", kI);
+    SmartDashboard.putNumber("ALIGN_kD", kD);
   }
 }
