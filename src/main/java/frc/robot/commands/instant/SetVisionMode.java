@@ -14,12 +14,15 @@ import frc.util.commands.instant.InstantCommand;
  * An InstantCommand that toggles the vision pipeline, switching between the
  * driver and vision view.
  */
-public class ToggleCamMode extends InstantCommand {
-  public ToggleCamMode() {
+public class SetVisionMode extends InstantCommand {
+  private final boolean vision;
+
+  public SetVisionMode(boolean vision) {
+    this.vision = vision;
   }
 
   @Override
   protected void initialize() {
-    Limelight.get().toggleCamMode();
+    Limelight.get().setVisionMode(vision);
   }
 }

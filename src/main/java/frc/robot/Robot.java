@@ -8,30 +8,25 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.ToggleBackPistons;
+import frc.robot.commands.instant.SetVisionMode;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleFrontPistons;
-import frc.robot.commands.instant.ToggleCamMode;
 import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.persistent.Drive;
-import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.PCM;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.ChickenPotPie;
 import frc.util.drivers.LatchedEventListener;
@@ -49,7 +44,9 @@ public final class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    
+    // pls work
+    PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
+    PersistentCommand.unbindPersistent(Drivetrain.get());
   }
 
   @Override
@@ -70,22 +67,41 @@ public final class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    teleopInit();
   }
 
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    LatchedEventListener.listenAll();
   }
 
   @Override
   public void teleopInit() {
+    System.out.println("Setting up initial state... " + Timer.getFPGATimestamp());
+
     Arm.get().setSetpoint(Arm.get().getPot().get());
+    PCM.get().setClosedLoopControl(false);
 
     // Persistent commands
+
+    System.out.println("Binding PersistentCommand 1... " + Timer.getFPGATimestamp());
+
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
+
+    System.out.println("Binding PersistentCommand 2... " + Timer.getFPGATimestamp());
+
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
+
+    System.out.println("Binding PersistentCommand 3... " + Timer.getFPGATimestamp());
+
     PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
+    
+    System.out.println("Starting PersistentCommands..." + Timer.getFPGATimestamp());
+    
     PersistentCommand.startAllPersistent();
+
+    System.out.println("Binding MacroCommands and InstantCommands..." + Timer.getFPGATimestamp());
 
     // Macro/instant commands
     OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
@@ -95,28 +111,25 @@ public final class Robot extends TimedRobot {
     OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
-    // OI.Buttons.moveForward.whenPressed(new MoveForwardGyroEncoder(2));
+    System.out.println("Binding secondary AbortMacro... " + Timer.getFPGATimestamp());
+
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
       () -> {new AbortMacro().start();}
     );
 
+    System.out.println("Binding vision commands... " + Timer.getFPGATimestamp());
+
     // Vision
-    OI.Buttons.togglePipeline.whenPressed(new ToggleCamMode());
+    OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
+    OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
     OI.Buttons.alignRobot.whenPressed(new Align());
-    
-
-    // OI.Buttons.armFeedForwardButton.whenPressed(new FeedForwardArm());
-
-    // OI.Buttons.lowerBoundButton.whenPressed(new SetArm(ArmPosition.TEST));
   }
 
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     LatchedEventListener.listenAll();
-    // System.out.println(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0) + "\t" 
-    //   + NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
   }
 
   @Override

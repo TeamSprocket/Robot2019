@@ -39,18 +39,11 @@ public final class Limelight extends Subsystem {
     return limelightTable.getEntry("ta").getDouble(0);
   }
 
-  public void toggleCamMode() {
-    if(limelightTable.getEntry("camMode").getDouble(0) == 0)
-      limelightTable.getEntry("camMode").setNumber(1);
+  public void setVisionMode(boolean vision){    
+    if(vision)
+      limelightTable.getEntry("pipeline").setNumber(1);
     else
-      limelightTable.getEntry("camMode").setNumber(0);
-  }
-
-  public void setCamMode(boolean mode){
-    if(mode)
-      limelightTable.getEntry("camMode").setNumber(1);
-    else
-      limelightTable.getEntry("camMode").setNumber(0);
+      limelightTable.getEntry("pipeline").setNumber(0);
   }
 
   @Override

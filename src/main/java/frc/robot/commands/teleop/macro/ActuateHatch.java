@@ -8,6 +8,8 @@
 package frc.robot.commands.teleop.macro;
 
 import frc.util.commands.teleop.macro.MacroCommand;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchActuator;
 
 /**
@@ -15,17 +17,22 @@ import frc.robot.subsystems.HatchActuator;
  * timeout, then unactuates the HatchActuator inward.
  */
 public class ActuateHatch extends MacroCommand {
-  private static double TIMEOUT = 0.75;
+  private static double TIMEOUT = 0.5, MIN_ANGLE = 60;
 
   public ActuateHatch() {
     requires(HatchActuator.get());
-    
+    requires(Drivetrain.get());
   }
 
   @Override
   protected void initialize() {
-    HatchActuator.get().actuate(true);
-    setTimeout(TIMEOUT);
+    if(Arm.get().getPot().get() > MIN_ANGLE) {
+      HatchActuator.get().actuate(true);
+      Drivetrain.get().arcadeDrive(-0.125, 0);
+      setTimeout(TIMEOUT);
+    } else {
+      setTimeout(0);
+    }
   }
 
   @Override

@@ -19,7 +19,7 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  * control.
  */
 public class PIDMoveArm extends PersistentCommand {
-  private static final double ARM_kP = 0.015, ARM_kI = 0.00, ARM_kD = 0.04;
+  private static final double ARM_kP = 0.015, ARM_kI = 0.00, ARM_kD = 0.03;
   private static final double ARM_OUTPUT_RANGE = 0.75;
 
   private static final double DELTA_SETPOINT_MULTIPLIER = 2.5;
