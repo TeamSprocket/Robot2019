@@ -61,13 +61,13 @@ public class PIDMoveArm extends PersistentCommand {
         Arm.get().setSetpoint(85);
         break;
       case 90:
-        Arm.get().setSetpoint(50);
+        Arm.get().setSetpoint(75);
         break;
       case 180:
         Arm.get().setSetpoint(5);
         break;
       case 270:
-        Arm.get().setSetpoint(135);
+        Arm.get().setSetpoint(122.5);
         break;
     }
 

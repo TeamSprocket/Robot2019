@@ -23,7 +23,7 @@ public final class CargoShooter extends Subsystem {
     RobotMap.CargoShooter.RIGHT_VICTOR);
 
   private CargoShooter() {
-    leftTalon.setInverted(true);
+    
 	}
 
   public void setSpeed(double speed) {

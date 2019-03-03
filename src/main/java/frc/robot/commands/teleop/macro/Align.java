@@ -20,7 +20,7 @@ import frc.util.commands.teleop.macro.MacroCommand;
  */
 public class Align extends MacroCommand {
   private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.2;
-  private static final double TURN_BASE = 0.0, TURN_INCREMENT = 0.2;
+  private static final double TURN_BASE = 0.0, TURN_INCREMENT = -0.115;
   private static final double MAX_AREA = 15;
   private static final double kP = 0.13, kI = 0, kD = 0.3;
 

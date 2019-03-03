@@ -35,12 +35,16 @@ public final class OI {
     public static final Button alignRobot = new JoystickButton(Controllers.leftJoystick, 1);
     public static final Button moveForward = new JoystickButton(Controllers.leftJoystick, 2);
     
-    public static final Button blinkLED = new JoystickButton(Controllers.leftJoystick, 3);
+    public static final Button
+     blinkLED = new JoystickButton(Controllers.leftJoystick, 3);
 
     public static final Button calibrateArm = new JoystickButton(Controllers.gamepad, BACK);
 
     public static final Button toggleFrontPistons = new JoystickButton(Controllers.gamepad, 5);
     public static final Button toggleBackPistons = new JoystickButton(Controllers.gamepad, 6);
+
+    public static final Button groundIntake = new JoystickButton(Controllers.rightJoystick, 1);
+    public static final Button turn90 = new JoystickButton(Controllers.leftJoystick, 5);
   }
 
   public static final double deadband(double input) {

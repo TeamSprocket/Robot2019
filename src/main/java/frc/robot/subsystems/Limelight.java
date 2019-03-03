@@ -9,13 +9,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * A Subsystem used to easily obtain values from the Limelight.
- * 
- * TODO: Refactor existing commands utilizing vision to use this subsystem.
  */
 public final class Limelight extends Subsystem {
   private final NetworkTable limelightTable = NetworkTableInstance.getDefault().getTable("limelight");

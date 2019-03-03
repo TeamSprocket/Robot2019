@@ -28,7 +28,7 @@ public class ActuateHatch extends MacroCommand {
   protected void initialize() {
     if(Arm.get().getPot().get() > MIN_ANGLE) {
       HatchActuator.get().actuate(true);
-      Drivetrain.get().arcadeDrive(-0.125, 0);
+      Drivetrain.get().arcadeDrive(-0.2, 0);
       setTimeout(TIMEOUT);
     } else {
       setTimeout(0);

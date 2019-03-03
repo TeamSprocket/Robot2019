@@ -23,7 +23,11 @@ public class Shoot extends PersistentCommand {
   @Override
   protected void execute() {
     double speed = OI.Controllers.gamepad.getRawAxis(1);
-    CargoShooter.get().setSpeed(OI.deadband(speed));
+
+    if(OI.deadband(speed) < 0)
+      CargoShooter.get().setSpeed(-0.75);
+    else
+      CargoShooter.get().setSpeed(OI.deadband(speed));
   }
 
   @Override
