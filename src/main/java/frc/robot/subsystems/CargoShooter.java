@@ -26,8 +26,8 @@ public final class CargoShooter extends Subsystem {
 	}
 
   public void setSpeed(double speed) {
-    leftTalon.set(speed);
-    rightTalon.set(speed);
+    leftTalon.set(speed*0.875);
+    rightTalon.set(speed*0.875);
   }
 
   public void stop() {
