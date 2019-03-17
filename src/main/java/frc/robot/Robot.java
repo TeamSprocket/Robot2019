@@ -21,6 +21,7 @@ import frc.robot.commands.teleop.macro.ActuateHatch;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.PIDTurn;
 import frc.robot.commands.teleop.persistent.Drive;
+import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
@@ -85,7 +86,7 @@ public final class Robot extends TimedRobot {
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // Macro/instant commands
