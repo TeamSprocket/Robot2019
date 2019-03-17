@@ -86,7 +86,7 @@ public final class Robot extends TimedRobot {
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // Macro/instant commands
