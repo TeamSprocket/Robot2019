@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -25,8 +24,8 @@ public final class Drivetrain extends Subsystem {
     RobotMap.Drivetrain.MID_LEFT_TALON);
   private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.BACK_LEFT_TALON);
-  private final WPI_VictorSPX frontRightVictor = new WPI_VictorSPX(
-    RobotMap.Drivetrain.FRONT_RIGHT_VICTOR);
+  private final WPI_TalonSRX frontRightVictor = new WPI_TalonSRX(
+    RobotMap.Drivetrain.FRONT_RIGHT_TALON);
   private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.MID_RIGHT_TALON);
   private final WPI_TalonSRX backRightTalon = new WPI_TalonSRX(

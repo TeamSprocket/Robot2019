@@ -45,7 +45,6 @@ public final class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    // pls work
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.unbindPersistent(Drivetrain.get());
   }
@@ -81,7 +80,7 @@ public final class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     Arm.get().setSetpoint(Arm.get().getPot().get());
-    PCM.get().setClosedLoopControl(true);
+    // PCM.get().setClosedLoopControl(true);
 
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
@@ -90,10 +89,10 @@ public final class Robot extends TimedRobot {
     PersistentCommand.startAllPersistent();
 
     // Macro/instant commands
-    OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
+    // OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
     // OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
-    OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    // OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
+    // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
     OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
@@ -107,9 +106,9 @@ public final class Robot extends TimedRobot {
     );
 
     // Vision
-    OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
-    OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
-    OI.Buttons.alignRobot.whenPressed(new Align());
+    // OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
+    // OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
+    // OI.Buttons.alignRobot.whenPressed(new Align());
   }
 
   @Override
