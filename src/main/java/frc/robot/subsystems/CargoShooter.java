@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
 public final class CargoShooter extends Subsystem {
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(
     RobotMap.CargoShooter.LEFT_TALON);
-  private final WPI_TalonSRX rightVictor = new WPI_TalonSRX(
+  private final WPI_TalonSRX rightTalon = new WPI_TalonSRX(
     RobotMap.CargoShooter.RIGHT_TALON);
 
   private CargoShooter() {
@@ -27,7 +27,7 @@ public final class CargoShooter extends Subsystem {
 
   public void setSpeed(double speed) {
     leftTalon.set(speed);
-    rightVictor.set(speed);
+    rightTalon.set(speed);
   }
 
   public void stop() {

@@ -24,7 +24,7 @@ public final class Drivetrain extends Subsystem {
     RobotMap.Drivetrain.MID_LEFT_TALON);
   private final WPI_TalonSRX backLeftTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.BACK_LEFT_TALON);
-  private final WPI_TalonSRX frontRightVictor = new WPI_TalonSRX(
+  private final WPI_TalonSRX frontRightTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.FRONT_RIGHT_TALON);
   private final WPI_TalonSRX midRightTalon = new WPI_TalonSRX(
     RobotMap.Drivetrain.MID_RIGHT_TALON);
@@ -40,14 +40,14 @@ public final class Drivetrain extends Subsystem {
     RobotMap.Drivetrain.RIGHT_ENCODER_B);
 
   private Drivetrain() {
-    frontRightVictor.setInverted(true);
+    frontRightTalon.setInverted(true);
     midRightTalon.setInverted(true);
     backRightTalon.setInverted(true);
 
     backLeftTalon.follow(frontLeftTalon);
     midLeftTalon.follow(frontLeftTalon);
-    backRightTalon.follow(frontRightVictor);
-    midRightTalon.follow(frontRightVictor);
+    backRightTalon.follow(frontRightTalon);
+    midRightTalon.follow(frontRightTalon);
 	}
 
   public void setLeft(double speed) {
@@ -55,7 +55,7 @@ public final class Drivetrain extends Subsystem {
   }
 
   public void setRight(double speed) {
-    frontRightVictor.set(speed);
+    frontRightTalon.set(speed);
   }
 
   public void stop() {
