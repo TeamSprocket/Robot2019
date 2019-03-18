@@ -22,7 +22,7 @@ import frc.util.drivers.ChickenPotPie;
 public final class Arm extends Subsystem {
   private static final double UPPER_ANGLE_LIMIT = 205, LOWER_ANGLE_LIMIT = -13;
 
-  private static final double kA1 = -0.204212, kB1 = 49.1661, kC1 = 0.102572;
+  private static final double kA1 = 0.241347, kB1 = -101.599, kC1 = 0.102572;
   private static final double kA2 = -0.20369, kB2 = 62.8452, kC2 = -0.0627395;
   
   private static final double UPPER_BOUND_WEIGHT = 0.5, LOWER_BOUND_WEIGHT = 0.5;
