@@ -70,14 +70,15 @@ public class Align extends MacroCommand {
 
   @Override
   protected void execute() {
-    Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", SPEED_BASE) + 
+    double speed = SmartDashboard.getNumber("ALIGN_SPEED_BASE", SPEED_BASE) + 
     SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", SPEED_INCREMENT) * 
     (SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA) - Limelight.get().getTa()) / 
-    SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA), 
-    SmartDashboard.getNumber("ALIGN_TURN_BASE", TURN_BASE) +
+    SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA);
+    double turns = SmartDashboard.getNumber("ALIGN_TURN_BASE", TURN_BASE) +
     SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", TURN_INCREMENT) * 
     (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
-    turn);
+    turn;
+    Drivetrain.get().arcadeDrive(-speed, -turns);
   }
 
   @Override
