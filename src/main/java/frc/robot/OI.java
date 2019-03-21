@@ -45,6 +45,7 @@ public final class OI {
 
     public static final Button groundIntake = new JoystickButton(Controllers.rightJoystick, 1);
     public static final Button turn90 = new JoystickButton(Controllers.leftJoystick, 5);
+    public static final Button turnN90 = new JoystickButton(Controllers.rightJoystick, 6);
   }
 
   public static final double deadband(double input) {

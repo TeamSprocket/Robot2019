@@ -94,7 +94,8 @@ public final class Robot extends TimedRobot {
 
     OI.Buttons.groundIntake.whenPressed(new SetArm(new Degree(35)));
 
-    OI.Buttons.turn90.whenPressed(new PIDTurn(90));
+    OI.Buttons.turn90.whenPressed(new PIDTurn(-90));
+    OI.Buttons.turnN90.whenPressed(new PIDTurn(90));
 
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,

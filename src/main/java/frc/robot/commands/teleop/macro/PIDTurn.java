@@ -17,7 +17,7 @@ import frc.util.commands.teleop.macro.MacroCommand;
  */
 public class PIDTurn extends MacroCommand {
   private static final double TURN_kP = 0.035, TURN_kI = 0, TURN_kD = 0.1;
-  private static final double TOLERANCE = 0.5, RATE_TOLERANCE = 0.1;
+  private static final double TOLERANCE = 0.5, RATE_TOLERANCE = 0.5;
   private static final double OUTPUT_RANGE = 1;
   
   static {
@@ -56,6 +56,9 @@ public class PIDTurn extends MacroCommand {
   @Override
   protected void execute() {
     Drivetrain.get().arcadeDrive(0, turn);
+    System.out.println(controller.get());
+    System.out.println(controller.getSetpoint());
+    System.out.println(Math.abs(Drivetrain.get().getGyro().getRate()));
   }
 
   // Make this return true when this Command no longer needs to run execute()
