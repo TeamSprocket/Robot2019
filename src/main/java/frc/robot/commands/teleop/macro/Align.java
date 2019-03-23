@@ -63,7 +63,7 @@ public class Align extends MacroCommand {
       SmartDashboard.getNumber("ALIGN_kP", kP),
       SmartDashboard.getNumber("ALIGN_kI", kI),
       SmartDashboard.getNumber("ALIGN_kD", kD));
-    controller.setSetpoint(0);
+    controller.setSetpoint(8);
     controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
     controller.enable();
   }
@@ -78,12 +78,12 @@ public class Align extends MacroCommand {
     SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", TURN_INCREMENT) * 
     (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
     turn;
-    Drivetrain.get().arcadeDrive(-speed, -turns);
+    Drivetrain.get().arcadeDrive(-speed, turns);
   }
 
   @Override
   protected boolean isFinished() {
-    return !Limelight.get().targetVisible();
+    return Limelight.get().getTa() >= 7.5 || !Limelight.get().targetVisible();
   }
 
   @Override

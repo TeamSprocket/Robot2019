@@ -23,7 +23,7 @@ public class AbortMacro extends InstantCommand {
   public AbortMacro() {
     requires(Drivetrain.get());
     requires(Arm.get());
-    requires(HatchActuator.get());
+    // requires(HatchActuator.get());
     requires(CargoShooter.get());
   }
 

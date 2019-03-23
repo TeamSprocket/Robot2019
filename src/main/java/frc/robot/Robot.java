@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,9 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.SetArm;
+import frc.robot.commands.instant.SetVisionMode;
+import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.PIDTurn;
 import frc.robot.commands.teleop.persistent.Drive;
-import frc.robot.commands.teleop.persistent.PIDMoveArm;
+import frc.robot.commands.teleop.persistent.MoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
@@ -81,7 +82,7 @@ public final class Robot extends TimedRobot {
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // Macro/instant commands
@@ -103,9 +104,9 @@ public final class Robot extends TimedRobot {
     );
 
     // Vision
-    // OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
-    // OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
-    // OI.Buttons.alignRobot.whenPressed(new Align());
+    OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
+    OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
+    OI.Buttons.alignRobot.whenPressed(new Align());
   }
 
   @Override
