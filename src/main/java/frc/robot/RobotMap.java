@@ -51,8 +51,10 @@ public final class RobotMap {
   }
 
   public static final class HatchActuator {
-    public static final int PISTON_FORWARD = 0;
-    public static final int PISTON_REVERSE = 1;
+    public static final int CONE_PISTON_FORWARD = 0;
+    public static final int CONE_PISTON_REVERSE = 1;
+    public static final int ACTUATOR_PISTON_FORWARD = 2;
+    public static final int ACTUATOR_PISTON_REVERSE = 3;
 
     private HatchActuator() {
     }

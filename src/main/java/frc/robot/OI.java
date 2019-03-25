@@ -28,7 +28,10 @@ public final class OI {
   public static final class Buttons {
     // TODO: Finalize control layout
     public static final Button abortMacroPrimary = new JoystickButton(Controllers.rightJoystick, 2);
+
     public static final Button toggleActuator = new JoystickButton(Controllers.gamepad, X);
+    public static final Button toggleCone = new JoystickButton(Controllers.gamepad, Y);
+
     public static final Button toggleCompressor = new JoystickButton(Controllers.rightJoystick, 3);
     public static final Button driverPipeline = new JoystickButton(Controllers.rightJoystick, 5);
     public static final Button visionPipeline = new JoystickButton(Controllers.leftJoystick, 6);

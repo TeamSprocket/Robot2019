@@ -14,18 +14,18 @@ import frc.util.commands.instant.InstantCommand;
 /**
  * An InstantCommand that toggles the solenoids of the HatchActuator.
  */
-public class ToggleActuator extends InstantCommand {
-  public ToggleActuator() {
+public class ToggleCone extends InstantCommand {
+  public ToggleCone() {
     requires(HatchActuator.get());
   }
 
   @Override
   protected void initialize() {
-    if(HatchActuator.get().isActuated()) {
-      HatchActuator.get().actuate(false);
+    if(HatchActuator.get().isOpen()) {
+      HatchActuator.get().open(false);
       SmartDashboard.putBoolean("Actuator Out", false);
     } else {
-      HatchActuator.get().actuate(true);
+      HatchActuator.get().open(true);
       SmartDashboard.putBoolean("Actuator Out", true);
     }
   }

@@ -15,14 +15,19 @@ import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.SetArm;
 import frc.robot.commands.instant.SetVisionMode;
+import frc.robot.commands.instant.ToggleActuator;
+import frc.robot.commands.instant.ToggleCompressor;
+import frc.robot.commands.instant.ToggleCone;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.PIDTurn;
 import frc.robot.commands.teleop.persistent.Drive;
-import frc.robot.commands.teleop.persistent.MoveArm;
+import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.PCM;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.ChickenPotPie;
 import frc.util.drivers.LatchedEventListener;
@@ -50,6 +55,7 @@ public final class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
     SmartDashboard.putNumber("Pot Rate", Arm.get().getPot().getRate());
+    SmartDashboard.putNumber("Distance Estimate", Limelight.get().getDistanceEstimate());
     ChickenPotPie.updateAll();
   }
 
@@ -77,17 +83,18 @@ public final class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     Arm.get().setSetpoint(Arm.get().getPot().get());
-    // PCM.get().setClosedLoopControl(true);
+    PCM.get().setClosedLoopControl(true);
 
     // Persistent commands
     PersistentCommand.bindPersistent(new Drive(), Drivetrain.get());
     PersistentCommand.bindPersistent(new Shoot(), CargoShooter.get());
-    PersistentCommand.bindPersistent(new MoveArm(), Arm.get());
+    PersistentCommand.bindPersistent(new PIDMoveArm(), Arm.get());
     PersistentCommand.startAllPersistent();
 
     // Macro/instant commands
-    // OI.Buttons.toggleActuator.whenPressed(new ActuateHatch());
-    // OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
+    OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
+    OI.Buttons.toggleCone.whenPressed(new ToggleCone());
+    OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
     // OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
     // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
     OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
@@ -106,7 +113,7 @@ public final class Robot extends TimedRobot {
     // Vision
     OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
     OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
-    OI.Buttons.alignRobot.whenPressed(new Align());
+    // OI.Buttons.alignRobot.whenPressed(new Align());
   }
 
   @Override

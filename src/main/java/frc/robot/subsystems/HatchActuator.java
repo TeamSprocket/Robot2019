@@ -17,15 +17,25 @@ import frc.robot.RobotMap;
  * Ship or Rocket.
  */
 public final class HatchActuator extends Subsystem {
-  private final DoubleSolenoid piston = new DoubleSolenoid(
-    RobotMap.HatchActuator.PISTON_FORWARD,
-    RobotMap.HatchActuator.PISTON_REVERSE);
+  private final DoubleSolenoid conePiston = new DoubleSolenoid(
+    RobotMap.HatchActuator.CONE_PISTON_FORWARD,
+    RobotMap.HatchActuator.CONE_PISTON_REVERSE);
+  private final DoubleSolenoid actuatorPiston = new DoubleSolenoid(
+    RobotMap.HatchActuator.ACTUATOR_PISTON_FORWARD,
+    RobotMap.HatchActuator.ACTUATOR_PISTON_REVERSE);
 
   private HatchActuator() {
   }
   
-  public boolean isOut() {
-    if(piston.get() == Value.kReverse)
+  public boolean isOpen() {
+    if(conePiston.get() == Value.kReverse)
+      return true;
+    else
+      return false;
+  }
+
+  public boolean isActuated() {
+    if(actuatorPiston.get() == Value.kReverse)
       return true;
     else
       return false;
@@ -33,9 +43,16 @@ public final class HatchActuator extends Subsystem {
 
   public void actuate(boolean out) {
     if(out)
-      piston.set(Value.kReverse);
+      actuatorPiston.set(Value.kReverse);
     else
-      piston.set(Value.kForward);
+      actuatorPiston.set(Value.kForward);
+  }
+
+  public void open(boolean open) {
+    if(open)
+      conePiston.set(Value.kReverse);
+    else
+      conePiston.set(Value.kForward);
   }
   
   @Override
