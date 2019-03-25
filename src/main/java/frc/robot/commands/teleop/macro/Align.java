@@ -63,9 +63,14 @@ public class Align extends MacroCommand {
       SmartDashboard.getNumber("ALIGN_kP", kP),
       SmartDashboard.getNumber("ALIGN_kI", kI),
       SmartDashboard.getNumber("ALIGN_kD", kD));
-    controller.setSetpoint(0);
+    controller.setSetpoint(targetTxFromTa(Limelight.get().getTa()));
     controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
     controller.enable();
+  }
+
+  public static final double kA = -1.91373, kB = 1.48116;
+  private double targetTxFromTa(double ta) {
+    return kA * ta + kB;
   }
 
   @Override
@@ -79,6 +84,8 @@ public class Align extends MacroCommand {
     (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
     turn;
     Drivetrain.get().arcadeDrive(-speed, turns);
+
+    controller.setSetpoint(targetTxFromTa(Limelight.get().getTa()));
   }
 
   @Override
