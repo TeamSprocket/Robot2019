@@ -113,7 +113,7 @@ public final class Robot extends TimedRobot {
     // Vision
     OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
     OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
-    // OI.Buttons.alignRobot.whenPressed(new Align());
+    OI.Buttons.alignRobot.whenPressed(new Align());
   }
 
   @Override

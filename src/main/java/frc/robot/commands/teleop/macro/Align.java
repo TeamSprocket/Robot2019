@@ -19,7 +19,7 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * A MacroCommand that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
-  private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.2;
+  private static final double SPEED_BASE = 0.1, SPEED_INCREMENT = 0.2;
   private static final double TURN_BASE = 0.0, TURN_INCREMENT = 0;
   private static final double MAX_AREA = 15;
   private static final double kP = 0.13, kI = 0, kD = 0.3;
@@ -68,7 +68,7 @@ public class Align extends MacroCommand {
     controller.enable();
   }
 
-  public static final double kA = -1.91373, kB = 1.48116;
+  public static final double kA = -1.44522, kB = 16.9672;
   private double targetTxFromTa(double ta) {
     return kA * ta + kB;
   }
@@ -84,7 +84,6 @@ public class Align extends MacroCommand {
     (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
     turn;
     Drivetrain.get().arcadeDrive(-speed, turns);
-
     controller.setSetpoint(targetTxFromTa(Limelight.get().getTa()));
   }
 
