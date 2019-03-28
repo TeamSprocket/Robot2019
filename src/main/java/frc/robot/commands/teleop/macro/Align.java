@@ -19,10 +19,12 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * A MacroCommand that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
-  private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.2;
-  private static final double TURN_BASE = 0.0, TURN_INCREMENT = -0.115;
-  private static final double MAX_AREA = 15;
+  private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.3;
+  private static final double TURN_BASE = 0.0, TURN_INCREMENT = 0;
+  private static final double MAX_AREA = 4;
   private static final double kP = 0.13, kI = 0, kD = 0.3;
+  private static final double COEFFICIENT = -1;
+  private static final double TA_CONSTANT = 6.50, TX_CONSTANT = 2.3;
 
   private static final double OUTPUT_RANGE = 0.1;
   
@@ -63,26 +65,34 @@ public class Align extends MacroCommand {
       SmartDashboard.getNumber("ALIGN_kP", kP),
       SmartDashboard.getNumber("ALIGN_kI", kI),
       SmartDashboard.getNumber("ALIGN_kD", kD));
-    controller.setSetpoint(0);
+    controller.setSetpoint(targetTxFromTa(Limelight.get().getTa()));
     controller.setOutputRange(-OUTPUT_RANGE, OUTPUT_RANGE);
     controller.enable();
   }
 
+  private double targetTxFromTa(double ta) {
+    return SmartDashboard.getNumber("ALIGN_COEFFICIENT", COEFFICIENT) * 
+      (ta - SmartDashboard.getNumber("ALIGN_TA_CONSTANT", TA_CONSTANT)) + 
+      SmartDashboard.getNumber("ALIGN_TX_CONSTANT", TX_CONSTANT);
+  }
+
   @Override
   protected void execute() {
-    Drivetrain.get().arcadeDrive(SmartDashboard.getNumber("ALIGN_SPEED_BASE", SPEED_BASE) + 
+    double speed = SmartDashboard.getNumber("ALIGN_SPEED_BASE", SPEED_BASE) + 
     SmartDashboard.getNumber("ALIGN_SPEED_INCREMENT", SPEED_INCREMENT) * 
     (SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA) - Limelight.get().getTa()) / 
-    SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA), 
-    SmartDashboard.getNumber("ALIGN_TURN_BASE", TURN_BASE) +
+    SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA);
+    double turns = SmartDashboard.getNumber("ALIGN_TURN_BASE", TURN_BASE) +
     SmartDashboard.getNumber("ALIGN_TURN_INCREMENT", TURN_INCREMENT) * 
     (Limelight.get().getTa() / SmartDashboard.getNumber("ALIGN_MAX_AREA", MAX_AREA)) -
-    turn);
+    turn;
+    Drivetrain.get().arcadeDrive(-speed, turns);
+    controller.setSetpoint(targetTxFromTa(Limelight.get().getTa()));
   }
 
   @Override
   protected boolean isFinished() {
-    return !Limelight.get().targetVisible();
+    return Limelight.get().getTa() >= 6.8 || !Limelight.get().targetVisible();
   }
 
   @Override
@@ -100,5 +110,8 @@ public class Align extends MacroCommand {
     SmartDashboard.putNumber("ALIGN_kP", kP);
     SmartDashboard.putNumber("ALIGN_kI", kI);
     SmartDashboard.putNumber("ALIGN_kD", kD);
+    SmartDashboard.putNumber("ALIGN_COEFFICIENT", COEFFICIENT);
+    SmartDashboard.putNumber("ALIGN_TA_CONSTANT", TA_CONSTANT);
+    SmartDashboard.putNumber("ALIGN_TX_CONSTANT", TX_CONSTANT);
   }
 }

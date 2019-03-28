@@ -21,7 +21,7 @@ public class ToggleActuator extends InstantCommand {
 
   @Override
   protected void initialize() {
-    if(HatchActuator.get().isOut()) {
+    if(HatchActuator.get().isActuated()) {
       HatchActuator.get().actuate(false);
       SmartDashboard.putBoolean("Actuator Out", false);
     } else {

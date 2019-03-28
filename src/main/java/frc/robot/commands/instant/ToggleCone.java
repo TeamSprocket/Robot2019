@@ -7,29 +7,26 @@
 
 package frc.robot.commands.instant;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.CargoShooter;
-import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.instant.InstantCommand;
-import frc.util.commands.teleop.persistent.PersistentCommand;
 
 /**
- * An InstantCommand that aborts all currently executing MacroCommands, as well
- * as restarts all bound PersistentCommands.
+ * An InstantCommand that toggles the solenoids of the HatchActuator.
  */
-public class AbortMacro extends InstantCommand {
-  public AbortMacro() {
-    requires(Drivetrain.get());
-    requires(Arm.get());
-    // requires(HatchActuator.get());
-    requires(CargoShooter.get());
+public class ToggleCone extends InstantCommand {
+  public ToggleCone() {
+    requires(HatchActuator.get());
   }
 
   @Override
   protected void initialize() {
-    PersistentCommand.startAllPersistent();
-    DriverStation.reportWarning("All MacroCommands aborted!", false);
+    if(HatchActuator.get().isOpen()) {
+      HatchActuator.get().open(false);
+      SmartDashboard.putBoolean("Actuator Out", false);
+    } else {
+      HatchActuator.get().open(true);
+      SmartDashboard.putBoolean("Actuator Out", true);
+    }
   }
 }
