@@ -19,10 +19,12 @@ import frc.util.commands.teleop.macro.MacroCommand;
  * A MacroCommand that aligns the robot to a vision target.
  */
 public class Align extends MacroCommand {
-  private static final double SPEED_BASE = 0.1, SPEED_INCREMENT = 0.2;
+  private static final double SPEED_BASE = 0.2, SPEED_INCREMENT = 0.2;
   private static final double TURN_BASE = 0.0, TURN_INCREMENT = 0;
   private static final double MAX_AREA = 15;
   private static final double kP = 0.13, kI = 0, kD = 0.3;
+  private static final double COEFFICIENT = -1.74307;
+  private static final double TA_CONSTANT = 6.90, TX_CONSTANT = 0.36;
 
   private static final double OUTPUT_RANGE = 0.1;
   
@@ -68,9 +70,10 @@ public class Align extends MacroCommand {
     controller.enable();
   }
 
-  public static final double kA = -1.44522, kB = 16.9672;
   private double targetTxFromTa(double ta) {
-    return kA * ta + kB;
+    return SmartDashboard.getNumber("ALIGN_COEFFICIENT", COEFFICIENT) * 
+      (ta - SmartDashboard.getNumber("ALIGN_TA_CONSTANT", TA_CONSTANT)) + 
+      SmartDashboard.getNumber("ALIGN_TX_CONSTANT", TX_CONSTANT);
   }
 
   @Override
@@ -107,5 +110,8 @@ public class Align extends MacroCommand {
     SmartDashboard.putNumber("ALIGN_kP", kP);
     SmartDashboard.putNumber("ALIGN_kI", kI);
     SmartDashboard.putNumber("ALIGN_kD", kD);
+    SmartDashboard.putNumber("ALIGN_COEFFICIENT", COEFFICIENT);
+    SmartDashboard.putNumber("ALIGN_TA_CONSTANT", TA_CONSTANT);
+    SmartDashboard.putNumber("ALIGN_TX_CONSTANT", TX_CONSTANT);
   }
 }

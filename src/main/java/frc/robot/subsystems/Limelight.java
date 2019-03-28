@@ -36,6 +36,20 @@ public final class Limelight extends Subsystem {
     return limelightTable.getEntry("ta").getDouble(0);
   }
 
+  public double getTa0() {
+    return limelightTable.getEntry("ta0").getDouble(0);
+  }
+  public double getTa1() {
+    return limelightTable.getEntry("ta1").getDouble(0);
+  }
+
+  public double getTx0() {
+    return limelightTable.getEntry("tx0").getDouble(0);
+  }
+  public double getTx1() {
+    return limelightTable.getEntry("tx1").getDouble(0);
+  }
+
   public static final double CAMERA_HEIGHT = 34.6, TARGET_HEIGHT = 29;
   public static final double CAMERA_ANGLE = 0;
   public double getDistanceEstimate() {
@@ -49,6 +63,12 @@ public final class Limelight extends Subsystem {
       limelightTable.getEntry("pipeline").setNumber(0);
   }
 
+  public boolean isLeft() {
+    if(getTa1() > getTa0()) {
+      return true;
+    }
+    return false;
+  }
   @Override
   public void initDefaultCommand() {
   }

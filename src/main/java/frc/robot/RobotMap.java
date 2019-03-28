@@ -34,7 +34,7 @@ public final class RobotMap {
   public static final class Arm {
     public static final int ARM_TALON = 6;
 
-    public static final int POT = 1;
+    public static final int POT = 0;
     public static final int FRONT_LIMIT_SWITCH = 0;
     public static final int BACK_LIMIT_SWITCH = 1;
     
@@ -61,10 +61,10 @@ public final class RobotMap {
   }
 
   public static final class HabPneumatics {
-    public static final int FRONT_FORWARD = 7;
+    public static final int FRONT_FORWARD = 5;
     public static final int FRONT_REVERSE = 4;
     public static final int BACK_FORWARD = 6;
-    public static final int BACK_REVERSE = 3;
+    public static final int BACK_REVERSE = 7;
 
     private HabPneumatics() {
     }

@@ -12,12 +12,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
-import frc.robot.commands.instant.CalibrateArm;
 import frc.robot.commands.instant.SetArm;
 import frc.robot.commands.instant.SetVisionMode;
 import frc.robot.commands.instant.ToggleActuator;
+import frc.robot.commands.instant.ToggleBackPistons;
 import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleCone;
+import frc.robot.commands.instant.ToggleFrontPistons;
 import frc.robot.commands.teleop.macro.Align;
 import frc.robot.commands.teleop.macro.PIDTurn;
 import frc.robot.commands.teleop.persistent.Drive;
@@ -56,6 +57,8 @@ public final class Robot extends TimedRobot {
     SmartDashboard.putNumber("Pot", Arm.get().getPot().get());
     SmartDashboard.putNumber("Pot Rate", Arm.get().getPot().getRate());
     SmartDashboard.putNumber("Distance Estimate", Limelight.get().getDistanceEstimate());
+    SmartDashboard.putNumber("ta0", Limelight.get().getTa0());
+    SmartDashboard.putNumber("ta1", Limelight.get().getTa1());
     ChickenPotPie.updateAll();
   }
 
@@ -95,9 +98,9 @@ public final class Robot extends TimedRobot {
     OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
     OI.Buttons.toggleCone.whenPressed(new ToggleCone());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    // OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
-    // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
-    OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
+    OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
+    OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    // OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
     OI.Buttons.groundIntake.whenPressed(new SetArm(new Degree(35)));
