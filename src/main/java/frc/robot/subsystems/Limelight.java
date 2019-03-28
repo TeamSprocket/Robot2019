@@ -69,6 +69,7 @@ public final class Limelight extends Subsystem {
     }
     return false;
   }
+
   @Override
   public void initDefaultCommand() {
   }
@@ -79,4 +80,5 @@ public final class Limelight extends Subsystem {
 	public static Limelight get() {
 		return instance;
   }
+  
 }
