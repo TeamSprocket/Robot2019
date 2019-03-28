@@ -65,7 +65,7 @@ public final class Limelight extends Subsystem {
       return 23.1122 * ratio + 13.0403 * area + -27.5357 * ratio * area + -13.4472;
   }
 
-  public static final double CAMERA_HEIGHT = 34.6, TARGET_HEIGHT = 29;
+  public static final double CAMERA_HEIGHT = 37.4, TARGET_HEIGHT = 28;
   public static final double CAMERA_ANGLE = 0;
   public double getDistanceEstimate() {
     return (CAMERA_HEIGHT - TARGET_HEIGHT) * Math.tan(Math.toRadians(90 + getTy()));
@@ -95,5 +95,5 @@ public final class Limelight extends Subsystem {
 	public static Limelight get() {
 		return instance;
   }
-  
+
 }
