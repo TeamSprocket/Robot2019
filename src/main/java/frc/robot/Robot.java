@@ -59,6 +59,9 @@ public final class Robot extends TimedRobot {
     SmartDashboard.putNumber("Distance Estimate", Limelight.get().getDistanceEstimate());
     SmartDashboard.putNumber("ta0", Limelight.get().getTa0());
     SmartDashboard.putNumber("ta1", Limelight.get().getTa1());
+
+    SmartDashboard.putNumber("Left Slope", Limelight.get().getAlignSlope(true));
+    SmartDashboard.putNumber("Right Slope", Limelight.get().getAlignSlope(false));
     ChickenPotPie.updateAll();
   }
 
