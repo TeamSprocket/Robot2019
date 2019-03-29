@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.instant.AbortMacro;
-import frc.robot.commands.instant.SetArm;
 import frc.robot.commands.instant.SetVisionMode;
 import frc.robot.commands.instant.ToggleActuator;
 import frc.robot.commands.instant.ToggleBackPistons;
@@ -20,7 +19,6 @@ import frc.robot.commands.instant.ToggleCompressor;
 import frc.robot.commands.instant.ToggleCone;
 import frc.robot.commands.instant.ToggleFrontPistons;
 import frc.robot.commands.teleop.macro.Align;
-import frc.robot.commands.teleop.macro.PIDTurn;
 import frc.robot.commands.teleop.persistent.Drive;
 import frc.robot.commands.teleop.persistent.PIDMoveArm;
 import frc.robot.commands.teleop.persistent.Shoot;
@@ -29,10 +27,10 @@ import frc.robot.subsystems.CargoShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.PCM;
+import frc.robot.subsystems.HatchActuator;
 import frc.util.commands.teleop.persistent.PersistentCommand;
 import frc.util.drivers.ChickenPotPie;
 import frc.util.drivers.LatchedEventListener;
-import frc.util.units.angle.Degree;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -77,6 +75,8 @@ public final class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     Drivetrain.get().getGyro().reset();
+    Limelight.get().setVisionMode(false);
+    HatchActuator.get().open(false);
     teleopInit();
   }
 
@@ -106,10 +106,8 @@ public final class Robot extends TimedRobot {
     // OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
-    OI.Buttons.groundIntake.whenPressed(new SetArm(new Degree(35)));
-
-    OI.Buttons.turn90.whenPressed(new PIDTurn(-90));
-    OI.Buttons.turnN90.whenPressed(new PIDTurn(90));
+    // OI.Buttons.turn90.whenPressed(new PIDTurn(-90));
+    // OI.Buttons.turnN90.whenPressed(new PIDTurn(90));
 
     new LatchedEventListener(
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,

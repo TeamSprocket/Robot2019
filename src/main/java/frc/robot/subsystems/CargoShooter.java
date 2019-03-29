@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -18,8 +19,8 @@ import frc.robot.RobotMap;
 public final class CargoShooter extends Subsystem {
   private final WPI_TalonSRX leftTalon = new WPI_TalonSRX(
     RobotMap.CargoShooter.LEFT_TALON);
-  private final WPI_TalonSRX rightTalon = new WPI_TalonSRX(
-    RobotMap.CargoShooter.RIGHT_TALON);
+  private final WPI_VictorSPX rightVictor = new WPI_VictorSPX(
+    RobotMap.CargoShooter.RIGHT_VICTOR);
 
   private CargoShooter() {
     
@@ -27,7 +28,7 @@ public final class CargoShooter extends Subsystem {
 
   public void setSpeed(double speed) {
     leftTalon.set(speed*0.875);
-    rightTalon.set(speed*0.875);
+    rightVictor.set(speed*0.875);
   }
 
   public void stop() {
