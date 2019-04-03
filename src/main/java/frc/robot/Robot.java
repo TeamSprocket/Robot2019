@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.auton.routine.Climb;
 import frc.robot.commands.instant.AbortMacro;
 import frc.robot.commands.instant.SetVisionMode;
 import frc.robot.commands.instant.ToggleActuator;
@@ -77,6 +78,7 @@ public final class Robot extends TimedRobot {
     Drivetrain.get().getGyro().reset();
     Limelight.get().setVisionMode(false);
     HatchActuator.get().open(false);
+    HatchActuator.get().actuate(true);
     teleopInit();
   }
 
@@ -113,6 +115,11 @@ public final class Robot extends TimedRobot {
       () -> OI.Controllers.gamepad.getTriggerAxis(Hand.kLeft) > 0.75,
       () -> {new AbortMacro().start();}
     );
+
+    // new LatchedEventListener(
+    //   () -> OI.Buttons.toggleFrontPistons.get() && OI.Buttons.toggleBackPistons.get(),
+    //   () -> {new Climb().start();}
+    // );
 
     // Vision
     OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));

@@ -24,7 +24,7 @@ public class Align extends MacroCommand {
   private static final double MAX_AREA = 5.5;
   private static final double kP = 0.13, kI = 0, kD = 0.3;
   private static final double COEFFICIENT = -1.37945;
-  private static final double TA_CONSTANT = 9.68, TX_CONSTANT = -3.43;
+  private static final double TA_CONSTANT = 9.68, TX_CONSTANT = -1.5;
 
   private static final double OUTPUT_RANGE = 0.1;
   

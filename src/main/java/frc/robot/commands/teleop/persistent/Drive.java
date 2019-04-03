@@ -17,17 +17,29 @@ import frc.util.commands.teleop.persistent.PersistentCommand;
  */
 public class Drive extends PersistentCommand {
   private static double SPEED_MULTIPLIER = 1.0, TURN_MULTIPLIER = 0.8;
+  private boolean squared = false;
 
   public Drive() {
     requires(Drivetrain.get());
+  }
+
+  public Drive(boolean isSquared) {
+    requires(Drivetrain.get());
+    squared = isSquared;
   }
 
   @Override
   protected void execute() {
     double speed = -OI.Controllers.leftJoystick.getY();
     double turn = OI.Controllers.rightJoystick.getX();
+
+    if(squared) {
+      speed = speed * speed * Math.signum(speed);
+      turn = turn * turn * Math.signum(turn);
+    }
+
     Drivetrain.get().arcadeDrive(SPEED_MULTIPLIER * OI.deadband(speed),
-      TURN_MULTIPLIER * OI.deadband(turn));
+    TURN_MULTIPLIER * OI.deadband(turn));
   }
 
   @Override

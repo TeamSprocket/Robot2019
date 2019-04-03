@@ -7,15 +7,22 @@
 
 package frc.robot.commands.instant;
 
+import frc.robot.commands.teleop.persistent.Drive;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.HabClimb;
 import frc.util.commands.instant.InstantCommand;
-import frc.robot.subsystems.HabPneumatics;
+import frc.util.commands.teleop.persistent.PersistentCommand;
+
 /**
  * An InstantCommand that actuates the pistons on the front of the bot.
  */
 public class ToggleFrontPistons extends InstantCommand {
   @Override
   protected void initialize() {
-    HabPneumatics.get().actuateFront();
+    HabClimb.get().actuateFront();
+    // PersistentCommand.unbindPersistent(Drivetrain.get());
+    // PersistentCommand.bindPersistent(new Drive(true), Drivetrain.get());
+    // PersistentCommand.startPersistent(Drivetrain.get());
   }
 }
 

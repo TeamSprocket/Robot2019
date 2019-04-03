@@ -8,7 +8,7 @@
 package frc.robot.commands.instant;
 
 import frc.util.commands.instant.InstantCommand;
-import frc.robot.subsystems.HabPneumatics;
+import frc.robot.subsystems.HabClimb;
 
 /**
  * An InstantCommand that actuates the pistons on the back of the robot.
@@ -16,7 +16,7 @@ import frc.robot.subsystems.HabPneumatics;
 public class ToggleBackPistons extends InstantCommand {
   @Override
   protected void initialize() {
-    HabPneumatics.get().actuateBack();
+    HabClimb.get().actuateBack();
   }
 }
 

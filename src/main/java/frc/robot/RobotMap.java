@@ -60,13 +60,16 @@ public final class RobotMap {
     }
   }
   
-  public static final class HabPneumatics {
+  public static final class HabClimb {
     public static final int FRONT_FORWARD = 5;
     public static final int FRONT_REVERSE = 4;
     public static final int BACK_FORWARD = 7;
     public static final int BACK_REVERSE = 6;
+
+    public static final int FRONT_SWITCH = 0;
+    public static final int BACK_SWITCH = 1;
     
-    private HabPneumatics() {
+    private HabClimb() {
     }
   }
 

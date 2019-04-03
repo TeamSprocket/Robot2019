@@ -6,6 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,17 +18,28 @@ import frc.robot.RobotMap;
 /**
  * A Subsystem used to control the pistons to climb the Hab.
  */
-public final class HabPneumatics extends Subsystem {
+public final class HabClimb extends Subsystem {
   private final DoubleSolenoid frontPistons = new DoubleSolenoid(
-    RobotMap.HabPneumatics.FRONT_FORWARD,
-    RobotMap.HabPneumatics.FRONT_REVERSE);
+    RobotMap.HabClimb.FRONT_FORWARD,
+    RobotMap.HabClimb.FRONT_REVERSE);
   private final DoubleSolenoid backPistons = new DoubleSolenoid(
-    RobotMap.HabPneumatics.BACK_FORWARD,
-    RobotMap.HabPneumatics.BACK_REVERSE);
+    RobotMap.HabClimb.BACK_FORWARD,
+    RobotMap.HabClimb.BACK_REVERSE);
 
-  private HabPneumatics() {
+  // private final DigitalInput frontSwitch = new DigitalInput(RobotMap.HabClimb.FRONT_SWITCH);
+  // private final DigitalInput backSwitch = new DigitalInput(RobotMap.HabClimb.BACK_SWITCH);
+
+  private HabClimb() {
   }
 
+  // public boolean frontSwitchPressed() {
+  //   return frontSwitch.get();
+  // }
+
+  // public boolean backSwitchPressed() {
+  //   return backSwitch.get();
+  // }
+  
   public void actuateFront() {
     if(frontPistons.get() == Value.kForward)
       frontPistons.set(Value.kReverse);
@@ -45,9 +59,9 @@ public final class HabPneumatics extends Subsystem {
   }
 
   // Singleton instance and getter
-  private static final HabPneumatics instance = new HabPneumatics();
+  private static final HabClimb instance = new HabClimb();
 
-	public static HabPneumatics get() {
+	public static HabClimb get() {
 		return instance;
   }
 }
