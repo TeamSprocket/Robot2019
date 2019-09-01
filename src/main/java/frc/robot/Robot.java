@@ -103,8 +103,8 @@ public final class Robot extends TimedRobot {
     OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
     OI.Buttons.toggleCone.whenPressed(new ToggleCone());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
-    OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    // OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
+    // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
     // OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
