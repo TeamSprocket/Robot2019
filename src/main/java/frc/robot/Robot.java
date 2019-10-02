@@ -103,8 +103,8 @@ public final class Robot extends TimedRobot {
     OI.Buttons.toggleActuator.whenPressed(new ToggleActuator());
     OI.Buttons.toggleCone.whenPressed(new ToggleCone());
     OI.Buttons.toggleCompressor.whenPressed(new ToggleCompressor());
-    // OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
-    // OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
+    OI.Buttons.toggleFrontPistons.whenPressed(new ToggleFrontPistons());
+    OI.Buttons.toggleBackPistons.whenPressed(new ToggleBackPistons());
     // OI.Buttons.calibrateArm.whenPressed(new CalibrateArm());
     OI.Buttons.abortMacroPrimary.whenPressed(new AbortMacro());
 
@@ -122,9 +122,10 @@ public final class Robot extends TimedRobot {
     // );
 
     // Vision
-    OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
-    OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
-    OI.Buttons.alignRobot.whenPressed(new Align());
+    Limelight.get().setVisionMode(false);
+    // OI.Buttons.driverPipeline.whenPressed(new SetVisionMode(false));
+    // OI.Buttons.visionPipeline.whenPressed(new SetVisionMode(true));
+    // OI.Buttons.alignRobot.whenPressed(new Align());
   }
 
   @Override
