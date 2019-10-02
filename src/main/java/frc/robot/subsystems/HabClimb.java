@@ -41,17 +41,19 @@ public final class HabClimb extends Subsystem {
   // }
   
   public void actuateFront() {
-    if(frontPistons.get() == Value.kForward)
-      frontPistons.set(Value.kReverse);
-    else
+    System.out.println("Front: " + frontPistons.get());
+    if(frontPistons.get() == Value.kReverse)
       frontPistons.set(Value.kForward);
+    else
+      frontPistons.set(Value.kReverse);
   }
   
   public void actuateBack() {
-    if(backPistons.get() == Value.kForward)
-      backPistons.set(Value.kReverse);
-    else
+    System.out.println("Back: " + backPistons.get());
+    if(backPistons.get() == Value.kReverse)
       backPistons.set(Value.kForward);
+    else
+      backPistons.set(Value.kReverse);
   }
 
   @Override

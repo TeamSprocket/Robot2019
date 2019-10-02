@@ -52,8 +52,8 @@ public final class RobotMap {
 
   public static final class HatchActuator {
     public static final int CONE_PISTON_FORWARD = 3;
-    public static final int CONE_PISTON_REVERSE = 2;
-    public static final int ACTUATOR_PISTON_FORWARD = 0;
+    public static final int CONE_PISTON_REVERSE = 4; //2;
+    public static final int ACTUATOR_PISTON_FORWARD = 6; //0;
     public static final int ACTUATOR_PISTON_REVERSE = 1;
 
     private HatchActuator() {
@@ -61,10 +61,10 @@ public final class RobotMap {
   }
   
   public static final class HabClimb {
-    public static final int FRONT_FORWARD = 5;
-    public static final int FRONT_REVERSE = 4;
-    public static final int BACK_FORWARD = 7;
-    public static final int BACK_REVERSE = 6;
+    public static final int FRONT_FORWARD = 7;
+    public static final int FRONT_REVERSE = 0;
+    public static final int BACK_FORWARD = 2;
+    public static final int BACK_REVERSE = 5;
 
     public static final int FRONT_SWITCH = 0;
     public static final int BACK_SWITCH = 1;
