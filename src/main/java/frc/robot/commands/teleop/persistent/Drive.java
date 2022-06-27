@@ -34,8 +34,8 @@ public class Drive extends PersistentCommand {
     double turn = OI.Controllers.rightJoystick.getX();
 
     if(squared) {
-      speed = speed * speed * Math.signum(speed);
-      turn = turn * turn * Math.signum(turn);
+      speed = speed * speed * Math.signum(speed) *.5;
+      turn = turn * turn * Math.signum(turn) *.5;
     }
 
     Drivetrain.get().arcadeDrive(SPEED_MULTIPLIER * OI.deadband(speed),
